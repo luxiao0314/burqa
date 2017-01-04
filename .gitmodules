@@ -1,0 +1,6 @@
+[submodule "framework"]
+	path = framework
+	url = https://github.com/luxiao0314/framework.git
+[submodule "frescoUtil"]
+	path = frescoUtil
+	url = https://github.com/luxiao0314/frescoUtil.git

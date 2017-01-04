@@ -33,7 +33,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':framework')
-//    compile project(':frescoUtil')
+    compile project(':frescoUtil')
 
     def androidDependencies = rootProject.ext.androidDependencies
     def viewDependencies = rootProject.ext.viewDependencies

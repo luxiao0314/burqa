@@ -10,15 +10,16 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="wrap_content">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            app:popupTheme="@style/AppTheme.PopupOverlay">
+            android:elevation="4dp"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <LinearLayout
                 android:id="@+id/navigation_layout"
@@ -32,14 +33,14 @@
                     android:layout_height="wrap_content"
                     android:src="@mipmap/ic_drawer_home"/>
 
-                <com.facebook.drawee.view.SimpleDraweeView
+                <lib.lhh.fiv.library.FrescoImageView
                     android:id="@+id/iv_user"
-                    android:layout_width="50dp"
-                    android:layout_height="50dp"
+                    android:layout_width="35dp"
+                    android:layout_height="35dp"
                     app:roundAsCircle="true"
-                    app:failureImage="@mipmap/article_default_image"
+                    app:failureImage="@mipmap/my_baby"
                     app:failureImageScaleType="fitXY"
-                    app:placeholderImage="@mipmap/article_default_image"
+                    app:placeholderImage="@mipmap/my_baby"
                     app:placeholderImageScaleType="fitXY"/>
 
             </LinearLayout>
