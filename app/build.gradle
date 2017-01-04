@@ -1,0 +1,74 @@
+apply plugin: 'com.android.application'
+apply plugin: 'android-apt'
+apply plugin: 'me.tatarka.retrolambda'
+
+android {
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration.androidCompileSdkVersion
+    buildToolsVersion globalConfiguration.androidBuildToolsVersion
+
+    defaultConfig {
+        minSdkVersion globalConfiguration.androidMinSdkVersion
+        targetSdkVersion globalConfiguration.androidTargetSdkVersion
+        applicationId "com.mvvm.lux.burqa"
+        versionCode globalConfiguration.versionCode
+        versionName globalConfiguration.versionName
+        multiDexEnabled true
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    dataBinding {
+        enabled true
+    }
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+}
+
+dependencies {
+    compile fileTree(include: ['*.jar'], dir: 'libs')
+    compile project(':framework')
+//    compile project(':frescoUtil')
+
+    def androidDependencies = rootProject.ext.androidDependencies
+    def viewDependencies = rootProject.ext.viewDependencies
+    //UI
+    compile androidDependencies.recyclerView
+    compile androidDependencies.cardview_v7
+    compile androidDependencies.appcompat_v7
+    compile androidDependencies.design
+    //rxjava
+    compile viewDependencies.rxjava
+    compile viewDependencies.rxandroid
+    compile viewDependencies.rxbinding
+    //retrofit
+    compile viewDependencies.retrofit
+    compile viewDependencies.retrofit2Gson
+    compile viewDependencies.retrofit2Rxjava
+    compile viewDependencies.okhttp3
+    compile viewDependencies.okhttp3Loging
+    //fresco
+    compile viewDependencies.fresco
+    compile viewDependencies.frescoGif
+    compile viewDependencies.frescoPhoto
+    compile viewDependencies.gpuImage
+    compile viewDependencies.scaleImage
+    //butterknife
+    compile viewDependencies.butterknife
+    apt viewDependencies.butterknifeCompiler
+    //other
+    compile viewDependencies.gson
+    //基类
+    compile viewDependencies.fragmentation
+    //导航栏
+    compile viewDependencies.flyco
+    //推荐标签
+    compile viewDependencies.flowlayout
+    compile viewDependencies.leakcanary
+    compile viewDependencies.multidex
+}
