@@ -1,6 +1,7 @@
 package com.mvvm.lux.burqa.ui.home.activity;
 
 import android.databinding.DataBindingUtil;
+import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -15,25 +16,23 @@ import com.mvvm.lux.framework.base.BaseActivity;
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
-
-    private ActivityMainBinding mDataBinding;
     private DrawerLayout mDrawerLayout;
 
     @Override
     protected void initView() {
-        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
-        mViewModel = new MainViewModel(this,mDataBinding);
-        mDataBinding.setViewModel((MainViewModel) mViewModel);
+        ActivityMainBinding dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
+        mViewModel = new MainViewModel(this, dataBinding);
+        dataBinding.setViewModel((MainViewModel) mViewModel);
 
-        mDataBinding.include.toolbar.setTitle("");
-        setSupportActionBar(mDataBinding.include.toolbar);
+        dataBinding.include.toolbar.setTitle("");
+        setSupportActionBar(dataBinding.include.toolbar);
 
-        mDrawerLayout = mDataBinding.drawerLayout;
+        mDrawerLayout = dataBinding.drawerLayout;
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
-                this, mDrawerLayout, mDataBinding.include.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
+                this, mDrawerLayout, dataBinding.include.toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         toggle.setDrawerIndicatorEnabled(false);    //这句话是隐藏自带图标的
 
-        mDataBinding.navView.setNavigationItemSelectedListener(this);
+        dataBinding.navView.setNavigationItemSelectedListener(this);
     }
 
     @Override
@@ -45,24 +44,8 @@ public class MainActivity extends BaseActivity
         }
     }
 
-//    @Override
-//    public boolean onCreateOptionsMenu(Menu menu) {
-//        getMenuInflater().inflate(R.menu.main, menu);
-//        return false;
-//    }
-
-//    @Override
-//    public boolean onOptionsItemSelected(MenuItem item) {
-//        int id = item.getItemId();
-//        if (id == R.id.action_settings) {
-//            return true;
-//        }
-//
-//        return super.onOptionsItemSelected(item);
-//    }
-
     @Override
-    public boolean onNavigationItemSelected(MenuItem item) {
+    public boolean onNavigationItemSelected(@NonNull MenuItem item) {
         int id = item.getItemId();
 
         if (id == R.id.nav_local_manga) {
