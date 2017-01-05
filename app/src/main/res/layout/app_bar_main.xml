@@ -1,76 +1,80 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:fitsSystemWindows="true"
-    tools:context="com.mvvm.lux.burqa.MainActivity">
-
-    <android.support.design.widget.AppBarLayout
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mvvm.lux.burqa.model.MainViewModel"/>
+    </data>
+    <android.support.design.widget.CoordinatorLayout
+        android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
+        android:layout_height="match_parent"
+        android:fitsSystemWindows="true"
+        tools:context="com.mvvm.lux.burqa.ui.home.activity.MainActivity">
 
-        <android.support.v7.widget.Toolbar
-            android:id="@+id/toolbar"
+        <android.support.design.widget.AppBarLayout
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
-            android:background="?attr/colorPrimary"
-            android:contentInsetStart="0dp"
-            app:contentInsetStart="0dp"
-            app:layout_scrollFlags="scroll|enterAlways"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            android:layout_height="wrap_content"
+            android:theme="@style/AppTheme.AppBarOverlay">
 
-            <LinearLayout
-                android:id="@+id/navigation_layout"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:gravity="center_vertical"
-                android:orientation="horizontal">
+            <android.support.v7.widget.Toolbar
+                android:id="@+id/toolbar"
+                android:layout_width="match_parent"
+                android:layout_height="?attr/actionBarSize"
+                android:background="?attr/colorPrimary"
+                android:contentInsetStart="0dp"
+                app:contentInsetStart="0dp"
+                app:layout_scrollFlags="scroll|enterAlways"
+                app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+                app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <ImageView
+                <LinearLayout
+                    android:id="@+id/navigation_layout"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_drawer_home"
-                    android:visibility="gone"/>
-
-                <lib.lhh.fiv.library.FrescoImageView
-                    android:id="@+id/iv_user"
-                    android:layout_width="30dp"
-                    android:layout_height="30dp"
-                    android:layout_marginStart="5dp"
-                    app:failureImage="@mipmap/my_baby"
-                    app:failureImageScaleType="fitXY"
-                    app:placeholderImage="@mipmap/my_baby"
-                    app:placeholderImageScaleType="centerCrop"
-                    app:roundAsCircle="true"/>
-
-                <android.support.design.widget.TabLayout
-                    android:layout_gravity="center"
-                    android:id="@+id/sliding_tabs"
-                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:background="?attr/colorPrimary"
-                    app:tabIndicatorColor="@color/pink_30"
-                    app:tl_indicator_corner_radius="1dp"
-                    app:tl_indicator_height="2dp"
-                    app:tl_indicator_width="25dp"
-                    app:tl_tab_space_equal="true"/>
-            </LinearLayout>
-        </android.support.v7.widget.Toolbar>
-    </android.support.design.widget.AppBarLayout>
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
 
-    <include layout="@layout/content_main"/>
+                    <ImageView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:src="@mipmap/ic_drawer_home"
+                        android:visibility="gone"/>
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="@dimen/fab_margin"
-        app:srcCompat="@android:drawable/ic_dialog_email"/>
+                    <lib.lhh.fiv.library.FrescoImageView
+                        android:id="@+id/iv_user"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_marginStart="5dp"
+                        app:failureImage="@mipmap/my_baby"
+                        app:failureImageScaleType="fitXY"
+                        app:placeholderImage="@mipmap/my_baby"
+                        app:placeholderImageScaleType="centerCrop"
+                        app:roundAsCircle="true"/>
 
-</android.support.design.widget.CoordinatorLayout>
+                    <android.support.design.widget.TabLayout
+                        android:id="@+id/tabs"
+                        style="@style/CustomTabLayout"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_gravity="center"
+                        android:background="?attr/colorPrimary"
+                        bind:setTabIcon="@{viewModel.resIcon}"/>
+                </LinearLayout>
+            </android.support.v7.widget.Toolbar>
+        </android.support.design.widget.AppBarLayout>
+
+        <!--<include layout="@layout/content_main"/>-->
+        <android.support.v4.view.ViewPager
+            android:id="@+id/view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:overScrollMode="never"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            bind:pageAdapter="@{viewModel.mHomePagerAdapter}"/>
+
+    </android.support.design.widget.CoordinatorLayout>
+</layout>
