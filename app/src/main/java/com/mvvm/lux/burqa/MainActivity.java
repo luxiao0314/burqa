@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.Snackbar;
+import android.support.design.widget.TabLayout;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
@@ -13,13 +14,21 @@ import android.view.MenuItem;
 
 import com.mvvm.lux.framework.base.BaseActivity;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
+
+
+    @BindView(R.id.sliding_tabs)
+    TabLayout mSlidingTabs;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+        ButterKnife.bind(this);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         toolbar.setTitle("");
         setSupportActionBar(toolbar);
@@ -36,6 +45,11 @@ public class MainActivity extends BaseActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+        mSlidingTabs.addTab(mSlidingTabs.newTab().setIcon(R.mipmap.icon));
+        mSlidingTabs.addTab(mSlidingTabs.newTab().setIcon(R.mipmap.icon));
+        mSlidingTabs.addTab(mSlidingTabs.newTab().setIcon(R.mipmap.icon));
+        mSlidingTabs.addTab(mSlidingTabs.newTab().setIcon(R.mipmap.icon));
     }
 
     @Override
@@ -69,17 +83,13 @@ public class MainActivity extends BaseActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         int id = item.getItemId();
 
-        if (id == R.id.nav_camera) {
+        if (id == R.id.nav_local_manga) {
 
-        } else if (id == R.id.nav_gallery) {
+        } else if (id == R.id.nav_history) {
 
-        } else if (id == R.id.nav_slideshow) {
+        } else if (id == R.id.nav_download) {
 
-        } else if (id == R.id.nav_manage) {
-
-        } else if (id == R.id.nav_share) {
-
-        } else if (id == R.id.nav_send) {
+        } else if (id == R.id.nav_user) {
 
         }
 

@@ -13,12 +13,16 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     android:theme="@style/ThemeOverlay.AppCompat.Dark">
 
-    <ImageView
-        android:id="@+id/imageView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:paddingTop="@dimen/nav_header_vertical_spacing"
-        app:srcCompat="@mipmap/icon"/>
+    <lib.lhh.fiv.library.FrescoImageView
+        android:layout_marginStart="5dp"
+        android:id="@+id/iv_user"
+        android:layout_width="40dp"
+        android:layout_height="40dp"
+        app:roundAsCircle="true"
+        app:failureImage="@mipmap/article_default_image"
+        app:failureImageScaleType="fitXY"
+        app:placeholderImage="@mipmap/icon"
+        app:placeholderImageScaleType="centerCrop"/>
 
     <TextView
         android:layout_width="match_parent"

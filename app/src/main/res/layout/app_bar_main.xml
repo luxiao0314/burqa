@@ -10,16 +10,19 @@
 
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
-            android:elevation="4dp"
-            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
+            android:contentInsetStart="0dp"
+            app:contentInsetStart="0dp"
+            app:layout_scrollFlags="scroll|enterAlways"
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
             <LinearLayout
                 android:id="@+id/navigation_layout"
@@ -31,18 +34,31 @@
                 <ImageView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:src="@mipmap/ic_drawer_home"/>
+                    android:src="@mipmap/ic_drawer_home"
+                    android:visibility="gone"/>
 
                 <lib.lhh.fiv.library.FrescoImageView
                     android:id="@+id/iv_user"
-                    android:layout_width="35dp"
-                    android:layout_height="35dp"
-                    app:roundAsCircle="true"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:layout_marginStart="5dp"
                     app:failureImage="@mipmap/my_baby"
                     app:failureImageScaleType="fitXY"
                     app:placeholderImage="@mipmap/my_baby"
-                    app:placeholderImageScaleType="fitXY"/>
+                    app:placeholderImageScaleType="centerCrop"
+                    app:roundAsCircle="true"/>
 
+                <android.support.design.widget.TabLayout
+                    android:layout_gravity="center"
+                    android:id="@+id/sliding_tabs"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="?attr/colorPrimary"
+                    app:tabIndicatorColor="@color/pink_30"
+                    app:tl_indicator_corner_radius="1dp"
+                    app:tl_indicator_height="2dp"
+                    app:tl_indicator_width="25dp"
+                    app:tl_tab_space_equal="true"/>
             </LinearLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>
