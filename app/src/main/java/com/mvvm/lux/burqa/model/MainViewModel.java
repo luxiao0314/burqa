@@ -3,6 +3,8 @@ package com.mvvm.lux.burqa.model;
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
 import android.support.v4.app.FragmentActivity;
+import android.support.v4.view.GravityCompat;
+import android.view.View;
 
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityMainBinding;
@@ -35,11 +37,22 @@ public class MainViewModel extends BaseViewModel {
     }
 
     private void initData() {
+        resIcon.clear();
         for (int icon : icons) {
             resIcon.add(icon);
         }
         mHomePagerAdapter = new HomePagerAdapter(mActivity, resIcon);
         mDataBinding.include.tabs.setupWithViewPager(mDataBinding.include.viewPager);
+    }
+
+    public View.OnClickListener mOnClickListener = view -> toggleDrawer();
+
+    private void toggleDrawer(){
+        if (mDataBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
+            mDataBinding.drawerLayout.closeDrawer(GravityCompat.START);
+        } else {
+            mDataBinding.drawerLayout.openDrawer(GravityCompat.START);
+        }
     }
 
 }

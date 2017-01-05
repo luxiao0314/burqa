@@ -72,7 +72,7 @@ public class BindingConfig {
     @BindingAdapter("imageUrl")
     public static void serImageView(ImageView imageView, String url) {
         if (url == null) {
-            imageView.setImageResource(R.mipmap.article_default_image);
+            imageView.setImageResource(R.drawable.article_default_image);
         } else {
             ImageLoader.getLoader().loadImage(url, imageView);
         }

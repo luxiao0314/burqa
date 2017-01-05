@@ -19,9 +19,9 @@
         android:layout_width="40dp"
         android:layout_height="40dp"
         app:roundAsCircle="true"
-        app:failureImage="@mipmap/article_default_image"
+        app:failureImage="@drawable/article_default_image"
         app:failureImageScaleType="fitXY"
-        app:placeholderImage="@mipmap/icon"
+        app:placeholderImage="@drawable/icon"
         app:placeholderImageScaleType="centerCrop"/>
 
     <TextView

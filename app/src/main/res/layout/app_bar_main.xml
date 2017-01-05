@@ -31,39 +31,41 @@
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
-                <LinearLayout
+                <RelativeLayout
                     android:id="@+id/navigation_layout"
-                    android:layout_width="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical"
                     android:orientation="horizontal">
 
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:src="@mipmap/ic_drawer_home"
-                        android:visibility="gone"/>
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:onClick="@{viewModel.mOnClickListener}"
+                        android:src="@drawable/ic_drawer_home"/>
 
                     <lib.lhh.fiv.library.FrescoImageView
                         android:id="@+id/iv_user"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
-                        android:layout_marginStart="5dp"
-                        app:failureImage="@mipmap/my_baby"
+                        android:layout_centerVertical="true"
+                        android:layout_gravity="center_vertical"
+                        android:layout_marginStart="15dp"
+                        app:failureImage="@drawable/my_baby"
                         app:failureImageScaleType="fitXY"
-                        app:placeholderImage="@mipmap/my_baby"
+                        app:placeholderImage="@drawable/my_baby"
                         app:placeholderImageScaleType="centerCrop"
                         app:roundAsCircle="true"/>
 
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tabs"
                         style="@style/CustomTabLayout"
-                        android:layout_width="match_parent"
+                        android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_gravity="center"
-                        android:background="?attr/colorPrimary"
-                        bind:setTabIcon="@{viewModel.resIcon}"/>
-                </LinearLayout>
+                        android:layout_centerInParent="true"
+                        android:background="?attr/colorPrimary"/>
+                </RelativeLayout>
             </android.support.v7.widget.Toolbar>
         </android.support.design.widget.AppBarLayout>
 
