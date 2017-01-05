@@ -24,6 +24,7 @@ public class MainActivity extends BaseActivity
     protected void initView() {
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mViewModel = new MainViewModel(this,mDataBinding);
+        mDataBinding.setViewModel((MainViewModel) mViewModel);
 
         mDataBinding.include.toolbar.setTitle("");
         setSupportActionBar(mDataBinding.include.toolbar);
@@ -35,8 +36,6 @@ public class MainActivity extends BaseActivity
         toggle.syncState();
 
         mDataBinding.navView.setNavigationItemSelectedListener(this);
-
-        mDataBinding.setViewModel((MainViewModel) mViewModel);
     }
 
     @Override

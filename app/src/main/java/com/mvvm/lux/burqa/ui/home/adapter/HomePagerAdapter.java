@@ -59,17 +59,12 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
         return mResIcon.size();
     }
 
-    /**
-     * 设置只有图片的tab
-     * @param position
-     * @return
-     */
     @Override
     public CharSequence getPageTitle(int position) {
         Drawable drawable = ContextCompat.getDrawable(mActivity, mResIcon.get(position));
         drawable.setBounds(0, 0, drawable.getIntrinsicWidth(), drawable.getIntrinsicHeight());
         ImageSpan imageSpan = new ImageSpan(drawable, ImageSpan.ALIGN_BOTTOM);
-        SpannableString spannableString = new SpannableString(" "); //这里可以加文字
+        SpannableString spannableString = new SpannableString(" ");
         spannableString.setSpan(imageSpan, 0, 1, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         return spannableString;
     }
