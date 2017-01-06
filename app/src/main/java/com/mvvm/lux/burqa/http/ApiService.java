@@ -2,6 +2,8 @@ package com.mvvm.lux.burqa.http;
 
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
 
+import java.util.List;
+
 import retrofit2.http.GET;
 import rx.Observable;
 
@@ -14,7 +16,7 @@ import rx.Observable;
  */
 public interface ApiService {
 
-    @GET("recommend")
-    Observable<RecommendResponse> getRecommend();
+    @GET("recommend.json")
+    Observable<List<RecommendResponse>> getRecommend();
 
 }

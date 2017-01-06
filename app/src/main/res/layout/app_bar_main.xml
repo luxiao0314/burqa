@@ -42,10 +42,10 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
-                        android:onClick="@{viewModel.mOnClickListener}"
                         android:src="@drawable/ic_drawer_home"/>
 
                     <lib.lhh.fiv.library.FrescoImageView
+                        android:onClick="@{viewModel.mOnClickListener}"
                         android:id="@+id/iv_user"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
