@@ -23,7 +23,7 @@ public class RecomFragment extends MvvmFragment {
 
     @Override
     protected void initView(LayoutInflater inflater) {
-        mViewModel = new RecomViewModel();
+        mViewModel = new RecomViewModel(this,mDataBinding);
         mDataBinding.setVariable(BR.viewModel,mViewModel);
     }
 

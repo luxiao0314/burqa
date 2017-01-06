@@ -9,7 +9,7 @@ import com.mvvm.lux.burqa.model.CategoryViewModel;
 import com.mvvm.lux.framework.base.MvvmFragment;
 
 /**
- * @Description
+ * @Description 分类
  * @Author luxiao418
  * @Email luxiao418@pingan.com.cn
  * @Date 2017/1/5 13:27
