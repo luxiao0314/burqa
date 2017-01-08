@@ -1,6 +1,7 @@
 package com.mvvm.lux.burqa.ui.home.adapter.section;
 
 import android.databinding.ViewDataBinding;
+import android.support.v4.app.FragmentActivity;
 import android.support.v7.widget.RecyclerView;
 
 import com.mvvm.lux.burqa.BR;
@@ -19,10 +20,12 @@ import com.mvvm.lux.framework.manager.recycler.sectioned.StatelessSection;
 public class RecomItemSection extends StatelessSection {
 
     private RecommendResponse mRecommendResponse;
+    private FragmentActivity mActivity;
 
-    public RecomItemSection(RecommendResponse recommendResponse, int resLayout) {
+    public RecomItemSection(RecommendResponse recommendResponse, int resLayout, FragmentActivity activity) {
         super(R.layout.recom_title_section, resLayout);
         mRecommendResponse = recommendResponse;
+        mActivity = activity;
     }
 
     @Override
@@ -37,7 +40,7 @@ public class RecomItemSection extends StatelessSection {
 
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
-        RecomDoubleViewModel viewModel = new RecomDoubleViewModel();
+        RecomDoubleViewModel viewModel = new RecomDoubleViewModel(mActivity);
         if (mRecommendResponse.getData().size() == 0)
             viewModel.hide_title.set(true);
         viewModel.head_title.set(mRecommendResponse.getTitle());
@@ -53,10 +56,11 @@ public class RecomItemSection extends StatelessSection {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         RecommendResponse.DataBean dataBean = mRecommendResponse.getData().get(position);
-        RecomDoubleViewModel viewModel = new RecomDoubleViewModel();
+        RecomDoubleViewModel viewModel = new RecomDoubleViewModel(mActivity);
         viewModel.img.set(dataBean.getCover());
         viewModel.title.set(dataBean.getTitle());
         viewModel.sub_title.set(dataBean.getSub_title());
+        viewModel.obj_id.set(dataBean.getObj_id());
         ((RecomItemHolder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((RecomItemHolder) holder).mDataBinding.executePendingBindings();
     }

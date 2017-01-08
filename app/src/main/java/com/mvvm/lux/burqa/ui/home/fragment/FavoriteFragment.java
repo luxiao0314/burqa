@@ -22,7 +22,7 @@ public class FavoriteFragment extends MvvmFragment {
 
     @Override
     protected void initView(LayoutInflater inflater) {
-        mViewModel = new FavoriteViewModel();
+        mViewModel = new FavoriteViewModel(getActivity());
         mDataBinding.setVariable(BR.viewModel,mViewModel);
     }
 

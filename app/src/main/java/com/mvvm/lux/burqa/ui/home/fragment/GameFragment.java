@@ -23,7 +23,7 @@ public class GameFragment extends MvvmFragment{
 
     @Override
     protected void initView(LayoutInflater inflater) {
-        mViewModel = new GameViewModel();
+        mViewModel = new GameViewModel(getActivity());
         mDataBinding.setVariable(BR.viewModel,mViewModel);
     }
 

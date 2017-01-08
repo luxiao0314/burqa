@@ -1,5 +1,7 @@
 package com.mvvm.lux.burqa.model;
 
+import android.app.Activity;
+
 import com.mvvm.lux.framework.base.BaseViewModel;
 
 /**
@@ -10,4 +12,7 @@ import com.mvvm.lux.framework.base.BaseViewModel;
  * @Version
  */
 public class GameViewModel extends BaseViewModel {
+    public GameViewModel(Activity activity) {
+        super(activity);
+    }
 }

@@ -23,7 +23,7 @@ public class CategoryFragment extends MvvmFragment {
 
     @Override
     protected void initView(LayoutInflater inflater) {
-        mViewModel = new CategoryViewModel();
+        mViewModel = new CategoryViewModel(getActivity());
         mDataBinding.setVariable(BR.viewModel,mViewModel);
     }
 

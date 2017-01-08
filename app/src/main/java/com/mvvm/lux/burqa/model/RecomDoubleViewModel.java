@@ -1,8 +1,12 @@
 package com.mvvm.lux.burqa.model;
 
 import android.databinding.ObservableField;
+import android.support.v4.app.FragmentActivity;
+import android.view.View;
 
+import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
+import com.mvvm.lux.framework.manager.router.Router;
 
 /**
  * @Description
@@ -13,9 +17,11 @@ import com.mvvm.lux.framework.base.BaseViewModel;
  */
 public class RecomDoubleViewModel extends BaseViewModel {
 
-    public ObservableField<String> img = new ObservableField<>();
+    public RecomDoubleViewModel(FragmentActivity activity) {
+        super(activity);
+    }
 
-    public ObservableField<String> title = new ObservableField<>();
+    public ObservableField<String> img = new ObservableField<>();
 
     public ObservableField<String> sub_title = new ObservableField<>();
 
@@ -23,4 +29,13 @@ public class RecomDoubleViewModel extends BaseViewModel {
 
     public ObservableField<Boolean> hide_title = new ObservableField<>(false);
 
+    public ObservableField<Integer> obj_id = new ObservableField<>();
+
+    public View.OnClickListener mOnClickListener = view -> {
+        Router.newIntent()
+                .from(mActivity)
+                .putString("obj_id", obj_id + "")
+                .to(ComicDesActivity.class)
+                .launch();
+    };
 }

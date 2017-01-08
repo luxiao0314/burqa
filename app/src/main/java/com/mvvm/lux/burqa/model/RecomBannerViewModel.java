@@ -2,6 +2,7 @@ package com.mvvm.lux.burqa.model;
 
 import android.databinding.ObservableArrayList;
 import android.databinding.ObservableList;
+import android.support.v4.app.FragmentActivity;
 
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
 import com.mvvm.lux.framework.base.BaseViewModel;
@@ -20,7 +21,8 @@ public class RecomBannerViewModel extends BaseViewModel {
 
     public ObservableList<BannerEntity> bannerList = new ObservableArrayList<>();
 
-    public RecomBannerViewModel(RecommendResponse recommendResponse) {
+    public RecomBannerViewModel(RecommendResponse recommendResponse, FragmentActivity activity) {
+        super(activity);
         initData(recommendResponse);
     }
 

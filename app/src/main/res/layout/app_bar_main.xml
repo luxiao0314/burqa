@@ -27,7 +27,6 @@
                 android:background="?attr/colorPrimary"
                 android:contentInsetStart="0dp"
                 app:contentInsetStart="0dp"
-                app:layout_scrollFlags="scroll|enterAlways"
                 app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
                 app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -42,21 +41,31 @@
                         android:layout_height="wrap_content"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
+                        android:layout_marginStart="5dp"
                         android:src="@drawable/ic_drawer_home"/>
 
                     <lib.lhh.fiv.library.FrescoImageView
-                        android:onClick="@{viewModel.mOnClickListener}"
                         android:id="@+id/iv_user"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_centerVertical="true"
                         android:layout_gravity="center_vertical"
                         android:layout_marginStart="15dp"
+                        android:onClick="@{viewModel.mOnClickListener}"
                         app:failureImage="@drawable/my_baby"
                         app:failureImageScaleType="fitXY"
                         app:placeholderImage="@drawable/my_baby"
                         app:placeholderImageScaleType="centerCrop"
                         app:roundAsCircle="true"/>
+
+                    <ImageView
+                        android:id="@+id/download"
+                        android:layout_width="30dp"
+                        android:layout_height="30dp"
+                        android:layout_alignParentEnd="true"
+                        android:layout_centerVertical="true"
+                        android:layout_marginEnd="10dp"
+                        android:src="@drawable/ic_search_main"/>
 
                     <android.support.design.widget.TabLayout
                         android:id="@+id/tabs"

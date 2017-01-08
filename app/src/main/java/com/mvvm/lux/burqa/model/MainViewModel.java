@@ -31,6 +31,7 @@ public class MainViewModel extends BaseViewModel {
     public HomePagerAdapter mHomePagerAdapter;
 
     public MainViewModel(FragmentActivity activity, ActivityMainBinding dataBinding) {
+        super(activity);
         mActivity = activity;
         mDataBinding = dataBinding;
         initData();
