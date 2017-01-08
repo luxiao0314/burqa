@@ -14,6 +14,7 @@
     <color name="orange_500">#FF9800</color>
     <color name="green_300">#81C784</color>
     <color name="gray">#B8B8B8</color>
+    <color name="gray_transparent">#44B8B8B8</color>
     <color name="gray_20">#B3B3B3</color>
     <color name="gray_80">#BEBBB4</color>
     <color name="gray_light_30">#E5E5E5</color>
