@@ -20,20 +20,13 @@
             layout="@layout/include_toolbar_layout"
             bind:viewModel="@{viewModel}"/>
 
-        <android.support.v4.widget.NestedScrollView
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:overScrollMode="never"
-            android:scrollbars="none"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior">
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="vertical">
-
-            </LinearLayout>
-
-        </android.support.v4.widget.NestedScrollView>
+            app:layoutManager="@{viewModel.layoutManager}"
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            bind:setAdapter="@{viewModel.mAdapter}"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

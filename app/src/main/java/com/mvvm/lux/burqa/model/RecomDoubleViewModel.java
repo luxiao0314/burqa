@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
-import com.mvvm.lux.framework.manager.router.Router;
 
 /**
  * @Description
@@ -32,10 +31,6 @@ public class RecomDoubleViewModel extends BaseViewModel {
     public ObservableField<Integer> obj_id = new ObservableField<>();
 
     public View.OnClickListener mOnClickListener = view -> {
-        Router.newIntent()
-                .from(mActivity)
-                .putString("obj_id", obj_id + "")
-                .to(ComicDesActivity.class)
-                .launch();
+        ComicDesActivity.launch(mActivity,obj_id);
     };
 }
