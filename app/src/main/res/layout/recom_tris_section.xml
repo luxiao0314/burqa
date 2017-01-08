@@ -16,9 +16,11 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <ImageView
+        <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="match_parent"
             android:layout_height="150dp"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImageScaleType="centerCrop"
             bind:imageUrl="@{viewModel.img}"/>
 
         <TextView

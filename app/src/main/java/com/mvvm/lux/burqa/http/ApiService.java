@@ -22,5 +22,5 @@ public interface ApiService {
     Observable<List<RecommendResponse>> getRecommend();
 
     @GET("url")
-    Observable<ComicResponse> getComic( @Path("url") String url);
+    Observable<ComicResponse> getComic(@Path("url") String url);
 }

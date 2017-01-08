@@ -8,7 +8,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.widget.ImageView;
+import android.text.TextUtils;
 
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.framework.manager.imageloader.ImageLoader;
@@ -17,6 +17,8 @@ import com.mvvm.lux.widget.banner.BannerView;
 import com.mvvm.lux.widget.emptyview.EmptyView;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
+
+import lib.lhh.fiv.library.FrescoImageView;
 
 /**
  * @Description 自定义dataBinding属性
@@ -104,11 +106,11 @@ public class BindingConfig {
     /* ------------------------ other ---------------------------- */
 
     @BindingAdapter("imageUrl")
-    public static void serImageView(ImageView imageView, String url) {
-        if (url == null) {
-            imageView.setImageResource(R.drawable.article_default_image);
+    public static void serImageView(FrescoImageView imageView, String url) {
+        if (TextUtils.isEmpty(url)) {
+            imageView.loadView("", R.drawable.article_default_image);
         } else {
-            ImageLoader.getLoader().loadImage(url,R.drawable.default_bg,imageView);
+            ImageLoader.getLoader().loadImage(url, R.drawable.default_bg, imageView);
         }
     }
 

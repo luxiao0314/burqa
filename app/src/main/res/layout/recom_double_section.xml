@@ -15,9 +15,11 @@
         android:orientation="vertical"
         android:padding="10dp">
 
-        <ImageView
+        <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="match_parent"
             android:layout_height="100dp"
+            app:actualImageScaleType="centerCrop"
+            app:placeholderImageScaleType="centerCrop"
             bind:imageUrl="@{viewModel.img}"/>
 
         <TextView
@@ -26,10 +28,10 @@
             android:paddingTop="5dp"
             android:text="@{viewModel.title}"/>
         <TextView
-            android:visibility="gone"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="@{viewModel.sub_title}"/>
+            android:text="@{viewModel.sub_title}"
+            android:visibility="gone"/>
     </LinearLayout>
 </layout>
