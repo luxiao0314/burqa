@@ -12,6 +12,9 @@ import android.widget.ImageView;
 
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.framework.manager.imageloader.ImageLoader;
+import com.mvvm.lux.widget.banner.BannerEntity;
+import com.mvvm.lux.widget.banner.BannerView;
+import com.mvvm.lux.widget.emptyview.EmptyView;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -23,6 +26,8 @@ import com.zhy.view.flowlayout.TagFlowLayout;
  * @Version $VALUE
  */
 public class BindingConfig {
+    /* --------------------------  recycleView  ----------------------------*/
+
     /**
      * des:如果设置的属性是true,那么久刷新改控件 : dataBinding已经封装了设置刷新的属性,这里没用到
      * 正在刷新,方法名随意定,参数为控件,注解参数为设置的属性,那么系统就会优先选择自定义的属性
@@ -69,12 +74,41 @@ public class BindingConfig {
         view.setOnRefreshListener(newValue);
     }
 
+    @BindingAdapter("onRefreshCommand")
+    public static void postDelay(SwipeRefreshLayout swipeRefreshLayout, ReplyCommand<Runnable> replyCommand) {
+        swipeRefreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                replyCommand.execute(); //做回调处理
+            }
+        });
+    }
+
+    @BindingAdapter("setAdapter")
+    public static void setAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter) {
+        recyclerView.setAdapter(adapter);
+        recyclerView.setHasFixedSize(true);    //高度不变,提高性能
+    }
+
+    @BindingAdapter({"addItemDecoration"})
+    public static void addItemDecoration(RecyclerView view, RecyclerView.ItemDecoration itemDecoration) {
+        if (itemDecoration != null)
+            view.addItemDecoration(itemDecoration);
+    }
+
+    @BindingAdapter({"addOnItemClick"})
+    public static void addOnItemClick(RecyclerView view, RecyclerViewItemClickSupport.OnItemClickListener listener) {
+        RecyclerViewItemClickSupport.addTo(view).setOnItemClickListener(listener);
+    }
+
+    /* ------------------------ other ---------------------------- */
+
     @BindingAdapter("imageUrl")
     public static void serImageView(ImageView imageView, String url) {
         if (url == null) {
             imageView.setImageResource(R.drawable.article_default_image);
         } else {
-            ImageLoader.getLoader().loadImage(url, imageView);
+            ImageLoader.getLoader().loadImage(url,R.drawable.default_bg,imageView);
         }
     }
 
@@ -104,32 +138,6 @@ public class BindingConfig {
         }
     }
 
-    @BindingAdapter("onRefreshCommand")
-    public static void postDelay(SwipeRefreshLayout swipeRefreshLayout, ReplyCommand<Runnable> replyCommand) {
-        swipeRefreshLayout.post(new Runnable() {
-            @Override
-            public void run() {
-                replyCommand.execute(); //做回调处理
-            }
-        });
-    }
-
-    @BindingAdapter("setAdapter")
-    public static void setAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter) {
-        recyclerView.setAdapter(adapter);
-        recyclerView.setHasFixedSize(true);    //高度不变,提高性能
-    }
-
-    @BindingAdapter({"addItemDecoration"})
-    public static void addItemDecoration(RecyclerView view, RecyclerView.ItemDecoration itemDecoration) {
-        if (itemDecoration != null)
-            view.addItemDecoration(itemDecoration);
-    }
-
-    @BindingAdapter({"addOnItemClick"})
-    public static void addOnItemClick(RecyclerView view, RecyclerViewItemClickSupport.OnItemClickListener listener) {
-        RecyclerViewItemClickSupport.addTo(view).setOnItemClickListener(listener);
-    }
 
     @BindingAdapter("pageAdapter")
     public static void setPageAdapter(ViewPager viewPager, android.support.v4.app.FragmentPagerAdapter adapter) {
@@ -143,6 +151,18 @@ public class BindingConfig {
         for (Integer icon : resIcon) {
             tabLayout.addTab(tabLayout.newTab().setIcon(icon));
         }
+    }
+
+    @BindingAdapter("initBanner")
+    public static void initBanner(BannerView bannerView, ObservableList<BannerEntity> bannerEntities) {
+        bannerView.delayTime(5).build(bannerEntities);
+    }
+
+
+    @BindingAdapter("reload")
+    public static void reload(EmptyView emptyView, EmptyView.ReloadOnClickListener listener) {
+        if (listener != null)
+            emptyView.reload(listener);
     }
 
 }

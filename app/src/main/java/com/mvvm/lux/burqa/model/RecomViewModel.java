@@ -1,16 +1,22 @@
 package com.mvvm.lux.burqa.model;
 
-import android.databinding.ViewDataBinding;
-import android.view.View;
+import android.databinding.ObservableBoolean;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 
+import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.databinding.FragmentRecomBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
+import com.mvvm.lux.burqa.ui.home.adapter.section.RecomBannerSection;
+import com.mvvm.lux.burqa.ui.home.adapter.section.RecomItemSection;
 import com.mvvm.lux.burqa.ui.home.fragment.RecomFragment;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
-import com.mvvm.lux.framework.utils.Logger;
+import com.mvvm.lux.framework.manager.recycler.sectioned.SectionedRecyclerViewAdapter;
+import com.mvvm.lux.widget.emptyview.EmptyView;
 
 import java.util.List;
 
@@ -23,26 +29,64 @@ import java.util.List;
  */
 public class RecomViewModel extends BaseViewModel {
     private final RecomFragment mFragment;
-    private final ViewDataBinding mDataBinding;
+    private final FragmentRecomBinding mDataBinding;
 
-    public RecomViewModel(RecomFragment fragment, ViewDataBinding dataBinding) {
+    public RecomViewModel(RecomFragment fragment, FragmentRecomBinding dataBinding) {
         mFragment = fragment;
         mDataBinding = dataBinding;
-        initData();
     }
 
-    private void initData() {
+    public ObservableBoolean showEmpty = new ObservableBoolean(false);
+
+    public SectionedRecyclerViewAdapter mAdapter;
+
+    public EmptyView.ReloadOnClickListener mReloadOnClickListener = this::initData;
+
+    public RecyclerView.LayoutManager getLayoutManager() {
+        GridLayoutManager layoutManager = new GridLayoutManager(mFragment.getActivity(), 6);
+        layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
+            @Override
+            public int getSpanSize(int position) {
+                switch (mAdapter.getSectionItemViewType(position)) {
+                    case SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER:
+                        return 6;
+                    case SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED:
+                        return 2;
+                    default:
+                        return 6;
+                }
+            }
+        });
+        return layoutManager;
+    }
+
+    public void initData() {
         RetrofitHelper.init()
                 .getRecommend()
                 .compose(RxHelper.io_main())
                 .subscribe(new ProgressSubscriber<List<RecommendResponse>>(ServiceTask.create(mFragment)) {
+
                     @Override
                     public void onNext(List<RecommendResponse> recommendResponse) {
-                        Logger.d(recommendResponse.get(0).getTitle());
+                        mAdapter = new SectionedRecyclerViewAdapter();
+                        mAdapter.addSection(new RecomBannerSection(recommendResponse.get(0)));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(1), R.layout.recom_tris_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(2), R.layout.recom_double_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(3), R.layout.recom_tris_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(4), R.layout.recom_tris_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(5), R.layout.recom_tris_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(6), R.layout.recom_double_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), R.layout.recom_double_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), R.layout.recom_tris_section));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(8), R.layout.recom_tris_section));
+                        mDataBinding.recyclerView.setAdapter(mAdapter); //加载完成之后要设置adapter,一定要记住
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        showEmpty.set(true);
                     }
                 });
-
     }
-
-    public View.OnClickListener mOnClickListener = v -> initData();
 }

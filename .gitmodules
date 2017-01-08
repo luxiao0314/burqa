@@ -4,3 +4,6 @@
 [submodule "frescoUtil"]
 	path = frescoUtil
 	url = https://github.com/luxiao0314/frescoUtil.git
+[submodule "widget"]
+	path = widget
+	url = https://github.com/luxiao0314/widget.git
