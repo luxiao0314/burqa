@@ -140,6 +140,15 @@ public class BindingConfig {
         }
     }
 
+     @BindingAdapter("OnTagSelect")
+    public static void OnTagSelect(TagFlowLayout tagFlowLayout, TagFlowLayout.OnSelectListener listener) {
+        if (listener != null) {
+            tagFlowLayout.setOnSelectListener(listener);
+        }
+    }
+
+
+
 
     @BindingAdapter("pageAdapter")
     public static void setPageAdapter(ViewPager viewPager, android.support.v4.app.FragmentPagerAdapter adapter) {

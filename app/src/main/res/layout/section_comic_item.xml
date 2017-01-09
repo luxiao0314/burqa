@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mvvm.lux.burqa.model.ComicItemViewModel"/>
+
+        <import type="android.view.View"/>
+    </data>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:background="@color/white"
+        android:orientation="vertical"
+        android:padding="10dp">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.chapters_title}"
+                android:textSize="12sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:text="@{viewModel.last_updatetime}"
+                android:textSize="12sp"/>
+        </RelativeLayout>
+
+        <!--max_select：-1为不限制选择数量，>=1的数字为控制选择tag的数量 auto_select_effect 是否开启默认的选中效果，
+        即为selector中设置的效果，默认为true；如果设置为false，则无选中效果，需要自己在回调中处理。-->
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/chapters_flow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            app:auto_select_effect="true"
+            app:max_select="1"
+            bind:OnTagClick="@{viewModel.mOnChaptersClickListener}"
+            bind:adapter="@{viewModel.chaptersAdapter}"/>
+
+        <TextView
+            android:id="@+id/title_other"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.chapters_other_title}"
+            android:textSize="12sp"
+            android:visibility="gone"/>
+
+        <com.zhy.view.flowlayout.TagFlowLayout
+            android:id="@+id/other_chapters_flow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="10dp"
+            android:layout_marginTop="5dp"
+            android:visibility="gone"
+            app:auto_select_effect="true"
+            app:max_select="1"
+            bind:OnTagClick="@{viewModel.mOnOtherChaptersClickListener}"
+            bind:adapter="@{viewModel.chaptersOtherAdapter}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:drawableStart="@drawable/ic_new_detail_chapter"
+            android:gravity="center"
+            android:onClick="@{viewModel.mOnClickListener}"
+            android:padding="10dp"
+            android:text="查看全部章节"
+            android:textSize="12sp"/>
+
+        <View android:layout_width="match_parent"
+              android:layout_height="0.5dp"
+              android:background="@color/gray_transparent"/>
+
+    </LinearLayout>
+</layout>

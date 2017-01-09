@@ -10,32 +10,33 @@
     </data>
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:background="@color/white"
         android:orientation="vertical"
         android:padding="10dp">
         <lib.lhh.fiv.library.FrescoImageView
-            android:layout_width="150dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="150dp"
             android:layout_gravity="center"
-            android:src="@drawable/default_bg"/>
+            android:src="@drawable/default_bg"
+            bind:imageUrl="@{viewModel.cover}"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="10dp"
-            android:text="3121"
+            android:text="@{viewModel.title}"
             android:textColor="@color/black_80"
-            android:textSize="18sp"/>
+            android:textSize="16sp"/>
 
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:text="3121"
+            android:text="@{viewModel.authors}"
             android:textColor="?attr/colorPrimary"
-            android:textSize="16sp"/>
+            android:textSize="12sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -48,24 +49,16 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="战斗力: 8769.99万"
-                android:textSize="16sp"/>
+                android:text="@{viewModel.hot_num}"
+                android:textSize="12sp"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="******"
-                android:textSize="16sp"/>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="评分: 4.6分"
-                android:textSize="16sp"/>
+                android:text="@{viewModel.subscribe_num}"
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <LinearLayout
@@ -80,11 +73,11 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/selector_comm_btn"
+                android:background="@drawable/tag_bg"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="已收藏"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
 
             <TextView
                 android:layout_width="0dp"
@@ -92,11 +85,11 @@
                 android:layout_gravity="center"
                 android:layout_margin="10dp"
                 android:layout_weight="1"
-                android:background="@drawable/selector_comm_btn"
+                android:background="@drawable/tag_bg"
                 android:gravity="center"
                 android:padding="10dp"
                 android:text="续看 13话"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
         </LinearLayout>
 
         <TextView
@@ -104,8 +97,9 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:layout_margin="5dp"
-            android:text="dasdasdlaksjdkaf,sdfsjsldkasdjaslkdjasklasjfklasjfakkfhjhsajkfhdsjkfsdhfjkdsfhjkcxjknjnakjdnasjdansdkjasndaksjdnakjdns"
-            android:textSize="16sp"/>
+            android:maxLines="2"
+            android:text="@{viewModel.description}"
+            android:textSize="12sp"/>
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -123,7 +117,7 @@
                 android:drawableTop="@drawable/article_detail_bottom_share"
                 android:gravity="center"
                 android:text="分享"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -134,7 +128,7 @@
                 android:drawableTop="@drawable/ic_send_default"
                 android:gravity="center"
                 android:text="投递"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
             <TextView
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
@@ -145,7 +139,7 @@
                 android:drawableTop="@drawable/article_detail_bottom_comment"
                 android:gravity="center"
                 android:text="吐槽(216)"
-                android:textSize="16sp"/>
+                android:textSize="12sp"/>
         </LinearLayout>
     </LinearLayout>
 </layout>

@@ -21,6 +21,6 @@ public interface ApiService {
     @GET("recommend.json")
     Observable<List<RecommendResponse>> getRecommend();
 
-    @GET("url")
+    @GET("{url}")
     Observable<ComicResponse> getComic(@Path("url") String url);
 }

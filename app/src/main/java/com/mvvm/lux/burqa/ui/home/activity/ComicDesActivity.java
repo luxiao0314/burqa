@@ -2,7 +2,6 @@ package com.mvvm.lux.burqa.ui.home.activity;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableField;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
@@ -36,7 +35,7 @@ public class ComicDesActivity extends SwipeBackActivity {
         mDataBinding.setViewModel((ComicDesViewModel) mViewModel);
     }
 
-    public static void launch(Activity activity, ObservableField<Integer> obj_id) {
+    public static void launch(Activity activity, int obj_id) {
         Router.newIntent()
                 .from(activity)
                 .putString("obj_id", obj_id + "")
