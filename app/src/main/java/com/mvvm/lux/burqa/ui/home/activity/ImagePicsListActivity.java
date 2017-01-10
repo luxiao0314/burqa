@@ -105,7 +105,6 @@ public class ImagePicsListActivity extends BaseActivity {
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-
         }
 
         @Override
@@ -115,7 +114,6 @@ public class ImagePicsListActivity extends BaseActivity {
 
         @Override
         public void onPageScrollStateChanged(int state) {
-
         }
     };
 
@@ -138,6 +136,7 @@ public class ImagePicsListActivity extends BaseActivity {
             View contentview = LayoutInflater.from(mContext).inflate(R.layout.gallery_item, container, false);
             final PhotoDraweeView photoView = (PhotoDraweeView) contentview
                     .findViewById(R.id.photoview);
+            photoView.setOnPhotoTapListener(onPhotoTapListener);
 
             PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
             controller.setUri(imageURL);

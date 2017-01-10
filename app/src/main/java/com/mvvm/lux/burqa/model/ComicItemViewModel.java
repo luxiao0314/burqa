@@ -89,8 +89,7 @@ public class ComicItemViewModel extends BaseViewModel {
      * 流式布局item点击事件
      */
     public TagFlowLayout.OnTagClickListener mOnChaptersClickListener = (view, position, parent) -> {
-        SnackbarUtil.showMessage("I am " + chaptersList.get(position).getChapter_title() + "被电击了Ｏ(≧口≦)Ｏ");
-//        ComicPageActivity.launch(mActivity,obj_id.get(),chaptersList.get(position).getChapter_id());
+//        ComicPageActivity.launch(mActivity,obj_id.get(),chaptersList.get(position).getChapter_id(),position);
         ImagePicsListActivity.launch(mActivity,obj_id.get(),chaptersList.get(position).getChapter_id(),position);
         return true;
     };

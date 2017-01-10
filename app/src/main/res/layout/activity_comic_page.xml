@@ -8,10 +8,27 @@
             name="viewModel"
             type="com.mvvm.lux.burqa.model.ComicPageViewModel"/>
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="fill_parent"
+        android:background="#000000"
+        android:orientation="horizontal">
 
-    </LinearLayout>
+        <TextView
+            android:id="@+id/advert_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="40dp"
+            android:text="@{viewModel.current_position}"
+            android:textColor="#ffffffff"
+            android:textSize="20dp"/>
+
+        <com.mvvm.lux.widget.MultiTouchViewPager
+            android:id="@+id/pager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_centerInParent="true"/>
+
+    </RelativeLayout>
 </layout>

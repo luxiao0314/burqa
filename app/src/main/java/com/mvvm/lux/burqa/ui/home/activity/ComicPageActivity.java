@@ -34,13 +34,16 @@ public class ComicPageActivity extends BaseActivity {
         Intent intent = getIntent();
         viewModel.obj_id.set(intent.getStringExtra("obj_id"));
         viewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
+        int position = Integer.parseInt(intent.getStringExtra("position"));
+        viewModel.current_position.set((position + 1) + "/" + position);
         mDatabinding.setViewModel(viewModel);
     }
 
-    public static void launch(Activity activity, String obj_id, int chapter_id) {
+    public static void launch(Activity activity, String obj_id, int chapter_id, int position) {
         Router.from(activity)
                 .putString("obj_id", obj_id)
                 .putString("chapter_id", chapter_id + "")
+                .putString("position", position + "")
                 .to(ComicPageActivity.class)
                 .launch();
     }
