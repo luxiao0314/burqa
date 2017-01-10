@@ -22,11 +22,13 @@ import com.mvvm.lux.framework.utils.DateUtil;
 public class ComicItemSection extends StatelessSection {
     private final ComicDesActivity mActivity;
     private final ComicResponse mComicResponse;
+    private String mObjId;
 
-    public ComicItemSection(ComicDesActivity activity, ComicResponse comicResponse) {
+    public ComicItemSection(ComicDesActivity activity, ComicResponse comicResponse, String objId) {
         super(R.layout.section_comic_item);
         mActivity = activity;
         mComicResponse = comicResponse;
+        mObjId = objId;
     }
 
     @Override
@@ -42,9 +44,9 @@ public class ComicItemSection extends StatelessSection {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         ComicItemViewModel viewModel = new ComicItemViewModel(mActivity, (SectionComicItemBinding) ((ItemViewHoder) holder).mDataBinding);
-        viewModel.chaptersList.clear();
-        viewModel.chaptersOther.clear();
+        viewModel.obj_id.set(mObjId);
         viewModel.last_updatetime.set("更新: " + DateUtil.getStringTime(mComicResponse.getLast_updatetime()));
+
         if (mComicResponse.getChapters().size() > 1) {
             ComicResponse.ChaptersBean chaptersOther = mComicResponse.getChapters().get(1);
             viewModel.chapters_other_title.set(chaptersOther.getTitle());

@@ -14,6 +14,7 @@ import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
+import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.utils.SnackbarUtil;
 import com.zhy.view.flowlayout.FlowLayout;
@@ -32,6 +33,8 @@ public class ComicItemViewModel extends BaseViewModel {
     public ObservableField<String> chapters_title = new ObservableField<>();
 
     public ObservableField<String> last_updatetime = new ObservableField<>();
+
+    public ObservableField<String> obj_id = new ObservableField<>();
 
     public ObservableList<ComicResponse.ChaptersBean.DataBean> chaptersList = new ObservableArrayList<>();  //原始全部集合
 
@@ -87,6 +90,8 @@ public class ComicItemViewModel extends BaseViewModel {
      */
     public TagFlowLayout.OnTagClickListener mOnChaptersClickListener = (view, position, parent) -> {
         SnackbarUtil.showMessage("I am " + chaptersList.get(position).getChapter_title() + "被电击了Ｏ(≧口≦)Ｏ");
+//        ComicPageActivity.launch(mActivity,obj_id.get(),chaptersList.get(position).getChapter_id());
+        ImagePicsListActivity.launch(mActivity,obj_id.get(),chaptersList.get(position).getChapter_id(),position);
         return true;
     };
 

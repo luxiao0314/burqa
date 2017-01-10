@@ -12,11 +12,11 @@ import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 
 /**
- * @Description
+ * @Description 漫画描述页面
  * @Author luxiao418
  * @Email luxiao418@pingan.com.cn
  * @Date 2017/1/8 12:31
- * @Version
+ * @Version 1.0.0
  */
 public class ComicDesActivity extends SwipeBackActivity {
 
@@ -36,8 +36,7 @@ public class ComicDesActivity extends SwipeBackActivity {
     }
 
     public static void launch(Activity activity, int obj_id) {
-        Router.newIntent()
-                .from(activity)
+        Router.from(activity)
                 .putString("obj_id", obj_id + "")
                 .to(ComicDesActivity.class)
                 .launch();

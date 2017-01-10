@@ -28,6 +28,8 @@
         <activity
             android:name=".ui.home.activity.ComicDesActivity"
             android:theme="@style/swipeback_activity_style"/>
+        <activity android:name=".ui.home.activity.ComicPageActivity"/>
+        <activity android:name=".ui.home.activity.ImagePicsListActivity"/>
     </application>
 
 </manifest>
