@@ -2,6 +2,8 @@ package com.mvvm.lux.burqa.manager;
 
 import android.databinding.BindingAdapter;
 import android.databinding.InverseBindingListener;
+import android.databinding.InverseBindingMethod;
+import android.databinding.InverseBindingMethods;
 import android.databinding.ObservableList;
 import android.databinding.adapters.ListenerUtil;
 import android.support.design.widget.TabLayout;
@@ -9,9 +11,10 @@ import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.View;
+import android.widget.CompoundButton;
 
 import com.mvvm.lux.burqa.R;
-import com.mvvm.lux.framework.manager.imageloader.ImageLoader;
 import com.mvvm.lux.widget.banner.BannerEntity;
 import com.mvvm.lux.widget.banner.BannerView;
 import com.mvvm.lux.widget.emptyview.EmptyView;
@@ -103,6 +106,18 @@ public class BindingConfig {
         RecyclerViewItemClickSupport.addTo(view).setOnItemClickListener(listener);
     }
 
+    /* ------------------------ 双向绑定 http://www.jianshu.com/p/05b9838a1949 ---------------------------- */
+    @BindingAdapter("android:visibility")
+    public static void setVisibility(View view, int visiblity) {
+        view.setVisibility(visiblity);
+//        ? View.VISIBLE : View.GONE
+    }
+
+    @BindingAdapter("visibilityAttrChanged")
+    public static void OnVisibility(View view, InverseBindingListener attrChange) {
+
+    }
+
     /* ------------------------ other ---------------------------- */
 
     @BindingAdapter("imageUrl")
@@ -110,7 +125,7 @@ public class BindingConfig {
         if (TextUtils.isEmpty(url)) {
             imageView.loadView("", R.drawable.article_default_image);
         } else {
-            ImageLoader.getLoader().loadImage(url, R.drawable.default_bg, imageView);
+            imageView.loadView(url, R.drawable.default_bg);
         }
     }
 
@@ -140,14 +155,12 @@ public class BindingConfig {
         }
     }
 
-     @BindingAdapter("OnTagSelect")
+    @BindingAdapter("OnTagSelect")
     public static void OnTagSelect(TagFlowLayout tagFlowLayout, TagFlowLayout.OnSelectListener listener) {
         if (listener != null) {
             tagFlowLayout.setOnSelectListener(listener);
         }
     }
-
-
 
 
     @BindingAdapter("pageAdapter")
@@ -175,5 +188,70 @@ public class BindingConfig {
         if (listener != null)
             emptyView.reload(listener);
     }
+
+
+    @InverseBindingMethods({
+            @InverseBindingMethod(type = CompoundButton.class, attribute = "android:checked"),
+    })//1.这里需要双向绑定的是checked属性，event和method都省略了。
+    public static class CompoundButtonBindingAdapter {
+        //2.设置什么时候调用event
+        @BindingAdapter(value = {"android:onCheckedChanged", "android:checkedAttrChanged"},
+                requireAll = false)
+        public static void setListeners(CompoundButton view, final CompoundButton.OnCheckedChangeListener listener,
+                                        final InverseBindingListener attrChange) {
+            if (attrChange == null) {
+                view.setOnCheckedChangeListener(listener);
+            } else {
+                view.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+                    @Override
+                    public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                        if (listener != null) {
+                            listener.onCheckedChanged(buttonView, isChecked);
+                        }
+                        attrChange.onChange();
+                    }
+                });
+            }
+        }
+    }
+
+    //3.我们在layout中使用双向绑定
+   /* <CheckBox
+    android:id="@+id/checkbox"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:checked="@={user.checked}"/>*/
+
+    //4.layout的binding类中自动生成的InverseBindingListener实现。
+    // Inverse Binding Event Handlers
+    /*private android.databinding.InverseBindingListener checkboxandroidCheck = new android.databinding.InverseBindingListener() {
+        @Override
+        public void onChange() {//这段逻辑其实就是用来更新user实体类中的checked字段的
+            // Inverse of user.checked.get()
+            //         is user.checked.set((java.lang.Boolean) callbackArg_0)
+            boolean callbackArg_0 = checkbox.isChecked();//其实就是method
+            // localize variables for thread safety
+            // user.checked != null
+            boolean checkedUserObjectnul = false;
+            // user.checked
+            android.databinding.ObservableField<java.lang.Boolean> checkedUser = null;
+            // user
+            lxf.androiddemos.model.UserEntity user = mUser;
+            // user.checked.get()
+            java.lang.Boolean CheckedUser1 = null;
+            // user != null
+            boolean userObjectnull = false;
+
+            userObjectnull = (user) != (null);
+            if (userObjectnull) {
+                checkedUser = user.checked;
+
+                checkedUserObjectnul = (checkedUser) != (null);
+                if (checkedUserObjectnul) {
+                    checkedUser.set((java.lang.Boolean) (callbackArg_0));
+                }
+            }
+        }
+    };*/
 
 }

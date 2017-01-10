@@ -18,7 +18,10 @@
             android:layout_width="100dp"
             android:layout_height="150dp"
             android:layout_gravity="center"
-            android:src="@drawable/default_bg"
+            app:failureImage="@drawable/default_bg"
+            app:failureImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/default_bg"
+            app:placeholderImageScaleType="centerCrop"
             bind:imageUrl="@{viewModel.cover}"/>
 
         <TextView

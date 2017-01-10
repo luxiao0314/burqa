@@ -19,7 +19,9 @@
             android:layout_width="match_parent"
             android:layout_height="100dp"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            app:actualImageScaleType="centerCrop"
+            app:failureImage="@drawable/default_bg"
+            app:failureImageScaleType="centerCrop"
+            app:placeholderImage="@drawable/default_bg"
             app:placeholderImageScaleType="centerCrop"
             bind:imageUrl="@{viewModel.img}"/>
 

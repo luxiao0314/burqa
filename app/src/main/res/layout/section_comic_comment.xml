@@ -14,14 +14,14 @@
         android:background="@color/white"
         android:orientation="horizontal"
         android:paddingEnd="5dp"
-        android:paddingTop="5dp"
-        android:paddingStart="5dp">
+        android:paddingStart="5dp"
+        android:paddingTop="5dp">
         <lib.lhh.fiv.library.FrescoImageView
             android:id="@+id/iv_user"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:failureImage="@drawable/my_baby"
-            app:failureImageScaleType="fitXY"
+            app:failureImage="@drawable/default_bg"
+            app:failureImageScaleType="centerCrop"
             app:placeholderImage="@drawable/default_bg"
             app:placeholderImageScaleType="centerCrop"
             app:roundAsCircle="true"
@@ -60,9 +60,9 @@
                     android:text="查看全文"/>
             </RelativeLayout>
             <View
-                android:layout_marginTop="5dp"
                 android:layout_width="match_parent"
                 android:layout_height="0.5dp"
+                android:layout_marginTop="5dp"
                 android:background="@color/window_background"/>
         </LinearLayout>
     </LinearLayout>
