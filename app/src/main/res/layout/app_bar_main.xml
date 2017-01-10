@@ -53,7 +53,7 @@
                         android:layout_marginStart="15dp"
                         android:onClick="@{viewModel.mOnClickListener}"
                         app:failureImage="@drawable/my_baby"
-                        app:failureImageScaleType="fitXY"
+                        app:failureImageScaleType="centerCrop"
                         app:placeholderImage="@drawable/my_baby"
                         app:placeholderImageScaleType="centerCrop"
                         app:roundAsCircle="true"/>

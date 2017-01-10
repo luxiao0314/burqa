@@ -167,6 +167,7 @@ public class BindingConfig {
     public static void setPageAdapter(ViewPager viewPager, android.support.v4.app.FragmentPagerAdapter adapter) {
         if (adapter != null) {
             viewPager.setAdapter(adapter);
+            viewPager.setCurrentItem(1);    //在设置adaper之后调用
         }
     }
 

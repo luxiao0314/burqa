@@ -48,7 +48,7 @@ public class MainViewModel extends BaseViewModel {
 
     public View.OnClickListener mOnClickListener = view -> toggleDrawer();
 
-    private void toggleDrawer(){
+    private void toggleDrawer() {
         if (mDataBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {
             mDataBinding.drawerLayout.closeDrawer(GravityCompat.START);
         } else {
