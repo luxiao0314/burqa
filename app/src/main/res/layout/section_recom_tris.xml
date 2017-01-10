@@ -12,12 +12,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:onClick="@{viewModel.mOnClickListener}"
         android:orientation="vertical"
         android:padding="10dp">
 
         <lib.lhh.fiv.library.FrescoImageView
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
             android:layout_width="match_parent"
-            android:layout_height="100dp"
+            android:layout_height="150dp"
             app:actualImageScaleType="centerCrop"
             app:placeholderImageScaleType="centerCrop"
             bind:imageUrl="@{viewModel.img}"/>
@@ -31,7 +33,6 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingTop="5dp"
-            android:text="@{viewModel.sub_title}"
-            android:visibility="gone"/>
+            android:text="@{viewModel.sub_title}"/>
     </LinearLayout>
 </layout>

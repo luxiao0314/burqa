@@ -75,14 +75,14 @@ public class RecomViewModel extends BaseViewModel {
                         mRecommendResponse = recommendResponse;
                         mAdapter = new SectionedRecyclerViewAdapter();
                         mAdapter.addSection(new RecomBannerSection(recommendResponse.get(0),mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(1), R.layout.recom_tris_section,mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(2), R.layout.recom_double_section, mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(4), R.layout.recom_tris_section, mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(5), R.layout.recom_tris_section, mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(6), R.layout.recom_double_section, mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), R.layout.recom_double_section, mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), R.layout.recom_tris_section, mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(8), R.layout.recom_tris_section, mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(1), R.layout.section_recom_tris,mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(2), R.layout.section_recom_double, mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(4), R.layout.section_recom_tris, mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(5), R.layout.section_recom_tris, mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(6), R.layout.section_recom_double, mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), R.layout.section_recom_double, mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), R.layout.section_recom_tris, mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(8), R.layout.section_recom_tris, mFragment.getActivity()));
                         mDataBinding.recyclerView.setAdapter(mAdapter); //加载完成之后要设置adapter,一定要记住
                     }
 

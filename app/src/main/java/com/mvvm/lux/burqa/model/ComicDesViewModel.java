@@ -7,6 +7,7 @@ import com.mvvm.lux.burqa.databinding.ActivityComicDesBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
+import com.mvvm.lux.burqa.ui.home.adapter.section.ComicCommentSection;
 import com.mvvm.lux.burqa.ui.home.adapter.section.ComicHeaderSection;
 import com.mvvm.lux.burqa.ui.home.adapter.section.ComicItemSection;
 import com.mvvm.lux.framework.base.BaseViewModel;
@@ -59,6 +60,7 @@ public class ComicDesViewModel extends BaseViewModel {
                         mAdapter = new SectionedRecyclerViewAdapter();
                         mAdapter.addSection(new ComicHeaderSection(mActivity,comicResponse));
                         mAdapter.addSection(new ComicItemSection(mActivity,comicResponse));
+                        mAdapter.addSection(new ComicCommentSection(mActivity,comicResponse));
                         mDataBinding.recyclerView.setAdapter(mAdapter);
                     }
                 });
