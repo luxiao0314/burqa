@@ -18,7 +18,7 @@ public class RetrofitHelper {
      * @return
      */
     public static ApiService init() {
-        return RetrofitExcuter.init()
+        return RetrofitExcuter.create()
                 .baseUrl(UrlConfig.DMZJ)
                 .build()
                 .create(ApiService.class);

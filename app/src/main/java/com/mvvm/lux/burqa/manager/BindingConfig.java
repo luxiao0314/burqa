@@ -6,14 +6,22 @@ import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
 import android.databinding.ObservableList;
 import android.databinding.adapters.ListenerUtil;
+import android.graphics.drawable.Animatable;
+import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
-import android.text.TextUtils;
 import android.view.View;
 import android.widget.CompoundButton;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.drawable.ScalingUtils;
+import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
+import com.facebook.drawee.interfaces.DraweeController;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.widget.banner.BannerEntity;
 import com.mvvm.lux.widget.banner.BannerView;
@@ -122,12 +130,41 @@ public class BindingConfig {
 
     @BindingAdapter("imageUrl")
     public static void serImageView(FrescoImageView imageView, String url) {
-        if (TextUtils.isEmpty(url)) {
-            imageView.loadView("", R.drawable.article_default_image);
-        } else {
-            imageView.loadView(url, R.drawable.default_bg);
-        }
+//            imageView.loadView(url, R.drawable.default_bg);
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setUri(Uri.parse(url))
+                .setTapToRetryEnabled(true)
+                .setControllerListener(listener)
+                .build();
+
+        ScalingUtils.ScaleType scaleType = ScalingUtils.ScaleType.CENTER_CROP;
+        GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(imageView.getResources())
+                .setFadeDuration(300)
+                .setRetryImage(R.drawable.network_error, scaleType)
+                .setProgressBarImage(R.drawable.buka_loading, scaleType)
+                .setPlaceholderImage(R.drawable.default_bg, scaleType)
+                .setFailureImage(R.drawable.default_bg, scaleType)
+                .build();
+        imageView.setHierarchy(hierarchy);
+        imageView.setController(controller);
     }
+
+    public static ControllerListener listener = new BaseControllerListener() {
+        @Override
+        public void onFinalImageSet(String id, Object imageInfo, Animatable animatable) {
+            super.onFinalImageSet(id, imageInfo, animatable);
+        }
+
+        @Override
+        public void onFailure(String id, Throwable throwable) {
+            super.onFailure(id, throwable);
+        }
+
+        @Override
+        public void onIntermediateImageFailed(String id, Throwable throwable) {
+            super.onIntermediateImageFailed(id, throwable);
+        }
+    };
 
     /**
      * 发现页面流式布局adapter
