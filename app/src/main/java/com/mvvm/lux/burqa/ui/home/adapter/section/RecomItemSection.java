@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.base.StatelessSection;
 import com.mvvm.lux.burqa.model.RecomDoubleViewModel;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
-import com.mvvm.lux.framework.manager.recycler.sectioned.StatelessSection;
 
 /**
  * @Description 使用grid实现多条目, 每一个title和单独的item都是grid中的一个条目, 轮播图也是一个

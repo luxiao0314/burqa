@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.base.StatelessSection;
 import com.mvvm.lux.burqa.model.RecomBannerViewModel;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
-import com.mvvm.lux.framework.manager.recycler.sectioned.StatelessSection;
 
 /**
  * @Description 轮播图

@@ -3,12 +3,12 @@ package com.mvvm.lux.burqa.ui.home.adapter.section;
 import android.databinding.ViewDataBinding;
 import android.support.v7.widget.RecyclerView;
 
-import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.BR;
+import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.base.StatelessSection;
 import com.mvvm.lux.burqa.model.ComicHeaderViewModel;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
-import com.mvvm.lux.framework.manager.recycler.sectioned.StatelessSection;
 import com.mvvm.lux.framework.utils.CommonUtils;
 
 import java.util.List;

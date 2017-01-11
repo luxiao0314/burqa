@@ -3,6 +3,7 @@ package com.mvvm.lux.burqa.model;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.mvvm.lux.burqa.base.SectionedRecyclerViewAdapter;
 import com.mvvm.lux.burqa.databinding.ActivityComicDesBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
@@ -14,7 +15,6 @@ import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
-import com.mvvm.lux.framework.manager.recycler.sectioned.SectionedRecyclerViewAdapter;
 
 /**
  * @Description

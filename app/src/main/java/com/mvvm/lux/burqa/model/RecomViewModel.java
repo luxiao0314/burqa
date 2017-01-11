@@ -4,6 +4,7 @@ import android.databinding.ObservableBoolean;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.mvvm.lux.burqa.base.SectionedRecyclerViewAdapter;
 import com.mvvm.lux.burqa.databinding.FragmentRecomBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
@@ -15,7 +16,6 @@ import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
-import com.mvvm.lux.framework.manager.recycler.sectioned.SectionedRecyclerViewAdapter;
 import com.mvvm.lux.widget.emptyview.EmptyView;
 
 import java.util.ArrayList;

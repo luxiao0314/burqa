@@ -11,7 +11,6 @@ import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.model.RecomDoubleItemViewModel;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
-import com.mvvm.lux.framework.manager.recycler.AbsRecyclerViewAdapter;
 
 import java.util.List;
 
@@ -22,26 +21,24 @@ import java.util.List;
  * @Date 2017/1/11 13:10
  * @Version
  */
-public class RecomItemListAdapter extends AbsRecyclerViewAdapter {
+public class RecomItemListAdapter extends RecyclerView.Adapter<RecomItemListAdapter.ItemViewHolder> {
 
     private Activity mActivity;
     private List<RecommendResponse.DataBean> mDataList;
 
-    public RecomItemListAdapter(Activity activity, RecyclerView recyclerView, List<RecommendResponse.DataBean> dataList) {
-        super(recyclerView);
+    public RecomItemListAdapter(Activity activity,List<RecommendResponse.DataBean> dataList) {
         mActivity = activity;
         mDataList = dataList;
     }
 
     @Override
-    public ClickableViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public ItemViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         ViewDataBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(parent.getContext()), R.layout.section_recom_double, parent, false);
-        return new ClickableViewHolder(dataBinding);
+        return new ItemViewHolder(dataBinding);
     }
 
     @Override
-    public void onBindViewHolder(ClickableViewHolder holder, int position) {
-        super.onBindViewHolder(holder, position);
+    public void onBindViewHolder(ItemViewHolder holder, int position) {
         RecommendResponse.DataBean dataBean = mDataList.get(position);
         RecomDoubleItemViewModel viewModel = new RecomDoubleItemViewModel(mActivity);
         viewModel.img.set(dataBean.getCover());
@@ -50,8 +47,21 @@ public class RecomItemListAdapter extends AbsRecyclerViewAdapter {
         holder.getParentView().executePendingBindings();
     }
 
+
     @Override
     public int getItemCount() {
         return mDataList.size();
+    }
+
+    public class ItemViewHolder extends RecyclerView.ViewHolder {
+        private ViewDataBinding parentView;
+        public ItemViewHolder(ViewDataBinding itemView) {
+            super(itemView.getRoot());
+            this.parentView = itemView;
+        }
+
+        public ViewDataBinding getParentView() {
+            return parentView;
+        }
     }
 }

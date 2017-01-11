@@ -6,12 +6,12 @@ import android.support.v7.widget.RecyclerView;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.base.StatelessSection;
 import com.mvvm.lux.burqa.databinding.SectionRecomListBinding;
 import com.mvvm.lux.burqa.model.RecomDoubleViewModel;
 import com.mvvm.lux.burqa.model.RecomItemListViewModel;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
 import com.mvvm.lux.burqa.ui.home.adapter.RecomItemListAdapter;
-import com.mvvm.lux.framework.manager.recycler.sectioned.StatelessSection;
 
 import java.util.List;
 
@@ -63,7 +63,7 @@ public class RecomItemListSection extends StatelessSection {
         SectionRecomListBinding dataBinding = ((FooterViewHolder) holder).mDataBinding;
         List<RecommendResponse.DataBean> mRecommendResponseData = mRecommendResponse.getData();
         RecomItemListViewModel viewModel = new RecomItemListViewModel(mActivity);
-        dataBinding.recyclerView.setAdapter(new RecomItemListAdapter(mActivity, dataBinding.recyclerView,mRecommendResponseData));
+        dataBinding.recyclerView.setAdapter(new RecomItemListAdapter(mActivity, mRecommendResponseData));
         dataBinding.setVariable(BR.viewModel,viewModel);
         dataBinding.executePendingBindings();
     }
