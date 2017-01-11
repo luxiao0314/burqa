@@ -22,8 +22,8 @@ public class RecomItemSection extends StatelessSection {
     private RecommendResponse mRecommendResponse;
     private FragmentActivity mActivity;
 
-    public RecomItemSection(RecommendResponse recommendResponse, int resLayout, FragmentActivity activity) {
-        super(R.layout.section_recom_title, resLayout);
+    public RecomItemSection(RecommendResponse recommendResponse, FragmentActivity activity) {
+        super(R.layout.section_recom_title, R.layout.section_recom_tris);
         mRecommendResponse = recommendResponse;
         mActivity = activity;
     }

@@ -6,12 +6,13 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mvvm.lux.burqa.model.RecomDoubleViewModel"/>
+            type="com.mvvm.lux.burqa.model.RecomDoubleItemViewModel"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/white"
+        android:onClick="@{viewModel.mOnClickListener}"
         android:orientation="vertical"
         android:padding="10dp">
 
@@ -24,13 +25,9 @@
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:ellipsize="end"
+            android:maxLines="1"
             android:paddingTop="5dp"
             android:text="@{viewModel.title}"/>
-        <TextView
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:paddingTop="5dp"
-            android:text="@{viewModel.sub_title}"
-            android:visibility="gone"/>
     </LinearLayout>
 </layout>
