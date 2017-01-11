@@ -20,10 +20,6 @@
             android:id="@+id/iv_user"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:failureImage="@drawable/default_bg"
-            app:failureImageScaleType="centerCrop"
-            app:placeholderImage="@drawable/default_bg"
-            app:placeholderImageScaleType="centerCrop"
             app:roundAsCircle="true"
             bind:imageUrl="@{viewModel.avatar}"/>
 

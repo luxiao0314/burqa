@@ -134,8 +134,7 @@ public class ImagePicsListActivity extends BaseActivity {
         public Object instantiateItem(ViewGroup container, int position) {
             String imageURL = mUrls.get(position);
             View contentview = LayoutInflater.from(mContext).inflate(R.layout.gallery_item, container, false);
-            final PhotoDraweeView photoView = (PhotoDraweeView) contentview
-                    .findViewById(R.id.photoview);
+            final PhotoDraweeView photoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
             photoView.setOnPhotoTapListener(onPhotoTapListener);
 
             PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();

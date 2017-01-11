@@ -26,6 +26,7 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.widget.banner.BannerEntity;
 import com.mvvm.lux.widget.banner.BannerView;
 import com.mvvm.lux.widget.emptyview.EmptyView;
+import com.shuyu.frescoutil.FrescoHelper;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -128,9 +129,15 @@ public class BindingConfig {
 
     /* ------------------------ other ---------------------------- */
 
+    @BindingAdapter("frescoUrl")
+    public static void setImageView(FrescoImageView imageView, String url) {
+        //添加图片统一配置
+        FrescoHelper.loadNet(imageView,url);
+    }
+
     @BindingAdapter("imageUrl")
-    public static void serImageView(FrescoImageView imageView, String url) {
-//            imageView.loadView(url, R.drawable.default_bg);
+    public static void setUrl(FrescoImageView imageView, String url) {
+        //添加图片统一配置
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(Uri.parse(url))
                 .setTapToRetryEnabled(true)

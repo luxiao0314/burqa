@@ -20,14 +20,6 @@
             android:layout_width="match_parent"
             android:layout_height="150dp"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
-            app:failureImage="@drawable/default_bg"
-            app:failureImageScaleType="centerCrop"
-            app:placeholderImage="@drawable/default_bg"
-            app:placeholderImageScaleType="centerCrop"
-            app:progressBarImage="@drawable/buka_loading"
-            app:progressBarImageScaleType="centerInside"
-            app:retryImage="@drawable/article_default_image"
-            app:retryImageScaleType="centerCrop"
             bind:imageUrl="@{viewModel.img}"/>
 
         <TextView
