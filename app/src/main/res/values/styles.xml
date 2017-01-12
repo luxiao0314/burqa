@@ -19,6 +19,11 @@
     </style>
 
     <!--设置继承appcompat的activity透明主题-->
+    <style name="ThemeApp_laucher" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        <item name="android:windowBackground">@drawable/splash_layout</item>
+    </style>
+
+    <!--设置继承appcompat的activity透明主题-->
     <style name="window_translucent" parent="BaseAppTheme">
         <item name="android:windowBackground">@android:color/transparent</item>
         <item name="android:colorBackgroundCacheHint">@null</item>
