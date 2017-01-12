@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.framework.utils.StatusBarUtils;
 
 import java.util.concurrent.TimeUnit;
 
@@ -28,6 +29,7 @@ public class SplashActivity extends Activity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
         mBind = ButterKnife.bind(this);
+        StatusBarUtils.hideStatusBar(getWindow(), true);    //不加这个,状态栏会切换闪一下
         setUpSplash();
     }
 

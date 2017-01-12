@@ -19,7 +19,7 @@
     </style>
 
     <!--设置继承appcompat的activity透明主题-->
-    <style name="ThemeApp_laucher" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+    <style name="ThemeAppLaucher" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@drawable/splash_layout</item>
     </style>
 

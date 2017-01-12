@@ -19,7 +19,7 @@
 
         <activity
             android:name=".ui.home.activity.SplashActivity"
-            android:theme="@style/ThemeApp_laucher">
+            android:theme="@style/ThemeAppLaucher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
                 <category android:name="android.intent.category.LAUNCHER"/>
