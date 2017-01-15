@@ -171,6 +171,7 @@ public class BindingConfig {
                 .setProgressBarImage(R.drawable.buka_loading, scaleType)
                 .setPlaceholderImage(R.drawable.default_bg, scaleType)
                 .setFailureImage(R.drawable.default_bg, scaleType)
+                .setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY)
                 .build();
         imageView.setHierarchy(hierarchy);
         if (isCircle)

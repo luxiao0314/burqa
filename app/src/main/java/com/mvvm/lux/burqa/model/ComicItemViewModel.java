@@ -11,7 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 
 import com.mvvm.lux.burqa.R;
-import com.mvvm.lux.burqa.RR;
+import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;

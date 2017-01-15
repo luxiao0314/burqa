@@ -60,7 +60,11 @@ public class RecomItemSection extends StatelessSection {
         viewModel.img.set(dataBean.getCover());
         viewModel.title.set(dataBean.getTitle());
         viewModel.sub_title.set(dataBean.getSub_title());
-        viewModel.obj_id.set(dataBean.getObj_id());
+        if ("最新上架".equals(mRecommendResponse.getTitle())) {
+            viewModel.obj_id.set(dataBean.getId());
+        } else {
+            viewModel.obj_id.set(dataBean.getObj_id());
+        }
         ((RecomItemHolder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((RecomItemHolder) holder).mDataBinding.executePendingBindings();
     }

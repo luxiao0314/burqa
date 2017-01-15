@@ -72,6 +72,7 @@ public class RecommendResponse {
         private int type;
         private String url;
         private int obj_id;
+        private int id;
         private String status;
 
         public String getCover() {
@@ -128,6 +129,14 @@ public class RecommendResponse {
 
         public void setStatus(String status) {
             this.status = status;
+        }
+
+        public int getId() {
+            return id;
+        }
+
+        public void setId(int id) {
+            this.id = id;
         }
     }
 }

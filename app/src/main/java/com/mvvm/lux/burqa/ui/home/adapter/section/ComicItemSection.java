@@ -12,6 +12,7 @@ import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.framework.utils.DateUtil;
 
+
 /**
  * @Description
  * @Author luxiao418
@@ -56,11 +57,12 @@ public class ComicItemSection extends StatelessSection {
         ComicResponse.ChaptersBean chapters = mComicResponse.getChapters().get(0);
         viewModel.chapters_title.set(chapters.getTitle());
         viewModel.chaptersList.addAll(chapters.getData());
-        for (int i = 0; i < 12; i++) {
+        int count = chapters.getData().size() < 12 ? chapters.getData().size() : 12;
+        for (int i = 0; i < count; i++) {
             viewModel.chaptersListLess.add(chapters.getData().get(i));
         }
         viewModel.tempList.addAll(viewModel.chaptersListLess);
-        ((ItemViewHoder) holder).mDataBinding.setVariable(BR.viewModel,viewModel);
+        ((ItemViewHoder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((ItemViewHoder) holder).mDataBinding.executePendingBindings();
     }
 

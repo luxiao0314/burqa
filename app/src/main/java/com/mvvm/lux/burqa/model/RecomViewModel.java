@@ -85,9 +85,9 @@ public class RecomViewModel extends BaseViewModel {
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(4), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(5), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemListSection(recommendResponse.get(6), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(7), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(8), mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(8), mFragment.getActivity()));
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(9), mFragment.getActivity()));
                         mDataBinding.recyclerView.setAdapter(mAdapter); //加载完成之后要设置adapter,一定要记住
                         refreshing.set(false);
                         showEmpty.set(false);
