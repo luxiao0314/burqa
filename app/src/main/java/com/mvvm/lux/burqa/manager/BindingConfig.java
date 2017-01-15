@@ -166,16 +166,22 @@ public class BindingConfig {
 
         ScalingUtils.ScaleType scaleType = ScalingUtils.ScaleType.CENTER_CROP;
         GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(imageView.getResources())
-                .setFadeDuration(300)
-                .setRetryImage(R.drawable.network_error, scaleType)
-                .setProgressBarImage(R.drawable.buka_loading, scaleType)
-                .setPlaceholderImage(R.drawable.default_bg, scaleType)
-                .setFailureImage(R.drawable.default_bg, scaleType)
-                .setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY)
-                .build();
+                .setFadeDuration(300).build();
         imageView.setHierarchy(hierarchy);
-        if (isCircle)
+        if (isCircle) {
+            hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
+            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
+            hierarchy.setPlaceholderImage(R.drawable.default_circle_bg, scaleType);
+            hierarchy.setFailureImage(R.drawable.default_circle_bg, scaleType);
             imageView.asCircle();
+        } else {
+            hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
+            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
+            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
+            hierarchy.setPlaceholderImage(R.drawable.default_bg, scaleType);
+            hierarchy.setFailureImage(R.drawable.default_bg, scaleType);;
+        }
         imageView.setController(controller);
     }
 
@@ -332,11 +338,12 @@ public class BindingConfig {
 
     /**
      * 所谓双向绑定,
+     *
      * @param view
      */
     @InverseBindingAdapter(attribute = "onClick", event = "onClickAttrChanged")
     public static boolean onClick(TextView view) {
-       return view.callOnClick();
+        return view.callOnClick();
     }
 
 //    @BindingAdapter(value = {"text", "onClickAttrChanged"}, requireAll = false)
