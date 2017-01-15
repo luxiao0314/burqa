@@ -1,5 +1,6 @@
 package com.mvvm.lux.burqa.http;
 
+import com.mvvm.lux.burqa.model.response.CategoryResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
@@ -27,4 +28,7 @@ public interface ApiService {
 
     @GET("{url}")
     Observable<ComicPageResponse> getChapter(@Path("url") String url);
+
+    @GET("0/category.json")
+    Observable<List<CategoryResponse>> getCategory();
 }
