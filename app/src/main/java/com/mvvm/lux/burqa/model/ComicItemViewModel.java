@@ -10,8 +10,8 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.RR;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
@@ -35,6 +35,8 @@ public class ComicItemViewModel extends BaseViewModel {
     public ObservableField<String> last_updatetime = new ObservableField<>();
 
     public ObservableField<String> obj_id = new ObservableField<>();
+
+    public ObservableField<String> show_more = new ObservableField<>("查看全部章节");
 
     public ObservableList<ComicResponse.ChaptersBean.DataBean> chaptersList = new ObservableArrayList<>();  //原始全部集合
 
@@ -106,11 +108,13 @@ public class ComicItemViewModel extends BaseViewModel {
             mDataBinding.otherChaptersFlow.setVisibility(View.VISIBLE);
             mDataBinding.titleOther.setVisibility(View.VISIBLE);
             showAll.set(false);
+            show_more.set("收起章节");
         } else {
             tempList.addAll(chaptersListLess);
             mDataBinding.otherChaptersFlow.setVisibility(View.GONE);
             mDataBinding.titleOther.setVisibility(View.GONE);
             showAll.set(true);
+            show_more.set("查看全部章节");
         }
         chaptersAdapter.notifyDataChanged();
     };

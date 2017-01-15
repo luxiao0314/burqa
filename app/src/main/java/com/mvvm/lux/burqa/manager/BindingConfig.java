@@ -1,6 +1,7 @@
 package com.mvvm.lux.burqa.manager;
 
 import android.databinding.BindingAdapter;
+import android.databinding.InverseBindingAdapter;
 import android.databinding.InverseBindingListener;
 import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
@@ -14,6 +15,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.BaseControllerListener;
@@ -23,10 +25,11 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.model.response.ComicResponse;
+import com.mvvm.lux.burqa.ui.home.adapter.TagFlowAdapter;
 import com.mvvm.lux.widget.banner.BannerEntity;
 import com.mvvm.lux.widget.banner.BannerView;
 import com.mvvm.lux.widget.emptyview.EmptyView;
-import com.shuyu.frescoutil.FrescoHelper;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -43,6 +46,17 @@ public class BindingConfig {
     /* --------------------------  recycleView  ----------------------------*/
 
     /**
+     * 双向绑定
+     *
+     * @param view
+     * @return
+     */
+    @InverseBindingAdapter(attribute = "refreshing", event = "refreshingAttrChanged")
+    public static boolean isRefreshing(SwipeRefreshLayout view) {
+        return view.isRefreshing();
+    }
+
+    /**
      * des:如果设置的属性是true,那么久刷新改控件 : dataBinding已经封装了设置刷新的属性,这里没用到
      * 正在刷新,方法名随意定,参数为控件,注解参数为设置的属性,那么系统就会优先选择自定义的属性
      * 也可以去在attrs里面定义这样的属性
@@ -55,12 +69,15 @@ public class BindingConfig {
     public static void setRefreshing(SwipeRefreshLayout view, boolean refreshing) {
         if (refreshing != view.isRefreshing()) {
             view.setRefreshing(refreshing);
+            view.setColorSchemeColors(view.getResources().getColor(R.color.colorPrimary));
         }
     }
 
     /**
      * 处理SwipeRefreshLayout的刷新事件
      * 其中event和method都不是必须的，因为系统会自动生成，写出来是为了更好地了解如何绑定的
+     * onRefreshListener : SwipeRefreshLayout 刷新的监听
+     * refreshingAttrChanged  : SwipeRefreshLayout刷新的状态,将两者关联起来
      *
      * @param view
      * @param listener
@@ -129,14 +146,17 @@ public class BindingConfig {
 
     /* ------------------------ other ---------------------------- */
 
-    @BindingAdapter("frescoUrl")
-    public static void setImageView(FrescoImageView imageView, String url) {
-        //添加图片统一配置
-        FrescoHelper.loadNet(imageView,url);
+    @BindingAdapter({"imageUrl"})
+    public static void setUrl(FrescoImageView imageView, String url) {
+        initImageVIew(imageView, url, false);
     }
 
-    @BindingAdapter("imageUrl")
-    public static void setUrl(FrescoImageView imageView, String url) {
+    @BindingAdapter({"imageUrl", "asCircle"})
+    public static void setUrl(FrescoImageView imageView, String url, boolean isCircle) {
+        initImageVIew(imageView, url, isCircle);
+    }
+
+    private static void initImageVIew(FrescoImageView imageView, String url, boolean isCircle) {
         //添加图片统一配置
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(Uri.parse(url))
@@ -153,6 +173,8 @@ public class BindingConfig {
                 .setFailureImage(R.drawable.default_bg, scaleType)
                 .build();
         imageView.setHierarchy(hierarchy);
+        if (isCircle)
+            imageView.asCircle();
         imageView.setController(controller);
     }
 
@@ -299,4 +321,25 @@ public class BindingConfig {
         }
     };*/
 
+    @BindingAdapter(value = {"flowAdapter", "onClickAttrChanged"}, requireAll = false)
+    public static void setAdapter(TagFlowLayout flowLayout, ObservableList<ComicResponse.ChaptersBean.DataBean> datas, InverseBindingListener inverseBindingListener) {
+        if (inverseBindingListener != null) {
+            flowLayout.setAdapter(new TagFlowAdapter(datas));   //onClick状态发生改变就重新设置adapter
+            inverseBindingListener.onChange();  //onClick状态发生改变同时更新textview内容
+        }
+    }
+
+    /**
+     * 所谓双向绑定,
+     * @param view
+     */
+    @InverseBindingAdapter(attribute = "onClick", event = "onClickAttrChanged")
+    public static boolean onClick(TextView view) {
+       return view.callOnClick();
+    }
+
+//    @BindingAdapter(value = {"text", "onClickAttrChanged"}, requireAll = false)
+//    public static void setText(TextView textView, String content, InverseBindingListener inverseBindingListener) {
+//
+//    }
 }

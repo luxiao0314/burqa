@@ -1,6 +1,7 @@
 package com.mvvm.lux.burqa.model;
 
 import android.databinding.ObservableBoolean;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
@@ -34,10 +35,13 @@ public class RecomViewModel extends BaseViewModel {
 
     private List<RecommendResponse> mRecommendResponse = new ArrayList<>();
 
+    public ObservableBoolean refreshing = new ObservableBoolean(false);
+
     public RecomViewModel(RecomFragment fragment, FragmentRecomBinding dataBinding) {
         super(fragment.getActivity());
         mFragment = fragment;
         mDataBinding = dataBinding;
+        refreshing.set(true);
     }
 
     public ObservableBoolean showEmpty = new ObservableBoolean(false);
@@ -85,6 +89,8 @@ public class RecomViewModel extends BaseViewModel {
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(8), mFragment.getActivity()));
                         mDataBinding.recyclerView.setAdapter(mAdapter); //加载完成之后要设置adapter,一定要记住
+                        refreshing.set(false);
+                        showEmpty.set(false);
                     }
 
                     @Override
@@ -93,5 +99,9 @@ public class RecomViewModel extends BaseViewModel {
                         showEmpty.set(true);
                     }
                 });
+    }
+
+    public SwipeRefreshLayout.OnRefreshListener onRefreshListener() {
+        return this::initData;  // refreshing.set(true); 双向绑定之后,刷新之后就不用设置为true了
     }
 }
