@@ -6,30 +6,41 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mvvm.lux.burqa.model.CategoryItemViewModel"/>
+            type="com.mvvm.lux.burqa.model.ClassifyItemViewModel"/>
     </data>
     <LinearLayout
-        android:onClick="@{viewModel.mOnClickListener}"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
-        android:paddingTop="20dp">
+        android:onClick="@{viewModel.mOnClickListener}"
+        android:orientation="vertical">
 
         <lib.lhh.fiv.library.FrescoImageView
-            android:id="@+id/category_iv"
+            android:id="@+id/classify_iv"
             android:layout_width="match_parent"
-            android:layout_height="80dp"
-            bind:asCircle="@{true}"
+            android:layout_height="150dp"
             bind:imageUrl="@{viewModel.cover}"/>
 
         <TextView
-            android:id="@+id/category_tv"
+            android:id="@+id/classify_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
+            android:ellipsize="end"
             android:gravity="center"
+            android:maxLines="1"
             android:padding="5dp"
             android:text="@{viewModel.title}"
+            android:textColor="@color/black_80"/>
+
+        <TextView
+            android:id="@+id/classify_author"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:ellipsize="end"
+            android:gravity="center"
+            android:maxLines="1"
+            android:text="@{viewModel.author}"
             android:textColor="@color/black_80"/>
     </LinearLayout>
 </layout>

@@ -35,9 +35,9 @@ public class ComicDesActivity extends SwipeBackActivity {
         mDataBinding.setViewModel((ComicDesViewModel) mViewModel);
     }
 
-    public static void launch(Activity activity, int obj_id) {
+    public static void launch(Activity activity, String obj_id) {
         Router.from(activity)
-                .putString("obj_id", obj_id + "")
+                .putString("obj_id", obj_id)
                 .to(ComicDesActivity.class)
                 .launch();
     }

@@ -180,7 +180,8 @@ public class BindingConfig {
             hierarchy.setRetryImage(R.drawable.network_error, scaleType);
             hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
             hierarchy.setPlaceholderImage(R.drawable.default_bg, scaleType);
-            hierarchy.setFailureImage(R.drawable.default_bg, scaleType);;
+            hierarchy.setFailureImage(R.drawable.default_bg, scaleType);
+            ;
         }
         imageView.setController(controller);
     }
@@ -262,7 +263,6 @@ public class BindingConfig {
         if (listener != null)
             emptyView.reload(listener);
     }
-
 
     @InverseBindingMethods({
             @InverseBindingMethod(type = CompoundButton.class, attribute = "android:checked"),

@@ -35,6 +35,8 @@
             android:theme="@style/swipeback_activity_style"/>
         <activity android:name=".ui.home.activity.ComicPageActivity"/>
         <activity android:name=".ui.home.activity.ImagePicsListActivity"/>
+        <activity android:name=".ui.home.activity.ComicClassifyActivity"
+                  android:theme="@style/swipeback_activity_style"/>
     </application>
 
 </manifest>

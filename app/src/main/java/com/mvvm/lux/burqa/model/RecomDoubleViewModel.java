@@ -31,6 +31,6 @@ public class RecomDoubleViewModel extends BaseViewModel {
     public ObservableField<Integer> obj_id = new ObservableField<>();
 
     public View.OnClickListener mOnClickListener = view -> {
-        ComicDesActivity.launch(mActivity, obj_id.get());
+        ComicDesActivity.launch(mActivity, obj_id.get()+"");
     };
 }
