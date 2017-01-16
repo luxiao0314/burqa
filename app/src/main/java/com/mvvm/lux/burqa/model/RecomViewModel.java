@@ -97,6 +97,7 @@ public class RecomViewModel extends BaseViewModel {
                     public void onError(Throwable e) {
                         super.onError(e);
                         showEmpty.set(true);
+                        refreshing.set(false);
                     }
                 });
     }

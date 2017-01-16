@@ -81,6 +81,12 @@ public class ComicClassifyViewModel extends BaseViewModel implements LoadMoreWra
                         mResponses.addAll(responses);
                         mLoadMoreWrapper.notifyDataSetChanged();
                     }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        refreshing.set(false);
+                    }
                 });
 
     }

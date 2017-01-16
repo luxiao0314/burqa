@@ -181,7 +181,6 @@ public class BindingConfig {
             hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
             hierarchy.setPlaceholderImage(R.drawable.default_bg, scaleType);
             hierarchy.setFailureImage(R.drawable.default_bg, scaleType);
-            ;
         }
         imageView.setController(controller);
     }
