@@ -8,6 +8,7 @@ import android.view.View;
 
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityMainBinding;
+import com.mvvm.lux.burqa.ui.home.activity.SearchActivity;
 import com.mvvm.lux.burqa.ui.home.adapter.HomePagerAdapter;
 import com.mvvm.lux.framework.base.BaseViewModel;
 
@@ -47,6 +48,10 @@ public class MainViewModel extends BaseViewModel {
     }
 
     public View.OnClickListener mOnClickListener = view -> toggleDrawer();
+
+    public View.OnClickListener mOnSearchClickListener = view -> {
+        SearchActivity.launch(mActivity);
+    };
 
     private void toggleDrawer() {
         if (mDataBinding.drawerLayout.isDrawerOpen(GravityCompat.START)) {

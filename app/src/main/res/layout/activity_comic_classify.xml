@@ -6,7 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mvvm.lux.burqa.model.ComicClassifyViewModel"/>
+            type="com.mvvm.lux.burqa.model.ClassifyViewModel"/>
         <import type="android.view.View"/>
     </data>
     <FrameLayout

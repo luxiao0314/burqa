@@ -10,13 +10,12 @@ import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.BR;
+import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
-import com.mvvm.lux.framework.utils.SnackbarUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -91,13 +90,12 @@ public class ComicItemViewModel extends BaseViewModel {
      * 流式布局item点击事件
      */
     public TagFlowLayout.OnTagClickListener mOnChaptersClickListener = (view, position, parent) -> {
-//        ComicPageActivity.launch(mActivity,obj_id.get(),chaptersList.get(position).getChapter_id(),position);
-        ImagePicsListActivity.launch(mActivity,obj_id.get(),chaptersList.get(position).getChapter_id(),position);
+        ImagePicsListActivity.launch(mActivity, obj_id.get(), chaptersList.get(0).getChapter_id(), position);
         return true;
     };
 
     public TagFlowLayout.OnTagClickListener mOnOtherChaptersClickListener = (view, position, parent) -> {
-        SnackbarUtil.showMessage("I am " + chaptersOther.get(position).getChapter_title() + "被电击了Ｏ(≧口≦)Ｏ");
+        ImagePicsListActivity.launch(mActivity, obj_id.get(), chaptersOther.get(0).getChapter_id(), position);
         return true;
     };
 

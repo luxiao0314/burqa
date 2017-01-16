@@ -4,7 +4,9 @@ import com.mvvm.lux.burqa.model.response.CategoryResponse;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
+import com.mvvm.lux.burqa.model.response.HotResponse;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
+import com.mvvm.lux.burqa.model.response.SearchResponse;
 
 import java.util.List;
 
@@ -35,4 +37,10 @@ public interface ApiService {
 
     @GET("{url}")
     Observable<List<ClassifyResponse>> getClassify(@Path("url") String url);
+
+    @GET("{url}")
+    Observable<List<SearchResponse>> getSearch(@Path("url") String url);
+
+    @GET("{url}")
+    Observable<List<HotResponse>> getHot(@Path("url") String url);
 }

@@ -34,7 +34,7 @@ import java.util.List;
  * @Date 2017/1/16 10:15
  * @Version
  */
-public class ComicClassifyViewModel extends BaseViewModel implements LoadMoreWrapper.OnLoadMoreListener {
+public class ClassifyViewModel extends BaseViewModel implements LoadMoreWrapper.OnLoadMoreListener {
 
     public ObservableField<String> tag_id = new ObservableField<>();
     public ObservableBoolean refreshing = new ObservableBoolean(false);
@@ -43,7 +43,7 @@ public class ComicClassifyViewModel extends BaseViewModel implements LoadMoreWra
     private int page = 0;
     private ActivityComicClassifyBinding mDataBinding;
 
-    public ComicClassifyViewModel(Activity activity, ActivityComicClassifyBinding dataBinding) {
+    public ClassifyViewModel(Activity activity, ActivityComicClassifyBinding dataBinding) {
         super(activity);
         mDataBinding = dataBinding;
     }

@@ -6,7 +6,7 @@ import android.os.Bundle;
 
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityComicClassifyBinding;
-import com.mvvm.lux.burqa.model.ComicClassifyViewModel;
+import com.mvvm.lux.burqa.model.ClassifyViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 
@@ -31,7 +31,7 @@ public class ComicClassifyActivity extends SwipeBackActivity {
     private void initData() {
         String tag_id = getIntent().getExtras().getString("tag_id");
         String title = getIntent().getExtras().getString("title");
-        ComicClassifyViewModel mViewModel = new ComicClassifyViewModel(this,mDataBinding);
+        ClassifyViewModel mViewModel = new ClassifyViewModel(this,mDataBinding);
         mViewModel.tag_id.set(tag_id);
         mViewModel.title.set(title);
         mViewModel.initData();

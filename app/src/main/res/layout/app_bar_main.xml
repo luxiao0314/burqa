@@ -59,6 +59,7 @@
                         app:roundAsCircle="true"/>
 
                     <ImageView
+                        android:onClick="@{viewModel.mOnSearchClickListener}"
                         android:id="@+id/download"
                         android:layout_width="30dp"
                         android:layout_height="30dp"

@@ -13,8 +13,10 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -261,6 +263,12 @@ public class BindingConfig {
     public static void reload(EmptyView emptyView, EmptyView.ReloadOnClickListener listener) {
         if (listener != null)
             emptyView.reload(listener);
+    }
+
+    @BindingAdapter("onTextChanged")
+    public static void onTextChanged(EditText editText, TextWatcher listener) {
+        if (listener != null)
+            editText.addTextChangedListener(listener);
     }
 
     @InverseBindingMethods({
