@@ -16,7 +16,7 @@
         android:padding="10dp">
         <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="100dp"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             android:layout_gravity="center"
             bind:imageUrl="@{viewModel.cover}"/>
 

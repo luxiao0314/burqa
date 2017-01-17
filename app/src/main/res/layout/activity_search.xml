@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.mvvm.lux.burqa.model.SearchViewModel"/>
+        <import type="android.view.View"/>
     </data>
 
     <android.support.design.widget.CoordinatorLayout
@@ -46,20 +47,23 @@
                         android:src="@drawable/ic_back"/>
 
                     <EditText
+                        android:id="@+id/et_search"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_centerInParent="true"
-                        android:layout_gravity="center_vertical"
+                        android:layout_centerVertical="true"
+                        android:layout_marginBottom="15dp"
                         android:layout_marginEnd="10dp"
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/back"
-                        android:layout_toStartOf="@+id/search"
+                        android:layout_toStartOf="@+id/iv_search"
+                        android:background="@drawable/search_line"
                         android:hint="输入漫画名或作者名"
                         android:textColor="@color/white"
+                        android:textColorHint="@color/window_background"
                         android:textSize="13sp"/>
 
                     <ImageView
-                        android:id="@+id/search"
+                        android:id="@+id/iv_search"
                         android:layout_width="30dp"
                         android:layout_height="30dp"
                         android:layout_alignParentEnd="true"
@@ -77,11 +81,22 @@
             android:background="@color/window_background"
             app:layout_behavior="@string/appbar_scrolling_view_behavior">
 
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:padding="10dp"
+                android:visibility="@{viewModel.showEmpty ? View.GONE : View.VISIBLE}"
+                app:layoutManager="@{viewModel.layoutManager}"
+                bind:addItemDecoration="@{viewModel.itemDecoration}"
+                bind:setAdapter="@{viewModel.mLoadMoreWrapper}"/>
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical"
-                android:padding="10dp">
+                android:padding="10dp"
+                android:visibility="@{viewModel.showSearch ? View.GONE : View.VISIBLE}">
 
                 <TextView
                     android:layout_width="match_parent"
@@ -98,39 +113,12 @@
                     bind:OnTagClick="@{viewModel.mOnChaptersClickListener}"
                     bind:adapter="@{viewModel.chaptersAdapter}"/>
             </LinearLayout>
-            <RelativeLayout
+
+            <com.mvvm.lux.widget.emptyview.EmptyView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <LinearLayout
-                    android:id="@+id/ll_des"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@color/white"
-                    android:orientation="vertical"
-                    android:padding="10dp">
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:text="抱歉,暂未找到相关的漫画"
-                        android:textColor="@color/black_80"/>
-                    <TextView
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dp"
-                        android:text="我们将尽快收录相关的漫画,你可以先看看:"/>
-                </LinearLayout>
-
-                <android.support.v7.widget.RecyclerView
-                    android:id="@+id/recyclerView"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:padding="10dp"
-                    app:layoutManager="@{viewModel.layoutManager}"
-                    bind:addItemDecoration="@{viewModel.itemDecoration}"
-                    bind:setAdapter="@{viewModel.mLoadMoreWrapper}"/>
-            </RelativeLayout>
+                android:visibility="@{viewModel.showEmpty ? View.VISIBLE : View.GONE}"
+                bind:reload="@{viewModel.mReloadOnClickListener}"/>
         </FrameLayout>
     </android.support.design.widget.CoordinatorLayout>
 </layout>

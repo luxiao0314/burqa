@@ -48,7 +48,7 @@ public class ClassifyViewModel extends BaseViewModel implements LoadMoreWrapper.
         mDataBinding = dataBinding;
     }
 
-    public RecyclerView.ItemDecoration itemDecoration = new AlphaDividerItemDecoration(DisplayUtil.dp2px(mActivity, 5));
+    public RecyclerView.ItemDecoration itemDecoration = new AlphaDividerItemDecoration(DisplayUtil.dp2px(5));
 
     public RecyclerView.LayoutManager getLayoutManager() {
         GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 6);

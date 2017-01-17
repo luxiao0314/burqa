@@ -17,7 +17,7 @@
         <lib.lhh.fiv.library.FrescoImageView
             android:id="@+id/classify_iv"
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="130dp"
             bind:imageUrl="@{viewModel.cover}"/>
 
         <TextView
