@@ -24,8 +24,9 @@ import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.framework.base.BaseActivity;
+import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
-import com.mvvm.lux.framework.http.RxSubscriber;
+import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.rx.RxBus;
 import com.mvvm.lux.framework.utils.DateUtil;
@@ -35,6 +36,8 @@ import java.util.ArrayList;
 
 import me.relex.photodraweeview.OnPhotoTapListener;
 import me.relex.photodraweeview.PhotoDraweeView;
+import progress.CircleProgress;
+import progress.enums.CircleStyle;
 import rx.functions.Action1;
 
 import static com.mvvm.lux.burqa.R.id.advert_tv;
@@ -51,6 +54,7 @@ public class ImagePicsListActivity extends BaseActivity {
     private TextView mChapterTitle;
     private TextView mNetworkLogo;
     private TextView mTime;
+    private int mPosition;
 
     public static void launch(Activity activity, String obj_id, int chapter_id, String chapter_title, int position) {
         Router.from(activity)
@@ -88,6 +92,7 @@ public class ImagePicsListActivity extends BaseActivity {
     private void initEvent() {
         RxBus.init().toObservable(ProgressEvent.class)
                 .subscribe(new Action1<ProgressEvent>() {
+
                     @Override
                     public void call(ProgressEvent progressEvent) {
                         refreshCurrentPosition(progressEvent.mProgress);
@@ -103,7 +108,7 @@ public class ImagePicsListActivity extends BaseActivity {
         RetrofitHelper.init()
                 .getChapter("chapter/" + obj_id + "/" + chapter_id + ".json")
                 .compose(RxHelper.io_main())
-                .subscribe(new RxSubscriber<ComicPageResponse>() {
+                .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(this)) {
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
                         mUrls.addAll(comicPageResponse.getPage_url());
@@ -115,7 +120,6 @@ public class ImagePicsListActivity extends BaseActivity {
                         mViewPager.setAdapter(new MyPagerAdapter(ImagePicsListActivity.this, mUrls));
                         mViewPager.setOnPageChangeListener(mOnPageChangeListener);
                         mViewPager.setOffscreenPageLimit(5);
-
                         refreshCurrentPosition(position);
                     }
                 });
@@ -131,12 +135,14 @@ public class ImagePicsListActivity extends BaseActivity {
     }
 
     private ViewPager.OnPageChangeListener mOnPageChangeListener = new ViewPager.OnPageChangeListener() {
+
         @Override
         public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
         }
 
         @Override
         public void onPageSelected(int position) {
+            mPosition = position;
             refreshCurrentPosition(position);
         }
 
@@ -165,11 +171,11 @@ public class ImagePicsListActivity extends BaseActivity {
             final PhotoDraweeView photoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
             photoView.setOnPhotoTapListener(onPhotoTapListener);
 
-//            GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(getResources())
-//                    .setFadeDuration(500)
-//                    .setProgressBarImage(new ImageLoadingDrawable())    //自定义fresco进度加载
-//                    .build();
-//            photoView.setHierarchy(hierarchy);
+            CircleProgress.Builder builder = new CircleProgress.Builder();
+            builder.setStyle(CircleStyle.RING)
+                    .setCustomText((position + 1) + "")
+                    .build()
+                    .injectFresco(photoView);
 
             PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
             controller.setUri(imageURL);
@@ -207,8 +213,7 @@ public class ImagePicsListActivity extends BaseActivity {
                 if (photoView.getScale() > photoView.getMinimumScale()) {
                     photoView.setScale(photoView.getMinimumScale(), true);
                 } else {
-                    ImagePicDialogFragment.show(ImagePicsListActivity.this,urlistsize);
-//                    DialogManager.showCustomDialog(ImagePicsListActivity.this);
+                    ImagePicDialogFragment.show(ImagePicsListActivity.this, urlistsize,mPosition);
                 }
             }
         }
@@ -221,7 +226,7 @@ public class ImagePicsListActivity extends BaseActivity {
     }
 
     void refreshCurrentPosition(int position) {
-        mViewPager.setCurrentItem(position);
+        mViewPager.setCurrentItem(position, false);
         mAdvertv.setText("" + (position + 1) + "/" + urlistsize);
     }
 }

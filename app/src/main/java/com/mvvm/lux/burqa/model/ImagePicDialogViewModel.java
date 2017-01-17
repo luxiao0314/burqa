@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.databinding.ObservableField;
 import android.widget.SeekBar;
 
+import com.mvvm.lux.burqa.databinding.ImagePicFragmentDialogBinding;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.rx.RxBus;
@@ -19,15 +20,19 @@ public class ImagePicDialogViewModel extends BaseViewModel {
 
     public ObservableField<Integer> maxProgress = new ObservableField<>();
 
-    public ImagePicDialogViewModel(Activity activity) {
+    public ObservableField<Integer> progress = new ObservableField<>(0);
+
+    private ImagePicFragmentDialogBinding mDataBinding;
+
+    public ImagePicDialogViewModel(Activity activity, ImagePicFragmentDialogBinding dataBinding) {
         super(activity);
+        mDataBinding = dataBinding;
     }
 
     public SeekBar.OnSeekBarChangeListener getSeekBarChangeListener() {
         return new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-                RxBus.init().postSticky(new ProgressEvent(progress));
             }
 
             @Override
@@ -37,7 +42,8 @@ public class ImagePicDialogViewModel extends BaseViewModel {
 
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
-
+                int progress = seekBar.getProgress();
+                RxBus.init().postSticky(new ProgressEvent(progress));
             }
         };
     }

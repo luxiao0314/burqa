@@ -97,6 +97,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="@{viewModel.maxProgress}"
+                android:progress="@{viewModel.progress}"
                 android:padding="5dp"
                 bind:seekBarChangeListener="@{viewModel.seekBarChangeListener}"/>
 

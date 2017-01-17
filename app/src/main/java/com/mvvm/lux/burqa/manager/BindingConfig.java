@@ -25,7 +25,6 @@ import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
-import com.facebook.drawee.generic.GenericDraweeHierarchyBuilder;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
@@ -151,15 +150,6 @@ public class BindingConfig {
 
     @BindingAdapter({"imageUrl"})
     public static void setUrl(FrescoImageView imageView, String url) {
-        initImageVIew(imageView, url, false);
-    }
-
-    @BindingAdapter({"imageUrl", "asCircle"})
-    public static void setUrl(FrescoImageView imageView, String url, boolean isCircle) {
-        initImageVIew(imageView, url, isCircle);
-    }
-
-    private static void initImageVIew(FrescoImageView imageView, String url, boolean isCircle) {
         //添加图片统一配置
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(Uri.parse(url))
@@ -168,25 +158,11 @@ public class BindingConfig {
                 .build();
 
         ScalingUtils.ScaleType scaleType = ScalingUtils.ScaleType.CENTER_CROP;
-        GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(imageView.getResources())
-                .build();
+        GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
+        hierarchy.setFadeDuration(500);
         imageView.setHierarchy(hierarchy);
-        if (isCircle) {
-            hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-//            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
-//            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
-            hierarchy.setFadeDuration(500); //渐进式
-            hierarchy.setPlaceholderImage(R.drawable.default_avatar, scaleType);
-            hierarchy.setFailureImage(R.drawable.default_avatar, scaleType);
-            imageView.asCircle();
-        } else {
-            hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
-            hierarchy.setFadeDuration(500);
-//            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
-//            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
-            hierarchy.setPlaceholderImage(R.drawable.default_bg, scaleType);
-            hierarchy.setFailureImage(R.drawable.default_bg, scaleType);
-        }
+        hierarchy.setPlaceholderImage(R.drawable.default_bg, scaleType);
+        hierarchy.setFailureImage(R.drawable.default_bg, scaleType);
         imageView.setController(controller);
     }
 
