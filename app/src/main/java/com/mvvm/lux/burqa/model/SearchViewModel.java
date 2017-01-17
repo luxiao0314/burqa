@@ -101,7 +101,7 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
         mSearchResponses.clear();
         //search/show/0/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/0.json :搜索结果
         RetrofitHelper.init()
-                .getSearch("search/show/0/ " + keyword + "/" + page + ".json")
+                .getSearch(keyword)
                 .compose(RxHelper.io_main())
                 .subscribe(new ProgressSubscriber<List<SearchResponse>>(ServiceTask.create(mSearchActivity)) {
 

@@ -14,9 +14,8 @@ import com.mvvm.lux.burqa.ui.home.adapter.section.RecomItemListSection;
 import com.mvvm.lux.burqa.ui.home.adapter.section.RecomItemSection;
 import com.mvvm.lux.burqa.ui.home.fragment.RecomFragment;
 import com.mvvm.lux.framework.base.BaseViewModel;
-import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
-import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
+import com.mvvm.lux.framework.http.RxSubscriber;
 import com.mvvm.lux.widget.emptyview.EmptyView;
 
 import java.util.ArrayList;
@@ -73,7 +72,7 @@ public class RecomViewModel extends BaseViewModel {
         RetrofitHelper.init()
                 .getRecommend()
                 .compose(RxHelper.io_main())
-                .subscribe(new ProgressSubscriber<List<RecommendResponse>>(ServiceTask.create(mFragment)) {
+                .subscribe(new RxSubscriber<List<RecommendResponse>>() {
 
                     @Override
                     public void onNext(List<RecommendResponse> recommendResponse) {

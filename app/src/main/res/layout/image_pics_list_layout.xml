@@ -1,25 +1,63 @@
 <?xml version="1.0" encoding="utf-8"?>
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="fill_parent"
-    android:background="#000000"
-    android:orientation="horizontal">
-
-    <TextView
-        android:id="@+id/advert_tv"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="40dp"
-        android:text="8/13"
-        android:textColor="#ffffffff"
-        android:textSize="20dp" />
+                android:layout_width="match_parent"
+                android:layout_height="fill_parent"
+                android:background="#000000"
+                android:orientation="horizontal">
 
     <com.mvvm.lux.widget.MultiTouchViewPager
         android:id="@+id/pager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_centerInParent="true"/>
+
+    <LinearLayout
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true"
+        android:background="@drawable/gray_trans_99_bg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="end"
+        android:orientation="horizontal">
+
+        <TextView
+            android:drawablePadding="5dp"
+            android:id="@+id/chapter_title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:drawableStart="@drawable/icon_pageinfo_menu"
+            android:padding="5dp"
+            android:text="第90话"
+            android:textColor="#ffffffff"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/advert_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="8/13"
+            android:textColor="#ffffffff"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/network_logo"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingEnd="5dp"
+            android:text="4G"
+            android:textColor="#ffffffff"
+            android:textSize="12dp"/>
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:paddingRight="10dp"
+            android:text="14:29"
+            android:textColor="#ffffffff"
+            android:textSize="12dp"/>
+    </LinearLayout>
 
 </RelativeLayout>

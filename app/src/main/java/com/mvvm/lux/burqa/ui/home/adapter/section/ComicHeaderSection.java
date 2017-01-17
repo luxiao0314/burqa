@@ -48,7 +48,7 @@ public class ComicHeaderSection extends StatelessSection {
         viewModel.title.set(mComicResponse.getTitle());
         viewModel.description.set(mComicResponse.getDescription());
 
-        int hot_num = mComicResponse.getHot_num();
+        long hot_num = mComicResponse.getHot_num();
         String hotNum = CommonUtils.conNum(hot_num, 2);
         viewModel.hot_num.set("战斗力: " + hotNum + "");  //人气   1111.2万
 

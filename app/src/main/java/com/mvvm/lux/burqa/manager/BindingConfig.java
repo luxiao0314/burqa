@@ -17,6 +17,7 @@ import android.text.TextWatcher;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
+import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
@@ -168,19 +169,21 @@ public class BindingConfig {
 
         ScalingUtils.ScaleType scaleType = ScalingUtils.ScaleType.CENTER_CROP;
         GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(imageView.getResources())
-                .setFadeDuration(300).build();
+                .build();
         imageView.setHierarchy(hierarchy);
         if (isCircle) {
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
-            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
-            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
-            hierarchy.setPlaceholderImage(R.drawable.default_circle_bg, scaleType);
-            hierarchy.setFailureImage(R.drawable.default_circle_bg, scaleType);
+//            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
+//            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
+            hierarchy.setFadeDuration(500); //渐进式
+            hierarchy.setPlaceholderImage(R.drawable.default_avatar, scaleType);
+            hierarchy.setFailureImage(R.drawable.default_avatar, scaleType);
             imageView.asCircle();
         } else {
             hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
-            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
-            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
+            hierarchy.setFadeDuration(500);
+//            hierarchy.setRetryImage(R.drawable.network_error, scaleType);
+//            hierarchy.setProgressBarImage(R.drawable.buka_loading, scaleType);
             hierarchy.setPlaceholderImage(R.drawable.default_bg, scaleType);
             hierarchy.setFailureImage(R.drawable.default_bg, scaleType);
         }
@@ -270,6 +273,13 @@ public class BindingConfig {
         if (listener != null)
             editText.addTextChangedListener(listener);
     }
+
+    @BindingAdapter("seekBarChangeListener")
+    public static void seekBarChangeListener(SeekBar seekBar, SeekBar.OnSeekBarChangeListener listener) {
+        if (listener != null)
+            seekBar.setOnSeekBarChangeListener(listener);
+    }
+
 
     @InverseBindingMethods({
             @InverseBindingMethod(type = CompoundButton.class, attribute = "android:checked"),

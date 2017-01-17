@@ -12,8 +12,9 @@ import com.mvvm.lux.burqa.ui.home.adapter.section.ComicCommentSection;
 import com.mvvm.lux.burqa.ui.home.adapter.section.ComicHeaderSection;
 import com.mvvm.lux.burqa.ui.home.adapter.section.ComicItemSection;
 import com.mvvm.lux.framework.base.BaseViewModel;
+import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
-import com.mvvm.lux.framework.http.RxSubscriber;
+import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
 
 /**
  * @Description
@@ -52,7 +53,7 @@ public class ComicDesViewModel extends BaseViewModel {
         RetrofitHelper.init()
                 .getComic(url)
                 .compose(RxHelper.io_main())
-                .subscribe(new RxSubscriber<ComicResponse>() {
+                .subscribe(new ProgressSubscriber<ComicResponse>(ServiceTask.create(mActivity)) {
                     @Override
                     public void onNext(ComicResponse comicResponse) {
                         title.set(comicResponse.getTitle());

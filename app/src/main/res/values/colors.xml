@@ -59,6 +59,7 @@
 
     <color name="gray_dark">#999999</color>
     <color name="gray_trans">#44999999</color>
+    <color name="gray_trans_99">#99999999</color>
     <color name="gray_light">#dcdcdc</color>
 
     <!-- theme color -->

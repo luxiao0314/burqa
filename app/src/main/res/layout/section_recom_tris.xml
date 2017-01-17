@@ -18,7 +18,7 @@
 
         <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="match_parent"
-            android:layout_height="150dp"
+            android:layout_height="140dp"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             bind:imageUrl="@{viewModel.img}"/>
 

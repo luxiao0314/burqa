@@ -20,16 +20,24 @@ import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
+import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
+import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.http.RxSubscriber;
 import com.mvvm.lux.framework.manager.router.Router;
+import com.mvvm.lux.framework.rx.RxBus;
+import com.mvvm.lux.framework.utils.DateUtil;
+import com.mvvm.lux.framework.utils.NetworkUtil;
 
 import java.util.ArrayList;
 
 import me.relex.photodraweeview.OnPhotoTapListener;
 import me.relex.photodraweeview.PhotoDraweeView;
+import rx.functions.Action1;
+
+import static com.mvvm.lux.burqa.R.id.advert_tv;
 
 /**
  * 相册方式浏览图片
@@ -37,15 +45,19 @@ import me.relex.photodraweeview.PhotoDraweeView;
 public class ImagePicsListActivity extends BaseActivity {
     static final String TAG = ImagePicsListActivity.class.getSimpleName();
     private ArrayList<String> mUrls = new ArrayList<>();
-    private TextView madvertv;
+    private TextView mAdvertv;
     private int urlistsize;
     private ViewPager mViewPager;
+    private TextView mChapterTitle;
+    private TextView mNetworkLogo;
+    private TextView mTime;
 
-    public static void launch(Activity activity, String obj_id, int chapter_id, int position) {
+    public static void launch(Activity activity, String obj_id, int chapter_id, String chapter_title, int position) {
         Router.from(activity)
                 .putString("obj_id", obj_id)
                 .putString("chapter_id", chapter_id + "")
-                .putString("position", position + "")
+                .putInt("position", position)
+                .putString("chapter_title", chapter_title + "")
                 .to(ImagePicsListActivity.class)
                 .launch();
     }
@@ -55,42 +67,58 @@ public class ImagePicsListActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.image_pics_list_layout);
+
+        mChapterTitle = (TextView) findViewById(R.id.chapter_title);
+        mNetworkLogo = (TextView) findViewById(R.id.network_logo);
+        mTime = (TextView) findViewById(R.id.time);
         mViewPager = (ViewPager) findViewById(R.id.pager);
-        madvertv = (TextView) findViewById(R.id.advert_tv);
+        mAdvertv = (TextView) findViewById(advert_tv);
+
+        initEvent();
 
         // 没有任何url时，直接return跳走，UI交互上是用户根本进不来
         Intent intent = getIntent();
         String obj_id = intent.getStringExtra("obj_id");
         String chapter_id = intent.getStringExtra("chapter_id");
-        String position = intent.getStringExtra("position");
-        initData(obj_id, chapter_id, Integer.parseInt(position));
+        String chapter_title = intent.getStringExtra("chapter_title");
+        int position = intent.getIntExtra("position", 0);
+        initData(obj_id, chapter_id, position, chapter_title);
     }
 
-    private void initData(String obj_id, String chapter_id, int position) {
+    private void initEvent() {
+        RxBus.init().toObservable(ProgressEvent.class)
+                .subscribe(new Action1<ProgressEvent>() {
+                    @Override
+                    public void call(ProgressEvent progressEvent) {
+                        refreshCurrentPosition(progressEvent.mProgress);
+                    }
+                });
+    }
+
+    private void initData(String obj_id, String chapter_id, int position, String chapter_title) {
+        mChapterTitle.setText(chapter_title);
+        mTime.setText(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
+        mNetworkLogo.setText(NetworkUtil.getAPNType(this));
+
         RetrofitHelper.init()
                 .getChapter("chapter/" + obj_id + "/" + chapter_id + ".json")
                 .compose(RxHelper.io_main())
                 .subscribe(new RxSubscriber<ComicPageResponse>() {
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
-                        initViews(comicPageResponse, position);
+                        mUrls.addAll(comicPageResponse.getPage_url());
+                        if (!checkIllegal()) {
+                            finish();
+                            return;
+                        }
+                        urlistsize = mUrls.size();
+                        mViewPager.setAdapter(new MyPagerAdapter(ImagePicsListActivity.this, mUrls));
+                        mViewPager.setOnPageChangeListener(mOnPageChangeListener);
+                        mViewPager.setOffscreenPageLimit(5);
+
+                        refreshCurrentPosition(position);
                     }
                 });
-    }
-
-    private void initViews(ComicPageResponse comicPageResponse, int position) {
-        mUrls.addAll(comicPageResponse.getPage_url());
-        if (!checkIllegal()) {
-            finish();
-            return;
-        }
-        urlistsize = mUrls.size();
-        mViewPager.setAdapter(new MyPagerAdapter(this, mUrls));
-        mViewPager.setOnPageChangeListener(mOnPageChangeListener);
-        mViewPager.setCurrentItem(position);
-        mViewPager.setOffscreenPageLimit(5);
-
-        refreshCurrentPosition(position);
     }
 
     private boolean checkIllegal() {
@@ -137,6 +165,12 @@ public class ImagePicsListActivity extends BaseActivity {
             final PhotoDraweeView photoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
             photoView.setOnPhotoTapListener(onPhotoTapListener);
 
+//            GenericDraweeHierarchy hierarchy = new GenericDraweeHierarchyBuilder(getResources())
+//                    .setFadeDuration(500)
+//                    .setProgressBarImage(new ImageLoadingDrawable())    //自定义fresco进度加载
+//                    .build();
+//            photoView.setHierarchy(hierarchy);
+
             PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
             controller.setUri(imageURL);
             controller.setOldController(photoView.getController());
@@ -173,7 +207,8 @@ public class ImagePicsListActivity extends BaseActivity {
                 if (photoView.getScale() > photoView.getMinimumScale()) {
                     photoView.setScale(photoView.getMinimumScale(), true);
                 } else {
-                    finish();
+                    ImagePicDialogFragment.show(ImagePicsListActivity.this,urlistsize);
+//                    DialogManager.showCustomDialog(ImagePicsListActivity.this);
                 }
             }
         }
@@ -185,7 +220,8 @@ public class ImagePicsListActivity extends BaseActivity {
         return super.onKeyDown(keyCode, event);
     }
 
-    void refreshCurrentPosition(int mPosition) {
-        madvertv.setText("" + (mPosition + 1) + "/" + urlistsize);
+    void refreshCurrentPosition(int position) {
+        mViewPager.setCurrentItem(position);
+        mAdvertv.setText("" + (position + 1) + "/" + urlistsize);
     }
 }

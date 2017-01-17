@@ -18,7 +18,7 @@
         <item name="android:windowBackground">@color/window_background</item>
     </style>
 
-    <!--设置继承appcompat的activity透明主题-->
+    <!--全屏主题-->
     <style name="ThemeAppLaucher" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
         <item name="android:windowBackground">@drawable/splash_layout</item>
     </style>
@@ -29,6 +29,17 @@
         <item name="android:colorBackgroundCacheHint">@null</item>
         <item name="android:windowIsTranslucent">true</item>
     </style>
+
+    <!--漫画观看主题-->
+    <style name="image_pic_translucent" parent="Lx.Transparent.Dialog">
+        <item name="android:windowBackground">@android:color/transparent</item>
+        <item name="android:colorBackgroundCacheHint">@null</item>
+        <item name="android:backgroundDimAmount">0</item>
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+        <item name="android:windowIsTranslucent">true</item>
+    </style>
+
 
     <!--滑动退出主题-->
     <style name="swipeback_activity_style" parent="window_translucent"/>

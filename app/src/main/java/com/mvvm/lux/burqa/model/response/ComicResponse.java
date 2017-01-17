@@ -43,8 +43,8 @@ public class ComicResponse  {
     private int last_updatetime;
     private int copyright;
     private String first_letter;
-    private int hot_num;
-    private int hit_num;
+    private long hot_num;
+    private long hit_num;
     private Object uid;
     private int subscribe_num;
     private CommentBean comment;
@@ -133,7 +133,7 @@ public class ComicResponse  {
         this.first_letter = first_letter;
     }
 
-    public int getHot_num() {
+    public long getHot_num() {
         return hot_num;
     }
 
@@ -141,7 +141,7 @@ public class ComicResponse  {
         this.hot_num = hot_num;
     }
 
-    public int getHit_num() {
+    public long getHit_num() {
         return hit_num;
     }
 

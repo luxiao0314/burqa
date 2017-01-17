@@ -90,12 +90,20 @@ public class ComicItemViewModel extends BaseViewModel {
      * 流式布局item点击事件
      */
     public TagFlowLayout.OnTagClickListener mOnChaptersClickListener = (view, position, parent) -> {
-        ImagePicsListActivity.launch(mActivity, obj_id.get(), chaptersList.get(0).getChapter_id(), position);
+        ImagePicsListActivity.launch(mActivity,
+                obj_id.get(),
+                chaptersList.get(position).getChapter_id(),
+                chaptersList.get(position).getChapter_title(),
+                0);
         return true;
     };
 
     public TagFlowLayout.OnTagClickListener mOnOtherChaptersClickListener = (view, position, parent) -> {
-        ImagePicsListActivity.launch(mActivity, obj_id.get(), chaptersOther.get(0).getChapter_id(), position);
+        ImagePicsListActivity.launch(mActivity,
+                obj_id.get(),
+                chaptersOther.get(position).getChapter_id(),
+                chaptersOther.get(position).getChapter_title(),
+                0);
         return true;
     };
 
