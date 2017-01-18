@@ -31,6 +31,7 @@ import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.rx.RxBus;
 import com.mvvm.lux.framework.utils.DateUtil;
 import com.mvvm.lux.framework.utils.NetworkUtil;
+import com.mvvm.lux.widget.utils.DisplayUtil;
 
 import java.util.ArrayList;
 
@@ -119,7 +120,7 @@ public class ImagePicsListActivity extends BaseActivity {
                         urlistsize = mUrls.size();
                         mViewPager.setAdapter(new MyPagerAdapter(ImagePicsListActivity.this, mUrls));
                         mViewPager.setOnPageChangeListener(mOnPageChangeListener);
-                        mViewPager.setOffscreenPageLimit(5);
+                        mViewPager.setOffscreenPageLimit(3);
                         refreshCurrentPosition(position);
                     }
                 });
@@ -171,9 +172,11 @@ public class ImagePicsListActivity extends BaseActivity {
             final PhotoDraweeView photoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
             photoView.setOnPhotoTapListener(onPhotoTapListener);
 
-            CircleProgress.Builder builder = new CircleProgress.Builder();
-            builder.setStyle(CircleStyle.RING)
+            new CircleProgress  //加载圆形进度条
+                    .Builder()
+                    .setStyle(CircleStyle.FAN)
                     .setCustomText((position + 1) + "")
+                    .setCircleRadius(DisplayUtil.dp2px(20))
                     .build()
                     .injectFresco(photoView);
 
@@ -213,7 +216,7 @@ public class ImagePicsListActivity extends BaseActivity {
                 if (photoView.getScale() > photoView.getMinimumScale()) {
                     photoView.setScale(photoView.getMinimumScale(), true);
                 } else {
-                    ImagePicDialogFragment.show(ImagePicsListActivity.this, urlistsize,mPosition);
+                    ImagePicDialogFragment.show(ImagePicsListActivity.this, urlistsize, mPosition);
                 }
             }
         }
