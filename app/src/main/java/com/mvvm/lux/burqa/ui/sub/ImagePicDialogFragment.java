@@ -20,7 +20,7 @@ import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 
 import com.mvvm.lux.burqa.R;
-import com.mvvm.lux.burqa.databinding.ImagePicFragmentDialogBinding;
+import com.mvvm.lux.burqa.databinding.FragmentImagePicListBinding;
 import com.mvvm.lux.burqa.model.ImagePicDialogViewModel;
 import com.mvvm.lux.framework.manager.dialogs.SimpleDialogFragment;
 import com.mvvm.lux.framework.manager.dialogs.config.BaseTask;
@@ -55,8 +55,8 @@ public class ImagePicDialogFragment extends SimpleDialogFragment {
 
     @Override
     public Builder build(Builder builder) {
-        ImagePicFragmentDialogBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.image_pic_fragment_dialog, null, false);
-        ImagePicDialogViewModel viewModel = new ImagePicDialogViewModel(getActivity(), dataBinding,this);
+        FragmentImagePicListBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_image_pic_list, null, false);
+        ImagePicDialogViewModel viewModel = new ImagePicDialogViewModel(getActivity(),this);
         viewModel.maxProgress.set(sUrlistsize);
         viewModel.progress.set(sCurrentPosition);
         dataBinding.setViewModel(viewModel);

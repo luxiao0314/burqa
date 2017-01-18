@@ -194,7 +194,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
             int sectionTotal = section.getSectionItemsTotal();
 
-            // check if position is in this section
+            // check if current_position is in this section
             if (position >= currentPos && position <= (currentPos + sectionTotal - 1)) {
 
                 if (section.hasHeader()) {
@@ -221,7 +221,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             currentPos += sectionTotal;
         }
 
-        throw new IndexOutOfBoundsException("Invalid position");
+        throw new IndexOutOfBoundsException("Invalid current_position");
     }
 
     @Override
@@ -261,7 +261,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
             int sectionTotal = section.getSectionItemsTotal();
 
-            // check if position is in this section
+            // check if current_position is in this section
             if (position >= currentPos && position <= (currentPos + sectionTotal - 1)) {
 
                 int viewType = sectionViewTypeNumbers.get(entry.getKey());
@@ -293,18 +293,18 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             currentPos += sectionTotal;
         }
 
-        throw new IndexOutOfBoundsException("Invalid position");
+        throw new IndexOutOfBoundsException("Invalid current_position");
     }
 
     /**
-     * Returns the Section ViewType of an item based on the position in the adapter:
+     * Returns the Section ViewType of an item based on the current_position in the adapter:
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_FOOTER
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_ITEM_LOADED
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_LOADING
      * - SectionedRecyclerViewAdapter.VIEW_TYPE_FAILED
      *
-     * @param position position in the adapter
+     * @param position current_position in the adapter
      * @return SectionedRecyclerViewAdapter.VIEW_TYPE_HEADER, VIEW_TYPE_FOOTER,
      * VIEW_TYPE_ITEM_LOADED, VIEW_TYPE_LOADING or VIEW_TYPE_FAILED
      */
@@ -316,10 +316,10 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
     }
 
     /**
-     * Returns the Section object for a position in the adapter
+     * Returns the Section object for a current_position in the adapter
      *
-     * @param position position in the adapter
-     * @return Section object for that position
+     * @param position current_position in the adapter
+     * @return Section object for that current_position
      */
     public Section getSectionForPosition(int position) {
 
@@ -333,7 +333,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
             int sectionTotal = section.getSectionItemsTotal();
 
-            // check if position is in this section
+            // check if current_position is in this section
             if (position >= currentPos && position <= (currentPos + sectionTotal - 1)) {
                 return section;
             }
@@ -341,14 +341,14 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             currentPos += sectionTotal;
         }
 
-        throw new IndexOutOfBoundsException("Invalid position");
+        throw new IndexOutOfBoundsException("Invalid current_position");
     }
 
     /**
-     * Return the item position relative to the section.
+     * Return the item current_position relative to the section.
      *
-     * @param position position of the item in the adapter
-     * @return position of the item in the section
+     * @param position current_position of the item in the adapter
+     * @return current_position of the item in the section
      */
     public int getSectionPosition(int position) {
 
@@ -362,7 +362,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
 
             int sectionTotal = section.getSectionItemsTotal();
 
-            // check if position is in this section
+            // check if current_position is in this section
             if (position >= currentPos && position <= (currentPos + sectionTotal - 1)) {
                 return position - currentPos - (section.hasHeader() ? 1 : 0);
             }
@@ -370,7 +370,7 @@ public class SectionedRecyclerViewAdapter extends RecyclerView.Adapter<RecyclerV
             currentPos += sectionTotal;
         }
 
-        throw new IndexOutOfBoundsException("Invalid position");
+        throw new IndexOutOfBoundsException("Invalid current_position");
     }
 
     /**

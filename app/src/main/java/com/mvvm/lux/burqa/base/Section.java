@@ -220,7 +220,7 @@ public abstract class Section {
      * Loading view or Failed view, depending on the current state of the section
      *
      * @param holder   ViewHolder for the Content of this Section
-     * @param position position of the item in the Section, not in the RecyclerView
+     * @param position current_position of the item in the Section, not in the RecyclerView
      */
     public final void onBindContentViewHolder(RecyclerView.ViewHolder holder, int position) {
 
@@ -325,7 +325,7 @@ public abstract class Section {
      * Bind the data to the ViewHolder for an Item of this Section
      *
      * @param holder   ViewHolder for the Item of this Section
-     * @param position position of the item in the Section, not in the RecyclerView
+     * @param position current_position of the item in the Section, not in the RecyclerView
      */
     public abstract void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position);
 

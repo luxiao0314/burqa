@@ -31,7 +31,8 @@
             android:label="@string/app_name">
         </activity>
         <activity android:name=".ui.home.activity.ComicPageActivity"/>
-        <activity android:name=".ui.home.activity.ImagePicsListActivity"/>
+        <activity android:name=".ui.home.activity.ImagePicsListActivity"
+                  android:configChanges="orientation|screenSize"/>
         <activity android:name=".ui.home.activity.ComicDesActivity"
                   android:theme="@style/swipeback_activity_style"/>
         <activity android:name=".ui.home.activity.ComicClassifyActivity"

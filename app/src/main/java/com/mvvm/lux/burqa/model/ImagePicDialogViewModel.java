@@ -5,7 +5,6 @@ import android.databinding.ObservableField;
 import android.view.View;
 import android.widget.SeekBar;
 
-import com.mvvm.lux.burqa.databinding.ImagePicFragmentDialogBinding;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.framework.base.BaseViewModel;
@@ -24,12 +23,10 @@ public class ImagePicDialogViewModel extends BaseViewModel {
 
     public ObservableField<Integer> progress = new ObservableField<>(0);
 
-    private ImagePicFragmentDialogBinding mDataBinding;
     private ImagePicDialogFragment mImagePicDialogFragment;
 
-    public ImagePicDialogViewModel(Activity activity, ImagePicFragmentDialogBinding dataBinding, ImagePicDialogFragment imagePicDialogFragment) {
+    public ImagePicDialogViewModel(Activity activity,ImagePicDialogFragment imagePicDialogFragment) {
         super(activity);
-        mDataBinding = dataBinding;
         mImagePicDialogFragment = imagePicDialogFragment;
     }
 

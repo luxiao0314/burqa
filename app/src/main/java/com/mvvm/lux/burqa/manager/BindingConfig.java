@@ -10,6 +10,7 @@ import android.databinding.adapters.ListenerUtil;
 import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.RecyclerView;
@@ -216,13 +217,25 @@ public class BindingConfig {
         }
     }
 
-
     @BindingAdapter("pageAdapter")
     public static void setPageAdapter(ViewPager viewPager, android.support.v4.app.FragmentPagerAdapter adapter) {
         if (adapter != null) {
             viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(0);    //在设置adaper之后调用
+            viewPager.setCurrentItem(2);
         }
+    }
+
+    @BindingAdapter({"pageAdapter", "currentItem"})
+    public static void setPageAdapter(ViewPager viewPager, PagerAdapter adapter, int currentItem) {
+        if (adapter != null) {
+            viewPager.setAdapter(adapter);
+            viewPager.setCurrentItem(currentItem, false);
+        }
+    }
+
+    @BindingAdapter("setOffscreenPageLimit")
+    public static void setPageAdapter(ViewPager viewPager, int pageLimit) {
+        viewPager.setOffscreenPageLimit(pageLimit);
     }
 
     @BindingAdapter("setTabIcon")
