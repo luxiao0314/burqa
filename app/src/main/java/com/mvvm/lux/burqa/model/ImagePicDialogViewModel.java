@@ -2,10 +2,12 @@ package com.mvvm.lux.burqa.model;
 
 import android.app.Activity;
 import android.databinding.ObservableField;
+import android.view.View;
 import android.widget.SeekBar;
 
 import com.mvvm.lux.burqa.databinding.ImagePicFragmentDialogBinding;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
+import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.rx.RxBus;
 
@@ -23,10 +25,12 @@ public class ImagePicDialogViewModel extends BaseViewModel {
     public ObservableField<Integer> progress = new ObservableField<>(0);
 
     private ImagePicFragmentDialogBinding mDataBinding;
+    private ImagePicDialogFragment mImagePicDialogFragment;
 
-    public ImagePicDialogViewModel(Activity activity, ImagePicFragmentDialogBinding dataBinding) {
+    public ImagePicDialogViewModel(Activity activity, ImagePicFragmentDialogBinding dataBinding, ImagePicDialogFragment imagePicDialogFragment) {
         super(activity);
         mDataBinding = dataBinding;
+        mImagePicDialogFragment = imagePicDialogFragment;
     }
 
     public SeekBar.OnSeekBarChangeListener getSeekBarChangeListener() {
@@ -47,4 +51,11 @@ public class ImagePicDialogViewModel extends BaseViewModel {
             }
         };
     }
+
+    public View.OnClickListener mOnClickListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View view) {
+            mImagePicDialogFragment.dismissAllowingStateLoss();
+        }
+    };
 }

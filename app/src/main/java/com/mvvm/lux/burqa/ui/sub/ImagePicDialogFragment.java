@@ -56,7 +56,7 @@ public class ImagePicDialogFragment extends SimpleDialogFragment {
     @Override
     public Builder build(Builder builder) {
         ImagePicFragmentDialogBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.image_pic_fragment_dialog, null, false);
-        ImagePicDialogViewModel viewModel = new ImagePicDialogViewModel(getActivity(), dataBinding);
+        ImagePicDialogViewModel viewModel = new ImagePicDialogViewModel(getActivity(), dataBinding,this);
         viewModel.maxProgress.set(sUrlistsize);
         viewModel.progress.set(sCurrentPosition);
         dataBinding.setViewModel(viewModel);

@@ -11,7 +11,8 @@
     <RelativeLayout
         android:id="@+id/rl_content"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:onClick="@{viewModel.mOnClickListener}">
 
         <LinearLayout
             android:id="@+id/ll_top_set"
@@ -97,8 +98,12 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:max="@{viewModel.maxProgress}"
-                android:progress="@{viewModel.progress}"
+                android:maxHeight="1dp"
+                android:minHeight="1dp"
                 android:padding="5dp"
+                android:progress="@{viewModel.progress}"
+                android:progressDrawable="@drawable/po_seekbar"
+                android:thumb="@drawable/seekbar_thumb"
                 bind:seekBarChangeListener="@{viewModel.seekBarChangeListener}"/>
 
             <LinearLayout

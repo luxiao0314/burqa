@@ -175,8 +175,9 @@ public class ImagePicsListActivity extends BaseActivity {
             new CircleProgress  //加载圆形进度条
                     .Builder()
                     .setStyle(CircleStyle.FAN)
+                    .setProgressColor(getResources().getColor(R.color.orange_trans))
                     .setCustomText((position + 1) + "")
-                    .setCircleRadius(DisplayUtil.dp2px(20))
+                    .setCircleRadius(DisplayUtil.dp2px(15))
                     .build()
                     .injectFresco(photoView);
 
