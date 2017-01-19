@@ -17,13 +17,10 @@
 
         <lib.lhh.fiv.library.FrescoImageView
             android:id="@+id/category_iv"
-            android:layout_width="match_parent"
+            android:layout_width="80dp"
             android:layout_height="80dp"
-            app:actualImageScaleType="centerCrop"
-            app:placeholderImage="@drawable/default_circle_bg"
-            app:placeholderImageScaleType="centerInside"
-            app:roundAsCircle="true"
-            bind:imageUrl="@{viewModel.cover}"/>
+            android:layout_gravity="center"
+            bind:circleImageUrl="@{viewModel.cover}"/>
 
         <TextView
             android:id="@+id/category_tv"

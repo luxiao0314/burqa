@@ -18,6 +18,7 @@
             android:id="@+id/classify_iv"
             android:layout_width="@dimen/fresco_width"
             android:layout_height="@dimen/fresco_height"
+            android:layout_gravity="center"
             bind:imageUrl="@{viewModel.cover}"/>
 
         <TextView

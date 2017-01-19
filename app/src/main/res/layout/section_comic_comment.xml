@@ -20,11 +20,7 @@
             android:id="@+id/iv_user"
             android:layout_width="40dp"
             android:layout_height="40dp"
-            app:actualImageScaleType="centerCrop"
-            app:placeholderImage="@drawable/default_circle_bg"
-            app:placeholderImageScaleType="centerCrop"
-            app:roundAsCircle="true"
-            bind:imageUrl="@{viewModel.avatar}"/>
+            bind:circleImageUrl="@{viewModel.avatar}"/>
 
         <LinearLayout
             android:layout_width="match_parent"

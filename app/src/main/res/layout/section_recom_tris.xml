@@ -19,6 +19,7 @@
         <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="@dimen/fresco_width"
             android:layout_height="@dimen/fresco_height"
+            android:layout_gravity="center"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             bind:imageUrl="@{viewModel.img}"/>
 

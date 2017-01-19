@@ -7,7 +7,6 @@ import android.databinding.InverseBindingMethod;
 import android.databinding.InverseBindingMethods;
 import android.databinding.ObservableList;
 import android.databinding.adapters.ListenerUtil;
-import android.graphics.drawable.Animatable;
 import android.net.Uri;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
@@ -22,12 +21,9 @@ import android.widget.SeekBar;
 import android.widget.TextView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.controller.BaseControllerListener;
-import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.interfaces.DraweeController;
-import com.facebook.imagepipeline.image.ImageInfo;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.adapter.TagFlowAdapter;
@@ -156,34 +152,31 @@ public class BindingConfig {
         DraweeController controller = Fresco.newDraweeControllerBuilder()
                 .setUri(Uri.parse(url))
                 .setTapToRetryEnabled(true)
-                .setControllerListener(listener)
                 .build();
 
-        ScalingUtils.ScaleType scaleType = ScalingUtils.ScaleType.CENTER_CROP;
         GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
         hierarchy.setFadeDuration(500);
+        hierarchy.setPlaceholderImage(R.drawable.default_bg, ScalingUtils.ScaleType.FIT_XY);
         imageView.setHierarchy(hierarchy);
-        hierarchy.setPlaceholderImage(R.drawable.default_bg, scaleType);
-        hierarchy.setFailureImage(R.drawable.default_bg, scaleType);
         imageView.setController(controller);
     }
 
-    public static ControllerListener<ImageInfo> listener = new BaseControllerListener<ImageInfo>() {
-        @Override
-        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-            super.onFinalImageSet(id, imageInfo, animatable);
-        }
+    @BindingAdapter({"circleImageUrl"})
+    public static void circleImageUrl(FrescoImageView imageView, String url) {
+        //添加图片统一配置
+        DraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setUri(Uri.parse(url))
+                .setTapToRetryEnabled(true)
+                .build();
 
-        @Override
-        public void onFailure(String id, Throwable throwable) {
-            super.onFailure(id, throwable);
-        }
-
-        @Override
-        public void onIntermediateImageFailed(String id, Throwable throwable) {
-            super.onIntermediateImageFailed(id, throwable);
-        }
-    };
+        GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
+        hierarchy.setFadeDuration(500);
+        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
+        hierarchy.setPlaceholderImage(R.drawable.default_circle_bg, ScalingUtils.ScaleType.FIT_XY);
+        imageView.setHierarchy(hierarchy);
+        imageView.asCircle();
+        imageView.setController(controller);
+    }
 
     /**
      * 发现页面流式布局adapter
