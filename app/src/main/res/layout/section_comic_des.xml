@@ -17,6 +17,7 @@
         <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="@dimen/fresco_width"
             android:layout_height="@dimen/fresco_height"
+            bind:viewAspectRatio="0.75"
             android:layout_gravity="center"
             bind:imageUrl="@{viewModel.cover}"/>
 

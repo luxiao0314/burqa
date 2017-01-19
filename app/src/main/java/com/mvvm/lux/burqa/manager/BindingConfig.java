@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
+import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
@@ -30,6 +31,7 @@ import com.mvvm.lux.burqa.ui.home.adapter.TagFlowAdapter;
 import com.mvvm.lux.widget.banner.BannerEntity;
 import com.mvvm.lux.widget.banner.BannerView;
 import com.mvvm.lux.widget.emptyview.EmptyView;
+import com.mvvm.lux.widget.utils.DisplayUtil;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -154,10 +156,16 @@ public class BindingConfig {
                 .setTapToRetryEnabled(true)
                 .build();
 
+        RoundingParams roundingParams = new RoundingParams()
+                .setBorderWidth(DisplayUtil.dp2px(0.5f))   //设置边框
+                .setBorderColor(imageView.getResources().getColor(R.color.gray_80));
+
         GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
         hierarchy.setFadeDuration(500);
+        hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
         hierarchy.setPlaceholderImage(R.drawable.default_bg, ScalingUtils.ScaleType.FIT_XY);
         imageView.setHierarchy(hierarchy);
+        imageView.setRoundingParmas(roundingParams);
         imageView.setController(controller);
     }
 
@@ -169,12 +177,18 @@ public class BindingConfig {
                 .setTapToRetryEnabled(true)
                 .build();
 
+        RoundingParams roundingParams = new RoundingParams()
+                .setBorderWidth(DisplayUtil.dp2px(0.5f))
+                .setBorderColor(imageView.getResources().getColor(R.color.gray_80))
+                .setRoundAsCircle(true);
+
         GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
         hierarchy.setFadeDuration(500);
         hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         hierarchy.setPlaceholderImage(R.drawable.default_circle_bg, ScalingUtils.ScaleType.FIT_XY);
         imageView.setHierarchy(hierarchy);
         imageView.asCircle();
+        imageView.setRoundingParmas(roundingParams);
         imageView.setController(controller);
     }
 

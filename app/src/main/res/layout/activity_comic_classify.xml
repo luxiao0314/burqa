@@ -17,7 +17,6 @@
             android:id="@+id/coordinatorLayout"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:background="@color/window_background"
             android:fitsSystemWindows="true">
 
             <include
@@ -37,6 +36,7 @@
                     android:id="@+id/recyclerView"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:background="@color/white"
                     android:padding="5dp"
                     app:layoutManager="@{viewModel.layoutManager}"
                     bind:addItemDecoration="@{viewModel.itemDecoration}"
