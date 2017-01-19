@@ -14,6 +14,7 @@ import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.event.BaseEvent;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
@@ -59,6 +60,7 @@ public class ImagePicsListViewModel extends BaseViewModel {
     public ObservableField<Integer> pageLimit = new ObservableField<>(3);
     private ArrayList<String> mUrls = new ArrayList<>();
     private ImagePicsListActivity mImagePicsListActivity;
+    private ActivityImagePicsListBinding mDataBinding;
 
     public ImagePicsListViewModel(ImagePicsListActivity imagePicsListActivity) {
         super(imagePicsListActivity);
@@ -102,8 +104,8 @@ public class ImagePicsListViewModel extends BaseViewModel {
                         mUrls.addAll(comicPageResponse.getPage_url());
                         if (!checkIllegal())
                             mActivity.finish();
-                        refreshPosition(current_position.get());
                         mPagerAdapter.notifyDataSetChanged();
+                        refreshPosition(current_position.get());
                     }
                 });
     }
@@ -114,7 +116,7 @@ public class ImagePicsListViewModel extends BaseViewModel {
 
     private void refreshPosition(int position) {
         adver_tv.set((position + 1) + "/" + mUrls.size());
-        current_position.set(position);
+        mDataBinding.pager.setCurrentItem(position);
     }
 
     public ViewPager.OnPageChangeListener getOnPageChangeListener() {
@@ -189,4 +191,8 @@ public class ImagePicsListViewModel extends BaseViewModel {
             }
         };
     };
+
+    public void setDataBinding(ActivityImagePicsListBinding dataBinding) {
+        mDataBinding = dataBinding;
+    }
 }

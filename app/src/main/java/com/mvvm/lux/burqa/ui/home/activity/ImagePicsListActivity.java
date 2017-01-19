@@ -12,6 +12,7 @@ import android.view.Window;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.model.ImagePicsListViewModel;
 import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.manager.router.Router;
@@ -53,6 +54,7 @@ public class ImagePicsListActivity extends BaseActivity {
         mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
         mViewModel.chapter_title.set(intent.getStringExtra("chapter_title"));
         mViewModel.current_position.set(intent.getIntExtra("current_position", 0));
+        mViewModel.setDataBinding((ActivityImagePicsListBinding) mDataBinding);
         mViewModel.initEvent();
         mViewModel.initData();
         mDataBinding.setVariable(BR.viewModel, mViewModel);

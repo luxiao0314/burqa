@@ -236,11 +236,10 @@ public class BindingConfig {
         }
     }
 
-    @BindingAdapter({"pageAdapter", "currentItem"})
-    public static void setPageAdapter(ViewPager viewPager, PagerAdapter adapter, int currentItem) {
+    @BindingAdapter({"pageAdapter"})
+    public static void setPageAdapter(ViewPager viewPager, PagerAdapter adapter) {
         if (adapter != null) {
             viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(currentItem);
         }
     }
 
