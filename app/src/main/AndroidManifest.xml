@@ -32,7 +32,7 @@
         </activity>
         <activity android:name=".ui.home.activity.ComicPageActivity"/>
         <activity android:name=".ui.home.activity.ImagePicsListActivity"
-                  android:configChanges="orientation|screenSize"/>
+                  android:configChanges="orientation|keyboardHidden|screenSize"/>   <!--保证横竖屏切换的时候生命周期只调用onConfigurationChanged()-->
         <activity android:name=".ui.home.activity.ComicDesActivity"
                   android:theme="@style/swipeback_activity_style"/>
         <activity android:name=".ui.home.activity.ComicClassifyActivity"

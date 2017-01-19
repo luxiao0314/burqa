@@ -7,12 +7,11 @@ package com.mvvm.lux.burqa.model.event;
  * @Date 2017/1/17 19:55
  * @Version
  */
-public class ProgressEvent {
+public class ProgressEvent extends BaseEvent {
 
     public int mProgress;
 
     public ProgressEvent(int progress) {
-
         mProgress = progress;
     }
 }

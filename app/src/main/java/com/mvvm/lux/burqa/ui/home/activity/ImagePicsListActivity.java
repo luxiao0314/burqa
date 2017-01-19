@@ -2,12 +2,16 @@ package com.mvvm.lux.burqa.ui.home.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
+import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.view.KeyEvent;
 import android.view.Window;
 
+import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
-import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.model.ImagePicsListViewModel;
 import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.manager.router.Router;
@@ -17,24 +21,41 @@ import com.mvvm.lux.framework.manager.router.Router;
  */
 public class ImagePicsListActivity extends BaseActivity {
 
+    private ViewDataBinding mDataBinding;
+    private int mCurrentOrientation;
+    private ImagePicsListViewModel mViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.activity_image_pics_list);
+        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
+        init();
+    }
 
-        ActivityImagePicsListBinding dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
-        ImagePicsListViewModel viewModel = new ImagePicsListViewModel(this);
+    @Override
+    public void onConfigurationChanged(Configuration newConfig) {
+        super.onConfigurationChanged(newConfig);
+        mCurrentOrientation = getResources().getConfiguration().orientation;
+        if (mCurrentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
+        } else if (mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
+        }
+        mDataBinding.setVariable(BR.viewModel, mViewModel);
+    }
 
+    private void init() {
+        mViewModel = new ImagePicsListViewModel(this);
         // 没有任何url时，直接return跳走，UI交互上是用户根本进不来
         Intent intent = getIntent();
-        viewModel.obj_id.set(intent.getStringExtra("obj_id"));
-        viewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
-        viewModel.chapter_title.set(intent.getStringExtra("chapter_title"));
-        viewModel.current_position.set(intent.getIntExtra("current_position", 0));
-        viewModel.initEvent();
-        viewModel.initData();
-        dataBinding.setViewModel(viewModel);
+        mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
+        mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
+        mViewModel.chapter_title.set(intent.getStringExtra("chapter_title"));
+        mViewModel.current_position.set(intent.getIntExtra("current_position", 0));
+        mViewModel.initEvent();
+        mViewModel.initData();
+        mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
     public static void launch(Activity activity, String obj_id, int chapter_id, String chapter_title, int position) {
@@ -47,4 +68,13 @@ public class ImagePicsListActivity extends BaseActivity {
                 .launch();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (mCurrentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+            finish();
+        } else if (mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);   //设置竖屏
+        }
+        return super.onKeyDown(keyCode, event);
+    }
 }

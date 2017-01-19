@@ -27,6 +27,7 @@ import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.drawee.drawable.ScalingUtils;
 import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.interfaces.DraweeController;
+import com.facebook.imagepipeline.image.ImageInfo;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.adapter.TagFlowAdapter;
@@ -167,9 +168,9 @@ public class BindingConfig {
         imageView.setController(controller);
     }
 
-    public static ControllerListener listener = new BaseControllerListener() {
+    public static ControllerListener<ImageInfo> listener = new BaseControllerListener<ImageInfo>() {
         @Override
-        public void onFinalImageSet(String id, Object imageInfo, Animatable animatable) {
+        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
             super.onFinalImageSet(id, imageInfo, animatable);
         }
 
@@ -229,7 +230,7 @@ public class BindingConfig {
     public static void setPageAdapter(ViewPager viewPager, PagerAdapter adapter, int currentItem) {
         if (adapter != null) {
             viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(currentItem, false);
+            viewPager.setCurrentItem(currentItem);
         }
     }
 

@@ -10,25 +10,17 @@
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="fill_parent"
         android:background="#000000"
         android:orientation="horizontal">
 
-        <com.mvvm.lux.widget.MultiTouchViewPager
-            android:id="@+id/pager"
+        <android.support.v7.widget.RecyclerView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_centerInParent="true"
-            bind:addOnPageChangeListener="@{viewModel.getOnPageChangeListener}"
-            bind:currentItem="@{viewModel.current_position}"
-            bind:pageAdapter="@{viewModel.mPagerAdapter}"
-            bind:setOffscreenPageLimit="@{viewModel.pageLimit}"/>
+            app:layoutManager="@{viewModel.linearLayoutManager}"
+            bind:setAdapter="@{viewModel.mCommonAdapter}"/>
 
-        <include
-            android:id="@+id/inclide"
-            layout="@layout/include_image_status"
-            bind:viewModel="@{viewModel}"/>
+        <include layout="@layout/include_image_status"/>
 
     </RelativeLayout>
-
 </layout>

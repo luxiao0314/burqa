@@ -8,8 +8,9 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
-import com.facebook.drawee.backends.pipeline.PipelineDraweeControllerBuilder;
+import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
+import com.facebook.drawee.controller.ControllerListener;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
@@ -26,6 +27,7 @@ public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapLis
     private FragmentActivity mContext = null;
     private ArrayList<String> mUrls;
     private int mPosition;
+    private PhotoDraweeView mPhotoView;
 
     public ImagePicsPagerAdapter(FragmentActivity context, ArrayList<String> urls) {
         this.mContext = context;
@@ -38,10 +40,10 @@ public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapLis
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        String imageURL = mUrls.get(position);
+        String url = mUrls.get(position);
         View contentview = LayoutInflater.from(mContext).inflate(R.layout.gallery_item, container, false);
-        final PhotoDraweeView photoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
-        photoView.setOnPhotoTapListener(this);
+        mPhotoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
+        mPhotoView.setOnPhotoTapListener(this);
 
         new CircleProgress  //加载圆形进度条
                 .Builder()
@@ -50,25 +52,28 @@ public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapLis
                 .setCustomText((position + 1) + "")
                 .setCircleRadius(DisplayUtil.dp2px(15))
                 .build()
-                .injectFresco(photoView);
+                .injectFresco(mPhotoView);
 
-        PipelineDraweeControllerBuilder controller = Fresco.newDraweeControllerBuilder();
-        controller.setUri(imageURL);
-        controller.setOldController(photoView.getController());
-        controller.setControllerListener(new BaseControllerListener<ImageInfo>() {
-            @Override
-            public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
-                super.onFinalImageSet(id, imageInfo, animatable);
-                if (imageInfo == null) {
-                    return;
-                }
-                photoView.update(imageInfo.getWidth(), imageInfo.getHeight());
-            }
-        });
-        photoView.setController(controller.build());
+        AbstractDraweeController controller = Fresco.newDraweeControllerBuilder()
+                .setUri(url)
+                .setOldController(mPhotoView.getController())
+                .setControllerListener(mControllerListener)
+                .build();
+        mPhotoView.setController(controller);
         container.addView(contentview);
         return contentview;
     }
+
+    private ControllerListener<ImageInfo> mControllerListener = new BaseControllerListener<ImageInfo>() {
+        @Override
+        public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
+            super.onFinalImageSet(id, imageInfo, animatable);
+            if (imageInfo == null) {
+                return;
+            }
+            mPhotoView.update(imageInfo.getWidth(), imageInfo.getHeight());
+        }
+    };
 
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
@@ -78,7 +83,6 @@ public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapLis
     public boolean isViewFromObject(View arg0, Object arg1) {
         return arg0 == arg1;
     }
-
 
     @Override
     public void onPhotoTap(View view, float x, float y) {
