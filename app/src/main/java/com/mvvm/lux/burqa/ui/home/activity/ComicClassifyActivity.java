@@ -31,10 +31,10 @@ public class ComicClassifyActivity extends SwipeBackActivity {
     private void initData() {
         String tag_id = getIntent().getExtras().getString("tag_id");
         String title = getIntent().getExtras().getString("title");
-        ClassifyViewModel mViewModel = new ClassifyViewModel(this,mDataBinding);
+        ClassifyViewModel mViewModel = new ClassifyViewModel(this);
         mViewModel.tag_id.set(tag_id);
         mViewModel.title.set(title);
-        mViewModel.initData();
+        mViewModel.initData(false);
         mDataBinding.setViewModel(mViewModel);
     }
 

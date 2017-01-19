@@ -12,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
 import android.view.View;
@@ -120,6 +121,7 @@ public class BindingConfig {
     @BindingAdapter("setAdapter")
     public static void setAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
+        recyclerView.setItemAnimator(new DefaultItemAnimator());
         recyclerView.setHasFixedSize(true);    //高度不变,提高性能
     }
 
@@ -230,6 +232,7 @@ public class BindingConfig {
         if (adapter != null) {
             viewPager.setAdapter(adapter);
             viewPager.setCurrentItem(2);
+            viewPager.setOffscreenPageLimit(4); //设置默认加载多少页
         }
     }
 

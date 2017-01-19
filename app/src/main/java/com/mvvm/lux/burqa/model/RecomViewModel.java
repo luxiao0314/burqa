@@ -18,7 +18,6 @@ import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.http.RxSubscriber;
 import com.mvvm.lux.widget.emptyview.EmptyView;
 
-import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -31,8 +30,6 @@ import java.util.List;
 public class RecomViewModel extends BaseViewModel {
     private final RecomFragment mFragment;
     private final FragmentRecomBinding mDataBinding;
-
-    private List<RecommendResponse> mRecommendResponse = new ArrayList<>();
 
     public ObservableBoolean refreshing = new ObservableBoolean(false);
 
@@ -48,6 +45,9 @@ public class RecomViewModel extends BaseViewModel {
     public SectionedRecyclerViewAdapter mAdapter;
 
     public EmptyView.ReloadOnClickListener mReloadOnClickListener = this::initData;
+
+    // refreshing.set(true); 双向绑定之后,刷新之后就不用设置为true了
+    public SwipeRefreshLayout.OnRefreshListener onRefreshListener = this::initData;
 
     public RecyclerView.LayoutManager getLayoutManager() {
         GridLayoutManager layoutManager = new GridLayoutManager(mFragment.getActivity(), 6);
@@ -76,7 +76,6 @@ public class RecomViewModel extends BaseViewModel {
 
                     @Override
                     public void onNext(List<RecommendResponse> recommendResponse) {
-                        mRecommendResponse = recommendResponse;
                         mAdapter = new SectionedRecyclerViewAdapter();
                         mAdapter.addSection(new RecomBannerSection(recommendResponse.get(0), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(1), mFragment.getActivity()));
@@ -99,9 +98,5 @@ public class RecomViewModel extends BaseViewModel {
                         refreshing.set(false);
                     }
                 });
-    }
-
-    public SwipeRefreshLayout.OnRefreshListener onRefreshListener() {
-        return this::initData;  // refreshing.set(true); 双向绑定之后,刷新之后就不用设置为true了
     }
 }

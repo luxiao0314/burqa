@@ -2,6 +2,8 @@ package com.mvvm.lux.burqa.model.db;
 
 import com.mvvm.lux.framework.manager.RealmHelper;
 
+import java.util.Collection;
+
 import io.realm.Realm;
 
 /**
@@ -22,14 +24,14 @@ public class RealmManager  {
      * 增加 收藏记录
      *
      * @param bean
-     *//*
+     */
     public void insertCollection(Collection bean) {
         getRealm().beginTransaction();
         getRealm().copyToRealm(bean);
         getRealm().commitTransaction();
     }
 
-    *//**
+    /**
      * 删除 收藏记录
      *
      * @param id

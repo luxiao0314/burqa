@@ -135,7 +135,7 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
     });
 
     @Override
-    public void onLoadMoreRequested() {
+    public void onLoadMoreRequested(int position) {
         page++;
         initData();
     }
