@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:fresco="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#000000">
+
+    <me.relex.photodraweeview.PhotoDraweeView
+        android:id="@+id/image_item"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_centerInParent="true"
+        fresco:progressBarImage="@drawable/loading_drawable_progress"
+        fresco:actualImageScaleType="fitCenter"
+        fresco:failureImage="@drawable/gray_trans_99_bg"
+        fresco:placeholderImage="@drawable/gray_trans_99_bg"
+        fresco:placeholderImageScaleType="fitCenter" />
+
+</RelativeLayout>

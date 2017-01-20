@@ -1,0 +1,108 @@
+import java.text.SimpleDateFormat
+
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+allprojects {
+    repositories {
+        jcenter()
+    }
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
+
+//将当前时间戳作为版本号
+def makeVersionString() {
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyMMddHH")
+    return dateFormat.format(new Date()).toInteger()
+}
+
+ext {
+    //version
+    versionCode = makeVersionString()
+    versionName = "1.0"
+
+    //Android
+    androidBuildToolsVersion = "25.0.2"
+    androidCompileSdkVersion = 25
+    androidTargetSdkVersion = 25
+    androidMinSdkVersion = 21
+
+    //androidDependencies:android支持版本
+    supportLibraryVersion = '25.1.0'
+    otherLibraryVersion = '25.1.0'
+
+    //ViewLibraries:view支持版本
+    butterKnifeVersion = '8.4.0'
+
+    fresco = '0.14.0'
+    frescoGif = '0.14.0'
+    frescoPhoto = "1.1.2"
+    frescoImagepipeline = "0.12.0+"
+    gpuImage = '1.3.0'
+    scaleImage = '3.5.0'
+
+    rxjava = '1.1.0'
+    rxbinding = '0.4.0'
+    gson = '2.7'
+    retrofit = '2.0.2'
+    okhttp3 = '3.2.0'
+    okhttp3Loging = '3.0.1'
+    butterknife = '8.4.0'
+    fragmentation = '0.7.9'
+    leakcanary = '1.5'
+    multidex = '1.0.1'
+    flyco = '2.0.8@aar'
+    flowlayout = '1.0.1'
+    glide = '3.7.0'
+    glideTransformations = '2.0.1'
+    glideIntegration = '1.4.0@aar'
+
+    viewDependencies = [
+
+            //fresco
+            fresco              : "com.facebook.fresco:fresco:${fresco}",
+            frescoGif           : "com.facebook.fresco:animated-gif:${frescoGif}",
+
+            frescoImagepipeline : "com.facebook.fresco:imagepipeline-okhttp3:${frescoImagepipeline}",
+            frescoPhoto         : "me.relex:photodraweeview:${frescoPhoto}",
+            gpuImage            : "jp.co.cyberagent.android.gpuimage:gpuimage-library:${gpuImage}",
+            scaleImage          : "com.davemorrissey.labs:subsampling-scale-image-view:${scaleImage}",
+
+            //rxjava
+            rxjava              : "io.reactivex:rxjava:${rxjava}",
+            rxandroid           : "io.reactivex:rxandroid:${rxjava}",
+            rxbinding           : "com.jakewharton.rxbinding:rxbinding:${rxbinding}",
+
+            //retrofit
+            retrofit            : "com.squareup.retrofit2:retrofit:${retrofit}",
+            retrofit2Gson       : "com.squareup.retrofit2:converter-gson:${retrofit}",
+            retrofit2Rxjava     : "com.squareup.retrofit2:adapter-rxjava:${retrofit}",
+            okhttp3             : "com.squareup.okhttp3:okhttp:${okhttp3}",
+            okhttp3Loging       : "com.squareup.okhttp3:logging-interceptor:${okhttp3Loging}",
+
+            //glide
+            glide               : "com.github.bumptech.glide:glide:${glide}",
+            glideTransformations: "jp.wasabeef:glide-transformations:${glideTransformations}",
+            glideIntegration    : "com.github.bumptech.glide:okhttp3-integration:${glideIntegration}",
+
+            //butterknife
+            butterknife         : "com.jakewharton:butterknife:${butterknife}",
+            butterknifeCompiler : "com.jakewharton:butterknife-compiler:${butterknife}",
+
+            gson                : "com.google.code.gson:gson:${gson}",
+            fragmentation       : "me.yokeyword:fragmentation:${fragmentation}",
+            flyco               : "com.flyco.tablayout:FlycoTabLayout_Lib:${flyco}",
+            flowlayout          : "com.zhy:flowlayout-lib:${flowlayout}",
+            leakcanary          : "com.squareup.leakcanary:leakcanary-android:${leakcanary}",
+            multidex          : "com.android.support:multidex:${multidex}"
+    ]
+    androidDependencies = [
+            recyclerView: "com.android.support:recyclerview-v7:${supportLibraryVersion}",
+            appcompat_v7: "com.android.support:appcompat-v7:${supportLibraryVersion}",
+            cardview_v7 : "com.android.support:cardview-v7:${supportLibraryVersion}",
+            support_v4  : "com.android.support:support-v4:${otherLibraryVersion}",
+            design      : "com.android.support:design:${supportLibraryVersion}",
+    ]
+
+}

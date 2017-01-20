@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_local_manga"
+            android:icon="@drawable/ic_drawer_local_manga"
+            android:title="本地漫画"/>
+        <item
+            android:id="@+id/nav_history"
+            android:icon="@drawable/ic_drawer_history"
+            android:title="历史观看"/>
+        <item
+            android:id="@+id/nav_download"
+            android:icon="@drawable/ic_drawer_download"
+            android:title="下载记录"/>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_user"
+            android:icon="@drawable/ic_drawer_user"
+            android:title="个人中心"/>
+        <item
+            android:id="@+id/nav_msg"
+            android:icon="@drawable/ic_drawer_comment"
+            android:title="我的消息"/>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_tickets"
+            android:icon="@drawable/ic_drawer_ticket"
+            android:title="我的门票"/>
+        <item
+            android:id="@+id/nav_order"
+            android:icon="@drawable/ic_drawer_order"
+            android:title="我的订单"/>
+        <item
+            android:id="@+id/nav_wallet"
+            android:icon="@drawable/ic_drawer_wallet"
+            android:title="我的钱包"/>
+    </group>
+
+    <group android:checkableBehavior="single">
+        <item
+            android:id="@+id/nav_night_mode"
+            android:icon="@drawable/ic_drawer_night_mode"
+            android:title="夜间模式"/>
+        <item
+            android:id="@+id/nav_setting"
+            android:icon="@drawable/ic_drawer_setting"
+            android:title="设置"/>
+    </group>
+</menu>
