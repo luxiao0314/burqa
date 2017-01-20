@@ -7,7 +7,6 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
-import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
@@ -17,7 +16,7 @@ import com.mvvm.lux.widget.utils.DisplayUtil;
 
 import java.util.List;
 
-import me.relex.photodraweeview.OnPhotoTapListener;
+import me.relex.photodraweeview.OnViewTapListener;
 import me.relex.photodraweeview.PhotoDraweeView;
 import progress.CircleProgress;
 import progress.enums.CircleStyle;
@@ -32,7 +31,7 @@ import progress.enums.CircleStyle;
 public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     private FragmentActivity content;
-    private SimpleDraweeView mPhotoView;
+    private PhotoDraweeView mPhotoView;
     private int mPosition;
 
     public ImagePicsListAdapter(FragmentActivity context, int layoutId, List<String> urls) {
@@ -42,12 +41,8 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     @Override
     protected void convert(ViewHolder holder, String url, int position) {
-        mPhotoView = holder.getView(R.id.image_land);
         mPosition = position;
-//        mPhotoView.setOnPhotoTapListener(mOnPhotoTapListener);
-        mPhotoView.setOnClickListener(view -> {
-            ImagePicDialogFragment.show(content, mDatas.size(), mPosition);
-        });
+        mPhotoView = holder.getView(R.id.image_land);
         new CircleProgress  //加载圆形进度条
                 .Builder()
                 .setStyle(CircleStyle.FAN)
@@ -63,23 +58,21 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
                 .setOldController(mPhotoView.getController())
                 .setControllerListener(mControllerListener)
                 .build();
+        mPhotoView.setOnViewTapListener(mOnPhotoTapListener);
         mPhotoView.setController(controller);
+        mPhotoView.setEnableDraweeMatrix(false);    //因为和recycleView事件冲突暂时禁掉缩放效果
     }
 
     private ControllerListener<ImageInfo> mControllerListener = new BaseControllerListener<ImageInfo>() {
         @Override
         public void onFinalImageSet(String id, ImageInfo imageInfo, Animatable animatable) {
             super.onFinalImageSet(id, imageInfo, animatable);
-            if (imageInfo == null) {
-                return;
-            }
-            int width = imageInfo.getWidth();
-            int height = imageInfo.getHeight();
-            mPhotoView.setAspectRatio((float) width / height);  //设置宽高比例
+            if (imageInfo != null)
+                mPhotoView.setAspectRatio((float) imageInfo.getWidth() / imageInfo.getHeight());  //设置宽高比例
         }
     };
 
-    private OnPhotoTapListener mOnPhotoTapListener = (view, x, y) -> {
+    private OnViewTapListener mOnPhotoTapListener = (view, x, y) -> {
         if (view instanceof PhotoDraweeView) {
             PhotoDraweeView photoView = (PhotoDraweeView) view;
             if (photoView.getScale() > photoView.getMinimumScale()) {
