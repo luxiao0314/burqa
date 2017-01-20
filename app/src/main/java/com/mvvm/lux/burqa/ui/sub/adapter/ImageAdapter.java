@@ -1,4 +1,4 @@
-package com.mvvm.lux.burqa.ui.home.adapter;
+package com.mvvm.lux.burqa.ui.sub.adapter;
 
 import android.content.Context;
 import android.graphics.Bitmap;

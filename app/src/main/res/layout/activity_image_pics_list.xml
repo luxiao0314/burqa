@@ -19,8 +19,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
-            bind:addOnPageChangeListener="@{viewModel.getOnPageChangeListener}"
-            bind:pageAdapter="@{viewModel.mPagerAdapter}"
+            bind:addOnPageChangeListener="@{viewModel.onPageChange}"
+            bind:pageAdapter="@{viewModel.getPagerAdapter}"
             bind:setOffscreenPageLimit="@{viewModel.pageLimit}"/>
 
         <include

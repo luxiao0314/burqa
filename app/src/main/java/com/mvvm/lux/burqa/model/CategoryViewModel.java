@@ -51,7 +51,7 @@ public class CategoryViewModel extends BaseViewModel {
 
         @Override
         protected void convert(BaseViewHolder holder, CategoryResponse categoryResponse, int position) {
-            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_LEFT);
+            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
             CategoryItemViewModel viewModel = new CategoryItemViewModel(mActivity);
             viewModel.title.set(categoryResponse.getTitle());
             viewModel.cover.set(categoryResponse.getCover());

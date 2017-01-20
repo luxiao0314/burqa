@@ -11,6 +11,7 @@
     <color name="white">#FFFFFF</color>
     <color name="white_30">#F2F2F2</color>
     <color name="white_80">#FAFAFA</color>
+    <color name="white_trans">#33FFFFFF</color>
     <color name="orange_500">#FF9800</color>
     <color name="green_300">#81C784</color>
     <color name="gray">#B8B8B8</color>

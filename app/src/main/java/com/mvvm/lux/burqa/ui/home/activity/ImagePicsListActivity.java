@@ -15,6 +15,8 @@ import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
 import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.manager.router.Router;
+import com.mvvm.lux.framework.utils.DateUtil;
+import com.mvvm.lux.framework.utils.NetworkUtil;
 
 
 /**
@@ -41,15 +43,15 @@ public class ImagePicsListActivity extends BaseActivity {
     }
 
     private void init() {
-        mViewModel = new ImagePicsViewModel(this);
+        mViewModel = new ImagePicsViewModel(this,(ActivityImagePicsListBinding) mDataBinding);
         // 没有任何url时，直接return跳走，UI交互上是用户根本进不来
         Intent intent = getIntent();
         mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
         mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
         mViewModel.chapter_title.set(intent.getStringExtra("chapter_title"));
         mViewModel.current_position.set(intent.getIntExtra("current_position", 0));
-        mViewModel.setDataBinding((ActivityImagePicsListBinding) mDataBinding);
-        mViewModel.initEvent();
+        mViewModel.time.set(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
+        mViewModel.network_status.set(NetworkUtil.getAPNType(this));
         mViewModel.initData();
         mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
@@ -66,7 +68,7 @@ public class ImagePicsListActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        finish();
+        Router.pop(this);
         return super.onKeyDown(keyCode, event);
     }
 }

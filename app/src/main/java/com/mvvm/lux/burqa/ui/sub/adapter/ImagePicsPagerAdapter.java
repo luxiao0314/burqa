@@ -1,4 +1,4 @@
-package com.mvvm.lux.burqa.ui.home.adapter;
+package com.mvvm.lux.burqa.ui.sub.adapter;
 
 import android.graphics.drawable.Animatable;
 import android.support.v4.app.FragmentActivity;
@@ -40,6 +40,7 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
+        mPosition = position;
         String url = mUrls.get(position);
         View contentview = LayoutInflater.from(mContext).inflate(R.layout.gallery_item, container, false);
         mPhotoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
@@ -48,7 +49,7 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
         new CircleProgress  //加载圆形进度条
                 .Builder()
                 .setStyle(CircleStyle.FAN)
-                .setProgressColor(mContext.getResources().getColor(R.color.orange_trans))
+                .setProgressColor(mContext.getResources().getColor(R.color.white_trans))
                 .setCustomText((position + 1) + "")
                 .setCircleRadius(DisplayUtil.dp2px(15))
                 .build()
@@ -93,9 +94,5 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
 
     public boolean isViewFromObject(View arg0, Object arg1) {
         return arg0 == arg1;
-    }
-
-    public void onPageSelectedPostion(int position) {
-        mPosition = position;
     }
 }
