@@ -51,7 +51,7 @@ import progress.enums.CircleStyle;
  * @Date 2017/1/18 15:00
  * @Version
  */
-public class ImagePicsListViewModel extends BaseViewModel {
+public class ImagePicsViewModel extends BaseViewModel {
 
     public ObservableField<String> obj_id = new ObservableField<>();
     public ObservableField<String> chapter_id = new ObservableField<>();
@@ -65,7 +65,7 @@ public class ImagePicsListViewModel extends BaseViewModel {
     private ImagePicsListActivity mImagePicsListActivity;
     private ActivityImagePicsListBinding mDataBinding;
 
-    public ImagePicsListViewModel(ImagePicsListActivity imagePicsListActivity) {
+    public ImagePicsViewModel(ImagePicsListActivity imagePicsListActivity) {
         super(imagePicsListActivity);
         mImagePicsListActivity = imagePicsListActivity;
     }
@@ -103,8 +103,6 @@ public class ImagePicsListViewModel extends BaseViewModel {
         network_status.set(NetworkUtil.getAPNType(mActivity));
 
         RetrofitHelper.init()
-                //http://v2.api.dmzj.com/chapter/21097/59085.json
-                //http://v2.api.dmzj.com/chapter/21782/61641.json
                 .getChapter("chapter/" + obj_id.get() + "/" + chapter_id.get() + ".json")
                 .compose(RxHelper.io_main())
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {

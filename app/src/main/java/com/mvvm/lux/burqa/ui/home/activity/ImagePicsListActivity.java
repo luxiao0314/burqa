@@ -12,9 +12,10 @@ import android.view.Window;
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
-import com.mvvm.lux.burqa.model.ImagePicsListViewModel;
+import com.mvvm.lux.burqa.model.ImagePicsViewModel;
 import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.manager.router.Router;
+
 
 /**
  * 相册方式浏览图片
@@ -22,8 +23,7 @@ import com.mvvm.lux.framework.manager.router.Router;
 public class ImagePicsListActivity extends BaseActivity {
 
     private ViewDataBinding mDataBinding;
-    private int mCurrentOrientation;
-    private ImagePicsListViewModel mViewModel;
+    private ImagePicsViewModel mViewModel;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -36,17 +36,12 @@ public class ImagePicsListActivity extends BaseActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mCurrentOrientation = getResources().getConfiguration().orientation;
-        if (mCurrentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
-        } else if (mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
-        }
+        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
         mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
     private void init() {
-        mViewModel = new ImagePicsListViewModel(this);
+        mViewModel = new ImagePicsViewModel(this);
         // 没有任何url时，直接return跳走，UI交互上是用户根本进不来
         Intent intent = getIntent();
         mViewModel.obj_id.set(intent.getStringExtra("obj_id"));

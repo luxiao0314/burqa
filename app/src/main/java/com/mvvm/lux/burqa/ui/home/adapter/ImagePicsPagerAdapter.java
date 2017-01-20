@@ -23,7 +23,7 @@ import me.relex.photodraweeview.PhotoDraweeView;
 import progress.CircleProgress;
 import progress.enums.CircleStyle;
 
-public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapListener {
+public class ImagePicsPagerAdapter extends PagerAdapter {
     private FragmentActivity mContext = null;
     private ArrayList<String> mUrls;
     private int mPosition;
@@ -43,7 +43,7 @@ public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapLis
         String url = mUrls.get(position);
         View contentview = LayoutInflater.from(mContext).inflate(R.layout.gallery_item, container, false);
         mPhotoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
-        mPhotoView.setOnPhotoTapListener(this);
+        mPhotoView.setOnPhotoTapListener(mOnPhotoTapListener);
 
         new CircleProgress  //加载圆形进度条
                 .Builder()
@@ -75,17 +75,7 @@ public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapLis
         }
     };
 
-    @Override
-    public void destroyItem(ViewGroup container, int position, Object object) {
-        container.removeView((View) object);
-    }
-
-    public boolean isViewFromObject(View arg0, Object arg1) {
-        return arg0 == arg1;
-    }
-
-    @Override
-    public void onPhotoTap(View view, float x, float y) {
+    private OnPhotoTapListener mOnPhotoTapListener = (view, x, y) -> {
         if (view instanceof PhotoDraweeView) {
             PhotoDraweeView photoView = (PhotoDraweeView) view;
             if (photoView.getScale() > photoView.getMinimumScale()) {
@@ -94,6 +84,15 @@ public class ImagePicsPagerAdapter extends PagerAdapter implements OnPhotoTapLis
                 ImagePicDialogFragment.show(mContext, mUrls.size(), mPosition);
             }
         }
+    };
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        container.removeView((View) object);
+    }
+
+    public boolean isViewFromObject(View arg0, Object arg1) {
+        return arg0 == arg1;
     }
 
     public void onPageSelectedPostion(int position) {
