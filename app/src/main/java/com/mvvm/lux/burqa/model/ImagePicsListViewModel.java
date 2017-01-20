@@ -7,11 +7,14 @@ import android.graphics.drawable.Animatable;
 import android.support.v4.app.FragmentActivity;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.AbsListView;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.drawee.view.SimpleDraweeView;
 import com.facebook.imagepipeline.image.ImageInfo;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
@@ -78,7 +81,7 @@ public class ImagePicsListViewModel extends BaseViewModel {
                 });
     }
 
-    public LinearLayoutManager linearLayoutManager(){
+    public LinearLayoutManager linearLayoutManager() {
         return new LinearLayoutManager(mImagePicsListActivity);
     }
 
@@ -91,11 +94,17 @@ public class ImagePicsListViewModel extends BaseViewModel {
         }
     }
 
+    public void setDataBinding(ActivityImagePicsListBinding dataBinding) {
+        mDataBinding = dataBinding;
+    }
+
     public void initData() {
         time.set(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
         network_status.set(NetworkUtil.getAPNType(mActivity));
 
         RetrofitHelper.init()
+                //http://v2.api.dmzj.com/chapter/21097/59085.json
+                //http://v2.api.dmzj.com/chapter/21782/61641.json
                 .getChapter("chapter/" + obj_id.get() + "/" + chapter_id.get() + ".json")
                 .compose(RxHelper.io_main())
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
@@ -134,8 +143,7 @@ public class ImagePicsListViewModel extends BaseViewModel {
             }
 
             @Override
-            public void onPageScrollStateChanged(int state) {
-
+            public void onPageScrollStateChanged(int scrollState) {
             }
         };
     }
@@ -144,12 +152,12 @@ public class ImagePicsListViewModel extends BaseViewModel {
 
     public CommonAdapter mCommonAdapter = new CommonAdapter<String>(mActivity, R.layout.adapter_image_pics_list_land, mUrls) {
 
-        private PhotoDraweeView mPhotoView;
+        private SimpleDraweeView mPhotoView;
 
         @Override
         protected void convert(ViewHolder holder, String url, int position) {
             mPhotoView = holder.getView(R.id.image_land);
-            mPhotoView.setOnPhotoTapListener(mOnPhotoTapListener);
+//            mPhotoView.setOnPhotoTapListener(mOnPhotoTapListener);
             new CircleProgress  //加载圆形进度条
                     .Builder()
                     .setStyle(CircleStyle.FAN)
@@ -176,7 +184,8 @@ public class ImagePicsListViewModel extends BaseViewModel {
                 }
                 int width = imageInfo.getWidth();
                 int height = imageInfo.getHeight();
-                mPhotoView.update(width, height);
+//                mPhotoView.update(screenHeight, height);
+                mPhotoView.setAspectRatio((float) width / height);
             }
         };
 
@@ -192,7 +201,24 @@ public class ImagePicsListViewModel extends BaseViewModel {
         };
     };
 
-    public void setDataBinding(ActivityImagePicsListBinding dataBinding) {
-        mDataBinding = dataBinding;
-    }
+    public RecyclerView.OnScrollListener onScrollListener = new RecyclerView.OnScrollListener() {
+        @Override
+        public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
+            switch (scrollState) {
+                case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                    //ImageLoader.pauseLoader();
+                    if (!Fresco.getImagePipeline().isPaused()) {
+                        Fresco.getImagePipeline().pause();
+                    }
+                    break;
+                case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                    //ImageLoader.resumeLoader();
+                    if (Fresco.getImagePipeline().isPaused()) {
+                        Fresco.getImagePipeline().resume();
+                    }
+                    break;
+            }
+        }
+    };
 }

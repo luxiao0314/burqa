@@ -15,8 +15,10 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.RecyclerView
+            android:background="@color/colorAccent"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
+            bind:onScrollListener="@{viewModel.onScrollListener}"
             app:layoutManager="@{viewModel.linearLayoutManager}"
             bind:setAdapter="@{viewModel.mCommonAdapter}"/>
 

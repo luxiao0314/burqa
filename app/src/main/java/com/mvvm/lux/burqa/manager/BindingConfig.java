@@ -15,7 +15,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextWatcher;
-import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.EditText;
 import android.widget.SeekBar;
@@ -136,16 +135,11 @@ public class BindingConfig {
         RecyclerViewItemClickSupport.addTo(view).setOnItemClickListener(listener);
     }
 
-    /* ------------------------ 双向绑定 http://www.jianshu.com/p/05b9838a1949 ---------------------------- */
-    @BindingAdapter("android:visibility")
-    public static void setVisibility(View view, int visiblity) {
-        view.setVisibility(visiblity);
-//        ? View.VISIBLE : View.GONE
-    }
-
-    @BindingAdapter("visibilityAttrChanged")
-    public static void OnVisibility(View view, InverseBindingListener attrChange) {
-
+    @BindingAdapter({"onScrollListener"})
+    public static void setOnScrollListener(RecyclerView view, RecyclerView.OnScrollListener listener) {
+        if (listener != null) {
+            view.setOnScrollListener(listener);
+        }
     }
 
     /* ------------------------ other ---------------------------- */

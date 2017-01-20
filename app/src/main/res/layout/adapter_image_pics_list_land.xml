@@ -1,16 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-              xmlns:app="http://schemas.android.com/apk/res-auto"
-              android:layout_width="match_parent"
-              android:layout_height="match_parent"
-              android:orientation="vertical">
-
-    <me.relex.photodraweeview.PhotoDraweeView
-        android:id="@+id/image_land"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        app:fadeDuration="500"
-        app:failureImage="@drawable/network_error"
-        app:failureImageScaleType="center"
-        app:placeholderImage="@color/gray_trans"/>
-</LinearLayout>
+<com.facebook.drawee.view.SimpleDraweeView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/image_land"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:fadeDuration="500"
+    app:failureImage="@drawable/network_error"
+    app:failureImageScaleType="center"
+    app:placeholderImage="@color/gray_trans"
+    app:roundingBorderColor="@color/gray_80"
+    app:roundingBorderWidth="0.5dp"/>

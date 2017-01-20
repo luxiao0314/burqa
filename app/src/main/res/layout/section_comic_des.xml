@@ -8,144 +8,161 @@
             name="viewModel"
             type="com.mvvm.lux.burqa.model.ComicHeaderViewModel"/>
     </data>
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white"
-        android:orientation="vertical"
-        android:padding="10dp">
-        <lib.lhh.fiv.library.FrescoImageView
-            android:layout_width="@dimen/fresco_width"
-            android:layout_height="@dimen/fresco_height"
-            bind:viewAspectRatio="0.75"
-            android:layout_gravity="center"
-            bind:imageUrl="@{viewModel.cover}"/>
+        android:background="@color/white">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="10dp"
-            android:text="@{viewModel.title}"
-            android:textColor="@color/black_80"
-            android:textSize="16sp"/>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:text="@{viewModel.authors}"
-            android:textColor="?attr/colorPrimary"
-            android:textSize="12sp"/>
+        <com.mvvm.lux.widget.waveview.WaveView
+            android:id="@+id/wave_view"
+            android:layout_width="match_parent"
+            android:layout_height="200dp"
+            android:background="@color/colorPrimary"
+            app:above_wave_color="@android:color/white"
+            app:blow_wave_color="@android:color/white"
+            app:progress="10"
+            app:wave_height="large"
+            app:wave_hz="slow"
+            app:wave_length="large"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal">
+            android:orientation="vertical"
+            android:padding="10dp">
+            <lib.lhh.fiv.library.FrescoImageView
+                android:layout_width="@dimen/fresco_width"
+                android:layout_height="@dimen/fresco_height"
+                android:layout_gravity="center"
+                bind:imageUrl="@{viewModel.cover}"
+                bind:viewAspectRatio="0.75"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_margin="10dp"
+                android:text="@{viewModel.title}"
+                android:textColor="@color/black_80"
+                android:textSize="16sp"/>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="@{viewModel.authors}"
+                android:textColor="?attr/colorPrimary"
+                android:textSize="12sp"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@{viewModel.hot_num}"
+                    android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="5dp"
+                    android:text="@{viewModel.subscribe_num}"
+                    android:textSize="12sp"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="2">
+                <TextView
+                    android:id="@+id/textView2"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tag_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="已收藏" android:textSize="12sp"/>
+
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/tag_bg"
+                    android:gravity="center"
+                    android:padding="10dp"
+                    android:text="续看 13话"
+                    android:textSize="12sp"/>
+            </LinearLayout>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:text="@{viewModel.hot_num}"
+                android:maxLines="2"
+                android:text="@{viewModel.description}"
                 android:textSize="12sp"/>
 
-            <TextView
+            <ImageView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="5dp"
-                android:text="@{viewModel.subscribe_num}"
-                android:textSize="12sp"/>
+                android:layout_gravity="end"
+                android:src="@drawable/detail_intr_expand"/>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="horizontal"
+                android:weightSum="3">
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/article_detail_bottom_share"
+                    android:gravity="center"
+                    android:text="分享"
+                    android:textSize="12sp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/ic_send_default"
+                    android:gravity="center"
+                    android:text="投递"
+                    android:textSize="12sp"/>
+                <TextView
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="10dp"
+                    android:layout_weight="1"
+                    android:drawablePadding="5dp"
+                    android:drawableTop="@drawable/article_detail_bottom_comment"
+                    android:gravity="center"
+                    android:text="吐槽(216)"
+                    android:textSize="12sp"/>
+            </LinearLayout>
         </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="2">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/tag_bg"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="已收藏"
-                android:textSize="12sp"/>
-
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:background="@drawable/tag_bg"
-                android:gravity="center"
-                android:padding="10dp"
-                android:text="续看 13话"
-                android:textSize="12sp"/>
-        </LinearLayout>
-
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:layout_margin="5dp"
-            android:maxLines="2"
-            android:text="@{viewModel.description}"
-            android:textSize="12sp"/>
-
-        <ImageView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="end"
-            android:src="@drawable/detail_intr_expand"/>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:orientation="horizontal"
-            android:weightSum="3">
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/article_detail_bottom_share"
-                android:gravity="center"
-                android:text="分享"
-                android:textSize="12sp"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/ic_send_default"
-                android:gravity="center"
-                android:text="投递"
-                android:textSize="12sp"/>
-            <TextView
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_margin="10dp"
-                android:layout_weight="1"
-                android:drawablePadding="5dp"
-                android:drawableTop="@drawable/article_detail_bottom_comment"
-                android:gravity="center"
-                android:text="吐槽(216)"
-                android:textSize="12sp"/>
-        </LinearLayout>
-    </LinearLayout>
+    </RelativeLayout>
 </layout>

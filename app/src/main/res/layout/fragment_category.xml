@@ -20,6 +20,7 @@
             android:id="@+id/onRefreshListener"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="@color/window_background"
             bind:onRefreshListener="@{viewModel.onRefreshListener}"
             bind:refreshing="@={viewModel.refreshing}">
 
@@ -27,7 +28,6 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="@color/white"
                 app:layoutManager="@{viewModel.layoutManager}"
                 bind:addItemDecoration="@{viewModel.itemDecoration}"
                 bind:setAdapter="@{viewModel.mAdapter}"/>

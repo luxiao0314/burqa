@@ -2,7 +2,6 @@ package com.mvvm.lux.burqa.ui.home.activity;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
@@ -72,11 +71,7 @@ public class ImagePicsListActivity extends BaseActivity {
 
     @Override
     public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if (mCurrentOrientation == Configuration.ORIENTATION_PORTRAIT) {
-            finish();
-        } else if (mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
-            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);   //设置竖屏
-        }
+        finish();
         return super.onKeyDown(keyCode, event);
     }
 }
