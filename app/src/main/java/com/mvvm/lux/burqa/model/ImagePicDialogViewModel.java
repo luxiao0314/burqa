@@ -24,6 +24,10 @@ public class ImagePicDialogViewModel extends BaseViewModel {
 
     public ObservableField<Integer> progress = new ObservableField<>(0);
 
+    public ObservableField<String> adver_tv = new ObservableField<>();
+
+    public ObservableField<String> chapter_title = new ObservableField<>();
+
     private ImagePicDialogFragment mImagePicDialogFragment;
 
     public ImagePicDialogViewModel(Activity activity, ImagePicDialogFragment imagePicDialogFragment) {
@@ -45,6 +49,7 @@ public class ImagePicDialogViewModel extends BaseViewModel {
             @Override
             public void onStopTrackingTouch(SeekBar seekBar) {
                 int progress = seekBar.getProgress();
+                adver_tv.set((progress + 1) + "/" + maxProgress.get());
                 RxBus.init().postSticky(new ProgressEvent(progress));
             }
         };

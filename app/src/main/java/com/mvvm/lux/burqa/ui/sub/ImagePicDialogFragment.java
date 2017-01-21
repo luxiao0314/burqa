@@ -37,10 +37,12 @@ public class ImagePicDialogFragment extends SimpleDialogFragment {
     public static String TAG = "jayne";
     private static int sUrlistsize;
     private static int sCurrentPosition;
+    private static String sChapterTitle;
 
-    public static void show(FragmentActivity activity, int urlistsize, int currentPosition) {
+    public static void show(FragmentActivity activity, int urlistsize, int currentPosition, String chapterTitle) {
         sUrlistsize = urlistsize;
         sCurrentPosition = currentPosition;
+        sChapterTitle = chapterTitle;
         new ImagePicDialogFragment().show(activity.getSupportFragmentManager(), TAG);
     }
 
@@ -56,9 +58,11 @@ public class ImagePicDialogFragment extends SimpleDialogFragment {
     @Override
     public Builder build(Builder builder) {
         FragmentImagePicListBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_image_pic_list, null, false);
-        ImagePicDialogViewModel viewModel = new ImagePicDialogViewModel(getActivity(),this);
+        ImagePicDialogViewModel viewModel = new ImagePicDialogViewModel(getActivity(), this);
         viewModel.maxProgress.set(sUrlistsize);
         viewModel.progress.set(sCurrentPosition);
+        viewModel.adver_tv.set((sCurrentPosition + 1) + "/" + sUrlistsize);
+        viewModel.chapter_title.set(sChapterTitle);
         dataBinding.setViewModel(viewModel);
         builder.setView(dataBinding.getRoot());
         return builder;

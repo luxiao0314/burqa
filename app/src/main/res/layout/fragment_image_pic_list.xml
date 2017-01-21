@@ -29,7 +29,7 @@
                 android:gravity="center"
                 android:onClick="@{viewModel.back}"
                 android:paddingStart="5dp"
-                android:text="第1话"
+                android:text="@{viewModel.chapter_title}"
                 android:textColor="@color/white"/>
 
             <TextView
@@ -37,7 +37,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:padding="5dp"
-                android:text="17/23"
+                android:text="@{viewModel.adver_tv}"
                 android:textColor="@color/white"/>
         </LinearLayout>
 

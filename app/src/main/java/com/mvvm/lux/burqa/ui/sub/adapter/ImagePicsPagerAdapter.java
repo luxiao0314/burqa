@@ -21,8 +21,9 @@ import progress.enums.CircleStyle;
 public class ImagePicsPagerAdapter extends PagerAdapter {
     private FragmentActivity mContext = null;
     private ArrayList<String> mUrls;
-    private int mPosition;
     private PhotoDraweeView mPhotoView;
+    public String chapterTitle;
+    public int currentPosition;
 
     public ImagePicsPagerAdapter(FragmentActivity context, ArrayList<String> urls) {
         this.mContext = context;
@@ -35,7 +36,6 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        mPosition = position;
         String url = mUrls.get(position);
         View contentview = LayoutInflater.from(mContext).inflate(R.layout.gallery_item, container, false);
         mPhotoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
@@ -62,7 +62,7 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(mContext, mUrls.size(), mPosition);
+                ImagePicDialogFragment.show(mContext, mUrls.size(), currentPosition, chapterTitle);
             }
         }
     };

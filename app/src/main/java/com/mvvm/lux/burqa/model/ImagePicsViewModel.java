@@ -39,7 +39,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     public ObservableField<String> obj_id = new ObservableField<>();
     public ObservableField<String> chapter_id = new ObservableField<>();
     public ObservableField<String> chapter_title = new ObservableField<>();
-    public ObservableField<String> adver_tv = new ObservableField<>();
+    public ObservableField<String> adver_tv = new ObservableField<>();  // 18/50
     public ObservableField<String> time = new ObservableField<>();
     public ObservableField<String> network_status = new ObservableField<>();
     public ObservableField<Integer> current_position = new ObservableField<>(); //从FlowLayout传递过来的默认的position
@@ -104,6 +104,9 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     private void refreshPosition(int position) {
         adver_tv.set((position + 1) + "/" + mUrls.size());
         mDataBinding.pager.setCurrentItem(position);
+        mPagerAdapter.currentPosition = position;
+        if (mListAdapter != null)   //竖屏的时候mListAdapter并没有初始化
+            mListAdapter.currentPosition = position;
     }
 
     public ViewPager.OnPageChangeListener onPageChange() {
@@ -119,6 +122,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         if (mPagerAdapter == null) {
             mPagerAdapter = new ImagePicsPagerAdapter(mImagePicsListActivity, mUrls);
         }
+        mPagerAdapter.chapterTitle = chapter_title.get();
         return mPagerAdapter;
     }
 
@@ -128,6 +132,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         if (mListAdapter == null) {
             mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls);
         }
+        mListAdapter.chapterTitle = chapter_title.get();
         return mListAdapter;
     }
 

@@ -32,7 +32,8 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     private FragmentActivity content;
     private PhotoDraweeView mPhotoView;
-    private int mPosition;
+    public String chapterTitle;
+    public int currentPosition;
 
     public ImagePicsListAdapter(FragmentActivity context, int layoutId, List<String> urls) {
         super(context, layoutId, urls);
@@ -41,7 +42,6 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     @Override
     protected void convert(ViewHolder holder, String url, int position) {
-        mPosition = position;
         mPhotoView = holder.getView(R.id.image_land);
         new CircleProgress  //加载圆形进度条
                 .Builder()
@@ -78,7 +78,7 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(content, mDatas.size(), mPosition);
+                ImagePicDialogFragment.show(content, mDatas.size(), currentPosition, chapterTitle);
             }
         }
     };
