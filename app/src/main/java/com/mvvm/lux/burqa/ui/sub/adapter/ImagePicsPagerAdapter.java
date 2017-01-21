@@ -46,7 +46,8 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
                 .setStyle(CircleStyle.FAN)
                 .setProgressColor(mContext.getResources().getColor(R.color.white_trans))
                 .setCustomText((position + 1) + "")
-                .setCircleRadius(DisplayUtil.dp2px(15))
+                .setTextSize(DisplayUtil.dp2px(14))
+                .setCircleRadius(DisplayUtil.dp2px(20))
                 .build()
                 .injectFresco(mPhotoView);
 

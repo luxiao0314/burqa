@@ -20,7 +20,7 @@
             android:layout_height="wrap_content"
             android:background="@color/media_controller_bg"
             android:orientation="horizontal"
-            android:padding="5dp">
+            android:padding="3dp">
             <TextView
                 android:id="@+id/chapter_title"
                 android:layout_width="wrap_content"
@@ -100,7 +100,7 @@
                 android:max="@{viewModel.maxProgress}"
                 android:maxHeight="1dp"
                 android:minHeight="1dp"
-                android:padding="5dp"
+                android:padding="3dp"
                 android:progress="@{viewModel.progress}"
                 android:progressDrawable="@drawable/po_seekbar"
                 android:thumb="@drawable/seekbar_thumb"
@@ -111,7 +111,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="horizontal"
-                android:padding="5dp"
+                android:padding="3dp"
                 android:weightSum="5">
 
                 <TextView
@@ -123,7 +123,8 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="发送"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -134,7 +135,8 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="书签"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
 
                 <TextView
                     android:layout_width="0dp"
@@ -145,18 +147,20 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="亮度"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
                 <TextView
-                    android:onClick="@{viewModel.onLandscapeModeCLick}"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/icon_rm_rotate"
                     android:gravity="center"
+                    android:onClick="@{viewModel.onLandscapeModeCLick}"
                     android:padding="5dp"
                     android:text="横屏"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
                 <TextView
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
@@ -166,7 +170,8 @@
                     android:gravity="center"
                     android:padding="5dp"
                     android:text="设置"
-                    android:textColor="@color/white"/>
+                    android:textColor="@color/white"
+                    android:textSize="12sp"/>
             </LinearLayout>
         </LinearLayout>
     </RelativeLayout>

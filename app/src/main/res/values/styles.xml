@@ -40,6 +40,12 @@
         <item name="android:windowIsTranslucent">true</item>
     </style>
 
+    <!--漫画观看主题-->
+    <style name="image_pic_fullscreen" parent="@android:style/Theme.Light.NoTitleBar.Fullscreen">
+        <item name="android:windowNoTitle">true</item>
+        <item name="android:windowFullscreen">true</item>
+    </style>
+
     <!--滑动退出主题-->
     <style name="swipeback_activity_style" parent="window_translucent"/>
 

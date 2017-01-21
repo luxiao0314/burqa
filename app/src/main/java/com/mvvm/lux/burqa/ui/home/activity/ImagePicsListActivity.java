@@ -6,8 +6,6 @@ import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.view.KeyEvent;
-import android.view.Window;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
@@ -30,7 +28,7 @@ public class ImagePicsListActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setTheme(R.style.image_pic_fullscreen);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
         init();
     }
@@ -43,7 +41,7 @@ public class ImagePicsListActivity extends BaseActivity {
     }
 
     private void init() {
-        mViewModel = new ImagePicsViewModel(this,(ActivityImagePicsListBinding) mDataBinding);
+        mViewModel = new ImagePicsViewModel(this, (ActivityImagePicsListBinding) mDataBinding);
         // 没有任何url时，直接return跳走，UI交互上是用户根本进不来
         Intent intent = getIntent();
         mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
@@ -64,11 +62,5 @@ public class ImagePicsListActivity extends BaseActivity {
                 .putString("chapter_title", chapter_title + "")
                 .to(ImagePicsListActivity.class)
                 .launch();
-    }
-
-    @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        Router.pop(this);
-        return super.onKeyDown(keyCode, event);
     }
 }
