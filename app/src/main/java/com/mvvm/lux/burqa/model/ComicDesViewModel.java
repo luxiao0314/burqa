@@ -58,7 +58,7 @@ public class ComicDesViewModel extends BaseViewModel {
                     public void onNext(ComicResponse comicResponse) {
                         title.set(comicResponse.getTitle());
                         mAdapter = new SectionedRecyclerViewAdapter();
-                        mAdapter.addSection(new ComicHeaderSection(mActivity, comicResponse));
+                        mAdapter.addSection(new ComicHeaderSection(mActivity, comicResponse,mObjId));
                         mAdapter.addSection(new ComicItemSection(mActivity, comicResponse, mObjId));
                         mAdapter.addSection(new ComicCommentSection(mActivity, comicResponse));
                         mDataBinding.recyclerView.setAdapter(mAdapter);

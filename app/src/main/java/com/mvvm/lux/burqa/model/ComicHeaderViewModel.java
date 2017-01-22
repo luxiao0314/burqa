@@ -2,8 +2,11 @@ package com.mvvm.lux.burqa.model;
 
 import android.app.Activity;
 import android.databinding.ObservableField;
+import android.text.TextUtils;
 
+import com.mvvm.lux.burqa.model.event.ChaptersEvent;
 import com.mvvm.lux.framework.base.BaseViewModel;
+import com.mvvm.lux.framework.rx.RxBus;
 
 /**
  * @Description
@@ -24,9 +27,25 @@ public class ComicHeaderViewModel extends BaseViewModel {
 
     public ObservableField<String> subscribe_num = new ObservableField<>();   //订阅
 
+    public ObservableField<String> chapter_title = new ObservableField<>("开始阅读");   //章节
+
     public ObservableField<String> islong = new ObservableField<>();   //是否为长文章:2为长文章
 
-    public ComicHeaderViewModel(Activity activity) {
+    public ComicHeaderViewModel(Activity activity, String objId) {
         super(activity);
+        initEvent(objId);
+    }
+
+    private void initEvent(String objId) {
+        RxBus.init()
+                .toObservableSticky(ChaptersEvent.class)
+                .subscribe(chaptersEvent -> {
+                    if (objId.equals(chaptersEvent.mObjId))
+                        if (TextUtils.isEmpty(chaptersEvent.mChapter_title)) {
+                            chapter_title.set("开始阅读");
+                        } else {
+                            chapter_title.set("续看 " + chaptersEvent.mChapter_title);
+                        }
+                });
     }
 }

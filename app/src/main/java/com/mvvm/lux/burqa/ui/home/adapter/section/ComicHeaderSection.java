@@ -14,7 +14,7 @@ import com.mvvm.lux.framework.utils.CommonUtils;
 import java.util.List;
 
 /**
- * @Description 漫画详情页面,上半部分内容
+ * @Description 漫画详情页面, 上半部分内容
  * @Author luxiao418
  * @Email luxiao418@pingan.com.cn
  * @Date 2017/1/8 14:42
@@ -24,11 +24,13 @@ public class ComicHeaderSection extends StatelessSection {
 
     private final ComicDesActivity mActivity;
     private final ComicResponse mComicResponse;
+    private String mObjId;
 
-    public ComicHeaderSection(ComicDesActivity activity, ComicResponse comicResponse) {
+    public ComicHeaderSection(ComicDesActivity activity, ComicResponse comicResponse, String objId) {
         super(R.layout.section_comic_des);
         mActivity = activity;
         mComicResponse = comicResponse;
+        mObjId = objId;
     }
 
     @Override
@@ -43,7 +45,7 @@ public class ComicHeaderSection extends StatelessSection {
 
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ComicHeaderViewModel viewModel = new ComicHeaderViewModel(mActivity);
+        ComicHeaderViewModel viewModel = new ComicHeaderViewModel(mActivity,mObjId);
         viewModel.cover.set(mComicResponse.getCover());
         viewModel.title.set(mComicResponse.getTitle());
         viewModel.description.set(mComicResponse.getDescription());

@@ -38,6 +38,10 @@ public class ClassifyResponse extends RealmObject implements Serializable {
     private int last_updatetime;
     private int num;
     private long time;   //添加收藏的时间
+    private int pagePosition;
+    private int TagPosition;
+    private String chapters;
+    private String chapter_title;
 
     public int getId() {
         return id;
@@ -109,5 +113,37 @@ public class ClassifyResponse extends RealmObject implements Serializable {
 
     public void setTime(long time) {
         this.time = time;
+    }
+
+    public int getPagePosition() {
+        return pagePosition;
+    }
+
+    public void setPagePosition(int pagePosition) {
+        this.pagePosition = pagePosition;
+    }
+
+    public int getTagPosition() {
+        return TagPosition;
+    }
+
+    public void setTagPosition(int tagPosition) {
+        TagPosition = tagPosition;
+    }
+
+    public String getChapters() {
+        return chapters;
+    }
+
+    public void setChapters(String chapters) {
+        this.chapters = chapters;
+    }
+
+    public String getChapter_title() {
+        return chapter_title;
+    }
+
+    public void setChapter_title(String chapter_title) {
+        this.chapter_title = chapter_title;
     }
 }

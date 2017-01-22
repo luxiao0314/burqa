@@ -64,6 +64,7 @@ public class ComicItemSection extends StatelessSection {
             viewModel.chaptersListLess.add(chapters.getData().get(i));
         }
         viewModel.tempList.addAll(viewModel.chaptersListLess);
+        viewModel.getLocalData();
         ((ItemViewHoder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((ItemViewHoder) holder).mDataBinding.executePendingBindings();
     }

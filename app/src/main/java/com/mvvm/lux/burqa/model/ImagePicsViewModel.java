@@ -13,7 +13,7 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
-import com.mvvm.lux.burqa.model.event.BaseEvent;
+import com.mvvm.lux.framework.base.BaseEvent;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.burqa.model.event.SwitchModeEvent;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
@@ -45,13 +45,15 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     public ObservableField<String> adver_tv = new ObservableField<>();  // 18/50
     public ObservableField<String> time = new ObservableField<>();
     public ObservableField<String> network_status = new ObservableField<>();
-    public ObservableField<Integer> current_position = new ObservableField<>(); //从FlowLayout传递过来的默认的position
+    public ObservableField<Integer> current_position = new ObservableField<>(0); //从FlowLayout传递过来的默认的position
     public ObservableField<Integer> pageLimit = new ObservableField<>(3);
     private ArrayList<String> mUrls = new ArrayList<>();
     private ActivityImagePicsListBinding mDataBinding;
     private ImagePicsListActivity mImagePicsListActivity;
     private ImagePicsPagerAdapter mPagerAdapter;
     private ImagePicsListAdapter mListAdapter;
+    private int mComic_id;
+    private int mPosition;
 
     public ImagePicsViewModel(ImagePicsListActivity imagePicsListActivity, ActivityImagePicsListBinding dataBinding) {
         super(imagePicsListActivity);
@@ -92,19 +94,12 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
                         chapter_title.set(comicPageResponse.getTitle());    //"title": "第61话",
+                        mComic_id = comicPageResponse.getComic_id();
                         mUrls.addAll(comicPageResponse.getPage_url());
                         if (!checkIllegal())
                             mActivity.finish();
                         mPagerAdapter.notifyDataSetChanged();
                         refreshPosition(current_position.get());
-
-                        ClassifyResponse response = new ClassifyResponse();
-                        response.setId(comicPageResponse.getComic_id());
-                        response.setTitle(title.get());
-                        response.setCover(cover.get());
-                        response.setAuthors(chapter_title.get());
-                        response.setTime(System.currentTimeMillis());
-                        RealmHelper.getInstance().insertClassifyList(response);
                     }
                 });
     }
@@ -127,6 +122,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int position) {
+        mPosition = position;
         refreshPosition(position);
     }
 
@@ -179,5 +175,25 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     @Override
     public void onPageScrollStateChanged(int state) {
 
+    }
+
+    @Override
+    public void detachView() {
+        super.detachView();
+        //销毁当前页面的时候存一下
+        ClassifyResponse response = new ClassifyResponse();
+        response.setId(mComic_id);  //对应漫画id
+        response.setTitle(title.get()); //标题
+        response.setCover(cover.get()); //图片url
+        response.setAuthors(chapter_title.get());   //12页/30话
+        response.setTime(System.currentTimeMillis());   //当前时间戳,用于排序
+        response.setPagePosition(mPosition); //当前页面的position
+        RealmHelper.getInstance().insertClassifyList(response);
+    }
+
+    public void getLocalData() {
+        int pagePosition = RealmHelper.getInstance()
+                .queryPagePosition(Integer.parseInt(obj_id.get()));
+        current_position.set(pagePosition);
     }
 }

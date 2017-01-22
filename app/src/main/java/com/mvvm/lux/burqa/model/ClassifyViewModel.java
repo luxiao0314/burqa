@@ -120,7 +120,7 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
     }
 
     private void queryClassifyFormLocal(boolean isLoadMore) {
-        List<ClassifyResponse> responses = RealmHelper.getInstance().getClassifyList();
+        List<ClassifyResponse> responses = RealmHelper.getInstance().queryClassifyList();
         onNext(responses, isLoadMore);
     }
 

@@ -1,5 +1,7 @@
 package com.mvvm.lux.burqa.model.event;
 
+import com.mvvm.lux.framework.base.BaseEvent;
+
 /**
  * @Description
  * @Author luxiao418

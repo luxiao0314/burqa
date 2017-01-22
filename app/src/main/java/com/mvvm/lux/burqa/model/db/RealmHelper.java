@@ -44,9 +44,10 @@ public class RealmHelper {
     /**
      * 增加 收藏记录:列表
      * 使用@PrimaryKey注解后copyToRealm需要替换为copyToRealmOrUpdate
+     *
      * @param bean
      */
-    public void insertClassifyList(ClassifyResponse bean){
+    public void insertClassifyList(ClassifyResponse bean) {
         getRealm().beginTransaction();
         getRealm().copyToRealmOrUpdate(bean);
         getRealm().commitTransaction();
@@ -57,12 +58,63 @@ public class RealmHelper {
      *
      * @return
      */
-    public List<ClassifyResponse> getClassifyList() {
+    public List<ClassifyResponse> queryClassifyList() {
         //使用findAllSort ,先findAll再result.sort排序
         RealmResults<ClassifyResponse> results = getRealm()
                 .where(ClassifyResponse.class)
                 .findAllSorted("time", Sort.DESCENDING);
         return getRealm().copyFromRealm(results);
+    }
+
+    /**
+     * 通过漫画id查询tag的pisition
+     *
+     * @param id
+     * @return
+     */
+    public ClassifyResponse queryTagResponse(int id) {
+        return getRealm()
+                .where(ClassifyResponse.class)
+                .equalTo("id", id)
+                .findFirst();
+    }
+
+    /**
+     * 通过漫画id查询page的pisition
+     *
+     * @return
+     */
+    public int queryPagePosition(int id) {
+        ClassifyResponse response = getRealm()
+                .where(ClassifyResponse.class)
+                .equalTo("id", id)
+                .findFirst();
+        if (response == null)
+            return 0;
+        return response.getPagePosition();
+    }
+
+    /**
+     * 通过漫画id查询漫画并更新tag的position
+     *
+     * @param id
+     * @param tagPosition
+     * @param chapters
+     * @param chapter_title
+     */
+    public void insertTagPosition(int id, int tagPosition, String chapters, String chapter_title) {
+        ClassifyResponse response = getRealm()
+                .where(ClassifyResponse.class)
+                .equalTo("id", id)
+                .findFirst();
+        getRealm().beginTransaction();
+        if (response != null) {
+            response.setTagPosition(tagPosition);
+            response.setChapters(chapters);
+            response.setChapter_title(chapter_title);
+            getRealm().copyToRealmOrUpdate(response);
+            getRealm().commitTransaction();
+        }
     }
 
     /**
