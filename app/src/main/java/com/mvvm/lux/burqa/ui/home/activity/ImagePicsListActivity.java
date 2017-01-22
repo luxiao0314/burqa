@@ -50,7 +50,8 @@ public class ImagePicsListActivity extends BaseActivity {
         Intent intent = getIntent();
         mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
         mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
-        mViewModel.chapter_title.set(intent.getStringExtra("chapter_title"));
+        mViewModel.title.set(intent.getStringExtra("title"));
+        mViewModel.cover.set(intent.getStringExtra("cover"));
         mViewModel.current_position.set(intent.getIntExtra("current_position", 0));
         mViewModel.time.set(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
         mViewModel.network_status.set(NetworkUtil.getAPNType(this));
@@ -58,12 +59,13 @@ public class ImagePicsListActivity extends BaseActivity {
         mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
-    public static void launch(Activity activity, String obj_id, int chapter_id, String chapter_title, int position) {
+    public static void launch(Activity activity, String obj_id, int chapter_id, String title, String cover, int position) {
         Router.from(activity)
                 .putString("obj_id", obj_id)
                 .putString("chapter_id", chapter_id + "")
                 .putInt("current_position", position)
-                .putString("chapter_title", chapter_title + "")
+                .putString("title", title + "")
+                .putString("cover", cover)
                 .to(ImagePicsListActivity.class)
                 .launch();
     }

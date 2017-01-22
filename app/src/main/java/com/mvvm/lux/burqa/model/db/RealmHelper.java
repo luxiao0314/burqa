@@ -1,7 +1,6 @@
 package com.mvvm.lux.burqa.model.db;
 
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
-import com.mvvm.lux.burqa.model.response.ComicResponse;
 
 import java.util.List;
 
@@ -43,17 +42,6 @@ public class RealmHelper {
     //--------------------------------------------------收藏相关----------------------------------------------------
 
     /**
-     * 增加 收藏记录:漫画详情
-     *
-     * @param bean
-     */
-    public void insertCollection(ComicResponse bean) {
-        getRealm().beginTransaction();
-        getRealm().copyToRealm(bean);
-        getRealm().commitTransaction();
-    }
-
-    /**
      * 增加 收藏记录:列表
      * 使用@PrimaryKey注解后copyToRealm需要替换为copyToRealmOrUpdate
      * @param bean
@@ -63,6 +51,30 @@ public class RealmHelper {
         getRealm().copyToRealmOrUpdate(bean);
         getRealm().commitTransaction();
     }
+
+    /**
+     * 收藏列表:通过存入的时间戳查询,并排序
+     *
+     * @return
+     */
+    public List<ClassifyResponse> getClassifyList() {
+        //使用findAllSort ,先findAll再result.sort排序
+        RealmResults<ClassifyResponse> results = getRealm()
+                .where(ClassifyResponse.class)
+                .findAllSorted("time", Sort.DESCENDING);
+        return getRealm().copyFromRealm(results);
+    }
+
+    /**
+     * 增加 收藏记录:漫画详情
+     *
+     * @param bean
+     */
+//    public void insertCollection(ComicResponse bean) {
+//        getRealm().beginTransaction();
+//        getRealm().copyToRealm(bean);
+//        getRealm().commitTransaction();
+//    }
 
     /**
      * 删除 收藏记录
@@ -93,29 +105,15 @@ public class RealmHelper {
      * @param id
      * @return
      */
-    public boolean queryCollectionId(String id) {
-        RealmResults<ComicResponse> results = getRealm().where(ComicResponse.class).findAll();
-        for (ComicResponse item : results) {
-            if (String.valueOf(item.getId()).equals(id)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * 收藏列表
-     *
-     * @return
-     */
-    public List<ClassifyResponse> getClassifyList() {
-        //使用findAllSort ,先findAll再result.sort排序
-        RealmResults<ClassifyResponse> results = getRealm()
-                .where(ClassifyResponse.class)
-                .findAllSorted("time", Sort.DESCENDING);
-        return getRealm().copyFromRealm(results);
-    }
-
+//    public boolean queryCollectionId(String id) {
+//        RealmResults<ComicResponse> results = getRealm().where(ComicResponse.class).findAll();
+//        for (ComicResponse item : results) {
+//            if (String.valueOf(item.getId()).equals(id)) {
+//                return true;
+//            }
+//        }
+//        return false;
+//    }
 
     //--------------------------------------------------播放记录相关----------------------------------------------------
 

@@ -47,6 +47,8 @@ public class ComicItemViewModel extends BaseViewModel {
 
     public ObservableField<String> chapters_other_title = new ObservableField<>();
 
+    public ObservableField<String> cover = new ObservableField<>();
+
     public ObservableBoolean showAll = new ObservableBoolean(true);
 
     private SectionComicItemBinding mDataBinding;
@@ -93,7 +95,8 @@ public class ComicItemViewModel extends BaseViewModel {
         ImagePicsListActivity.launch(mActivity,
                 obj_id.get(),
                 chaptersList.get(position).getChapter_id(),
-                chaptersList.get(position).getChapter_title(),
+                title.get(),
+                cover.get(),
                 0);
         return true;
     };
@@ -102,7 +105,8 @@ public class ComicItemViewModel extends BaseViewModel {
         ImagePicsListActivity.launch(mActivity,
                 obj_id.get(),
                 chaptersOther.get(position).getChapter_id(),
-                chaptersOther.get(position).getChapter_title(),
+                title.get(),
+                cover.get(),
                 0);
         return true;
     };

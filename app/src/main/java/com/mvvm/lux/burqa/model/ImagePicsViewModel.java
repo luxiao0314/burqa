@@ -12,9 +12,11 @@ import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
+import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.event.BaseEvent;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.burqa.model.event.SwitchModeEvent;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.burqa.ui.sub.adapter.ImagePicsListAdapter;
@@ -38,6 +40,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public ObservableField<String> obj_id = new ObservableField<>();
     public ObservableField<String> chapter_id = new ObservableField<>();
+    public ObservableField<String> cover = new ObservableField<>();
     public ObservableField<String> chapter_title = new ObservableField<>();
     public ObservableField<String> adver_tv = new ObservableField<>();  // 18/50
     public ObservableField<String> time = new ObservableField<>();
@@ -88,11 +91,20 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
+                        chapter_title.set(comicPageResponse.getTitle());    //"title": "第61话",
                         mUrls.addAll(comicPageResponse.getPage_url());
                         if (!checkIllegal())
                             mActivity.finish();
                         mPagerAdapter.notifyDataSetChanged();
                         refreshPosition(current_position.get());
+
+                        ClassifyResponse response = new ClassifyResponse();
+                        response.setId(comicPageResponse.getComic_id());
+                        response.setTitle(title.get());
+                        response.setCover(cover.get());
+                        response.setAuthors(chapter_title.get());
+                        response.setTime(System.currentTimeMillis());
+                        RealmHelper.getInstance().insertClassifyList(response);
                     }
                 });
     }
