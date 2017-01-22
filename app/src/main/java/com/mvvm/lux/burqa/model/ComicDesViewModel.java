@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import com.mvvm.lux.burqa.base.SectionedRecyclerViewAdapter;
 import com.mvvm.lux.burqa.databinding.ActivityComicDesBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
+import com.mvvm.lux.burqa.model.db.RealmHelper;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.burqa.ui.home.adapter.section.ComicCommentSection;
@@ -58,10 +60,19 @@ public class ComicDesViewModel extends BaseViewModel {
                     public void onNext(ComicResponse comicResponse) {
                         title.set(comicResponse.getTitle());
                         mAdapter = new SectionedRecyclerViewAdapter();
-                        mAdapter.addSection(new ComicHeaderSection(mActivity,comicResponse));
-                        mAdapter.addSection(new ComicItemSection(mActivity,comicResponse,mObjId));
-                        mAdapter.addSection(new ComicCommentSection(mActivity,comicResponse));
+                        mAdapter.addSection(new ComicHeaderSection(mActivity, comicResponse));
+                        mAdapter.addSection(new ComicItemSection(mActivity, comicResponse, mObjId));
+                        mAdapter.addSection(new ComicCommentSection(mActivity, comicResponse));
                         mDataBinding.recyclerView.setAdapter(mAdapter);
+
+//                        RealmHelper.getInstance().insertCollection(comicResponse);
+
+                        ClassifyResponse response = new ClassifyResponse();
+                        response.setId(comicResponse.getId());
+                        response.setTitle(comicResponse.getTitle());
+                        response.setCover(comicResponse.getCover());
+                        response.setTime(System.currentTimeMillis());
+                        RealmHelper.getInstance().insertClassifyList(response);
                     }
                 });
     }

@@ -3,6 +3,7 @@ package com.mvvm.lux.burqa.ui.home.activity;
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
+import android.text.TextUtils;
 
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityComicClassifyBinding;
@@ -32,9 +33,12 @@ public class ComicClassifyActivity extends SwipeBackActivity {
         String tag_id = getIntent().getExtras().getString("tag_id");
         String title = getIntent().getExtras().getString("title");
         ClassifyViewModel mViewModel = new ClassifyViewModel(this);
+        if (TextUtils.isEmpty(tag_id))
+            mViewModel.downloadImg.set(false);
         mViewModel.tag_id.set(tag_id);
         mViewModel.title.set(title);
         mViewModel.initData(false);
+        mViewModel.initView();  //里面的加载更多监听会优先执行initData()
         mDataBinding.setViewModel(mViewModel);
     }
 

@@ -1,33 +1,66 @@
 package com.mvvm.lux.burqa.model.db;
 
-import com.mvvm.lux.framework.manager.RealmHelper;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
+import com.mvvm.lux.burqa.model.response.ComicResponse;
 
-import java.util.Collection;
+import java.util.List;
 
 import io.realm.Realm;
+import io.realm.RealmResults;
+import io.realm.Sort;
 
 /**
  * @Description
  * @Author luxiao418
  * @Email luxiao418@pingan.com.cn
  * @Date 2017/1/18 14:30
- * @Version
+ * @Version 1.0.1
  */
-public class RealmManager  {
-    protected Realm getRealm() {
-        return RealmHelper.getInstance().getRealm();
+public class RealmHelper {
+    private Realm mRealm;
+    private static RealmHelper instance;
+
+    private RealmHelper() {
+    }
+
+    public static RealmHelper getInstance() {
+        if (instance == null) {
+            synchronized (RealmHelper.class) {
+                if (instance == null)
+                    instance = new RealmHelper();
+            }
+        }
+        return instance;
+    }
+
+
+    private Realm getRealm() {
+        if (mRealm == null || mRealm.isClosed())
+            mRealm = Realm.getDefaultInstance();
+        return mRealm;
     }
 
     //--------------------------------------------------收藏相关----------------------------------------------------
 
     /**
-     * 增加 收藏记录
+     * 增加 收藏记录:漫画详情
      *
      * @param bean
      */
-    public void insertCollection(Collection bean) {
+    public void insertCollection(ComicResponse bean) {
         getRealm().beginTransaction();
         getRealm().copyToRealm(bean);
+        getRealm().commitTransaction();
+    }
+
+    /**
+     * 增加 收藏记录:列表
+     * 使用@PrimaryKey注解后copyToRealm需要替换为copyToRealmOrUpdate
+     * @param bean
+     */
+    public void insertClassifyList(ClassifyResponse bean){
+        getRealm().beginTransaction();
+        getRealm().copyToRealmOrUpdate(bean);
         getRealm().commitTransaction();
     }
 
@@ -52,37 +85,41 @@ public class RealmManager  {
         getRealm().commitTransaction();
     }
 
-    *//**
+    */
+
+    /**
      * 查询 收藏记录
      *
      * @param id
      * @return
-     *//*
+     */
     public boolean queryCollectionId(String id) {
-        RealmResults<Collection> results = getRealm().where(Collection.class).findAll();
-        for (Collection item : results) {
-            if (item.getId().equals(id)) {
+        RealmResults<ComicResponse> results = getRealm().where(ComicResponse.class).findAll();
+        for (ComicResponse item : results) {
+            if (String.valueOf(item.getId()).equals(id)) {
                 return true;
             }
         }
         return false;
     }
 
-    *//**
+    /**
      * 收藏列表
      *
      * @return
-     *//*
-    public List<Collection> getCollectionList() {
+     */
+    public List<ClassifyResponse> getClassifyList() {
         //使用findAllSort ,先findAll再result.sort排序
-        RealmResults<Collection> results = getRealm().where(Collection.class).findAllSorted("time", Sort.DESCENDING);
+        RealmResults<ClassifyResponse> results = getRealm()
+                .where(ClassifyResponse.class)
+                .findAllSorted("time", Sort.DESCENDING);
         return getRealm().copyFromRealm(results);
     }
 
 
     //--------------------------------------------------播放记录相关----------------------------------------------------
 
-    *//**
+    /**
      * 增加播放记录
      *
      * @param bean

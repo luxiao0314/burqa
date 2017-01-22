@@ -39,6 +39,7 @@ public class CategoryViewModel extends BaseViewModel {
     public CategoryViewModel(Activity activity) {
         super(activity);
         refreshing.set(true);
+        mAdapter.isFirstOnly(false);
     }
 
     public RecyclerView.ItemDecoration itemDecoration = new AlphaDividerItemDecoration(DisplayUtil.dp2px(5));

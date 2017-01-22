@@ -8,10 +8,12 @@ import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
+import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.RxHelper;
@@ -43,12 +45,14 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
 
     public ClassifyViewModel(Activity activity) {
         super(activity);
-        initView();
     }
 
-    private void initView() {
-        mAdapter.setLoadMoreView(new SimpleLoadMoreView());
-        mAdapter.setOnLoadMoreListener(this);
+    public void initView() {
+        mAdapter.isFirstOnly(false);
+        if (!TextUtils.isEmpty(tag_id.get())) { //历史记录没有加载更多
+            mAdapter.setLoadMoreView(new SimpleLoadMoreView());
+            mAdapter.setOnLoadMoreListener(this);
+        }
     }
 
     public GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 3);
@@ -56,6 +60,12 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
     public RecyclerView.ItemDecoration itemDecoration = new AlphaDividerItemDecoration(DisplayUtil.dp2px(5));
 
     public EmptyView.ReloadOnClickListener mReloadOnClickListener = () -> initData(false);
+
+    // refreshing.set(true); 双向绑定之后,刷新之后就不用设置为true了
+    public SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> {
+        page = 0;
+        initData(false);
+    };
 
     public BaseQuickAdapter mAdapter = new BaseQuickAdapter<ClassifyResponse, BaseViewHolder>(R.layout.adapter_classify_layout, mResponses) {
 
@@ -72,12 +82,6 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
         }
     };
 
-    // refreshing.set(true); 双向绑定之后,刷新之后就不用设置为true了
-    public SwipeRefreshLayout.OnRefreshListener onRefreshListener = () -> {
-        page = 0;
-        initData(false);
-    };
-
     @Override
     public void onLoadMoreRequested(int position) {
         page += 1;
@@ -85,6 +89,16 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
     }
 
     public void initData(boolean isLoadMore) {
+
+        //如果都为空,就是查看本地历史
+        if (TextUtils.isEmpty(tag_id.get())) {
+            queryClassifyFormLocal(isLoadMore);
+        } else {
+            queryClassifyFromNet(isLoadMore);
+        }
+    }
+
+    private void queryClassifyFromNet(final boolean isLoadMore) {
         //"classify/3262/0/1.json"
         RetrofitHelper.init()
                 .getClassify("classify/" + tag_id.get() + "/0/" + page + ".json")
@@ -93,13 +107,7 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
 
                     @Override
                     public void onNext(List<ClassifyResponse> responses) {
-                        refreshing.set(false);
-                        if (isLoadMore) {
-                            mAdapter.loadMoreComplete();
-                            mAdapter.addData(responses);
-                        } else {
-                            mAdapter.setNewData(responses);
-                        }
+                        ClassifyViewModel.this.onNext(responses, isLoadMore);
                     }
 
                     @Override
@@ -109,7 +117,21 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
                         mAdapter.loadMoreFail();
                     }
                 });
+    }
 
+    private void queryClassifyFormLocal(boolean isLoadMore) {
+        List<ClassifyResponse> responses = RealmHelper.getInstance().getClassifyList();
+        onNext(responses, isLoadMore);
+    }
+
+    private void onNext(List<ClassifyResponse> responses, boolean isLoadMore) {
+        refreshing.set(false);
+        if (isLoadMore) {
+            mAdapter.addData(responses);
+            mAdapter.loadMoreComplete();
+        } else {
+            mAdapter.setNewData(responses);
+        }
     }
 
 }

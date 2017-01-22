@@ -1,5 +1,10 @@
 package com.mvvm.lux.burqa.model.response;
 
+import java.io.Serializable;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
+
 /**
  * @Description
  * @Author luxiao418
@@ -7,7 +12,10 @@ package com.mvvm.lux.burqa.model.response;
  * @Date 2017/1/16 10:25
  * @Version
  */
-public class ClassifyResponse {
+public class ClassifyResponse extends RealmObject implements Serializable {
+
+    public ClassifyResponse() {
+    }
 
     /**
      * id : 15988
@@ -20,6 +28,7 @@ public class ClassifyResponse {
      * num : 16550507
      */
 
+    @PrimaryKey
     private int id;
     private String title;
     private String authors;
@@ -28,6 +37,7 @@ public class ClassifyResponse {
     private String types;
     private int last_updatetime;
     private int num;
+    private long time;   //添加收藏的时间
 
     public int getId() {
         return id;
@@ -91,5 +101,13 @@ public class ClassifyResponse {
 
     public void setNum(int num) {
         this.num = num;
+    }
+
+    public long getTime() {
+        return time;
+    }
+
+    public void setTime(long time) {
+        this.time = time;
     }
 }

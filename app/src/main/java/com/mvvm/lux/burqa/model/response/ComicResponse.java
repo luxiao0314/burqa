@@ -1,6 +1,10 @@
 package com.mvvm.lux.burqa.model.response;
 
+import java.io.Serializable;
 import java.util.List;
+
+import io.realm.RealmObject;
+import io.realm.annotations.PrimaryKey;
 
 /**
  * @Description
@@ -9,10 +13,10 @@ import java.util.List;
  * @Date 2017/1/8 14:33
  * @Version
  */
-public class ComicResponse  {
+public class ComicResponse  extends RealmObject implements Serializable{
 
     /**
-     * id : 34079
+     * id : 34079   : key
      * islong : 2
      * direction : 2
      * title : 守望先锋
@@ -33,6 +37,7 @@ public class ComicResponse  {
      * comment : {"comment_count":989,"latest_comment":[{"comment_id":1645123,"uid":102318843,"content":"这也行","createtime":1483836949,"nickname":"refine-","avatar":"http://images.dmzj.com/user/50/66/5066f6f39829b01ab6d761ce6053fb84.png"},{"comment_id":1645088,"uid":102469006,"content":"死神那张图里那个女的是谁？跟猎空在一起的是谁？看起来眼熟啊","createtime":1483835820,"nickname":"冰蓝柠檬","avatar":"http://images.dmzj.com/user/d0/3f/d03f183ed6b97b595260df335ce284ea.png"}]}
      */
 
+    @PrimaryKey
     private int id;
     private int islong;
     private int direction;
@@ -204,6 +209,8 @@ public class ComicResponse  {
     public void setChapters(List<ChaptersBean> chapters) {
         this.chapters = chapters;
     }
+
+
 
     public static class CommentBean {
         /**

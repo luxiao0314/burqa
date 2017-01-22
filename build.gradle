@@ -3,8 +3,6 @@ apply from: "dependencies.gradle"
 buildscript {
     repositories {
         jcenter()
-        //EasyImage的jitPack仓库
-        maven { url "https://jitpack.io" }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
@@ -17,5 +15,7 @@ buildscript {
 allprojects {
     repositories {
         jcenter()
+        //EasyImage的jitPack仓库
+        maven { url "https://jitpack.io" }
     }
 }

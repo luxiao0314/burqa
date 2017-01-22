@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.mvvm.lux.framework.base.BaseViewModel"/>
+        <import type="android.view.View"/>
     </data>
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
@@ -31,12 +32,12 @@
 
                 <ImageView
                     android:id="@+id/back"
-                    android:onClick="@{viewModel.back}"
                     android:layout_width="30dp"
                     android:layout_height="30dp"
                     android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:layout_marginStart="10dp"
+                    android:onClick="@{viewModel.back}"
                     android:src="@drawable/ic_back"/>
 
                 <TextView
@@ -54,7 +55,8 @@
                     android:layout_alignParentEnd="true"
                     android:layout_centerVertical="true"
                     android:layout_marginEnd="10dp"
-                    android:src="@drawable/ic_download_manga"/>
+                    android:src="@drawable/ic_download_manga"
+                    android:visibility="@{viewModel.downloadImg ? View.VISIBLE : View.GONE}"/>
             </RelativeLayout>
         </android.support.v7.widget.Toolbar>
     </android.support.design.widget.AppBarLayout>

@@ -50,8 +50,8 @@ public class MainActivity extends BaseActivity
 
         if (id == R.id.nav_local_manga) {
 
-        } else if (id == R.id.nav_history) {
-
+        } else if (id == R.id.nav_history) {    //历史观看
+            ComicClassifyActivity.launch(this,"","历史记录");
         } else if (id == R.id.nav_download) {
 
         } else if (id == R.id.nav_user) {

@@ -18,7 +18,11 @@ import com.mvvm.lux.framework.utils.NetworkUtil;
 
 
 /**
- * 相册方式浏览图片
+ * @Description 相册方式浏览图片
+ * @Author luxiao418
+ * @Email luxiao418@pingan.com.cn
+ * @Date 2017/1/21 15:38
+ * @Version 1.0.0
  */
 public class ImagePicsListActivity extends BaseActivity {
 

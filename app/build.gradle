@@ -1,6 +1,7 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'   //一定要在gradle加入这行,不然报错:"Object" is not part of the schema for this Realm
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
