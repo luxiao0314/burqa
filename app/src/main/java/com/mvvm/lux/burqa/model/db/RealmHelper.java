@@ -55,27 +55,33 @@ public class RealmHelper {
 
     /**
      * 通过漫画id查询漫画并更新tag的position
-     *
-     * @param id
-     * @param tagPosition
-     * @param chapters
-     * @param chapter_title
      */
-    public void updateTagPosition(int id, int tagPosition, String chapters, String chapter_title) {
+    public void insertCollection(int id,boolean isCollection) {
         ClassifyResponse response = getRealm()
                 .where(ClassifyResponse.class)
                 .equalTo("id", id)
                 .findFirst();
-        getRealm().beginTransaction();
-
-        if (response != null) {
-            response.setTagPosition(tagPosition);
-            response.setChapters(chapters);
-            response.setChapter_title(chapter_title);
-            getRealm().copyToRealmOrUpdate(response);
-            getRealm().commitTransaction();
+        if (!getRealm().isInTransaction()) {
+            getRealm().beginTransaction();
+            if (response != null) {
+                response.setCollection(isCollection);  //是否是收藏
+                getRealm().copyToRealmOrUpdate(response);
+                getRealm().commitTransaction();
+            }
         }
+    }
 
+    /**
+     * 获取收藏的记录
+     * @return
+     */
+    public List<ClassifyResponse> queryCollectionList(){
+        //使用findAllSort ,先findAll再result.sort排序
+        RealmResults<ClassifyResponse> results = getRealm()
+                .where(ClassifyResponse.class)
+                .equalTo("isCollection",true)
+                .findAllSorted("time", Sort.DESCENDING);
+        return getRealm().copyToRealm(results);
     }
 
     /**
@@ -83,7 +89,7 @@ public class RealmHelper {
      *
      * @return
      */
-    public List<ClassifyResponse> queryClassifyList() {
+    public List<ClassifyResponse> queryHistoryList() {
         //使用findAllSort ,先findAll再result.sort排序
         RealmResults<ClassifyResponse> results = getRealm()
                 .where(ClassifyResponse.class)

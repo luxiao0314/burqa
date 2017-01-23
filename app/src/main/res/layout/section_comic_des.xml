@@ -104,8 +104,9 @@
                     android:focusable="true"
                     android:focusableInTouchMode="true"
                     android:gravity="center"
+                    android:onClick="@{viewModel.onCollectClickListener}"
                     android:padding="10dp"
-                    android:text="已收藏"
+                    android:text="添加收藏"
                     android:textSize="12sp"/>
 
                 <TextView
@@ -118,7 +119,7 @@
                     android:background="@drawable/selector_button_bg"
                     android:clickable="true"
                     android:gravity="center"
-                    android:onClick="@{viewModel.onclickListener}"
+                    android:onClick="@{viewModel.onChapterClickListener}"
                     android:padding="10dp"
                     android:text="@{viewModel.chapter_title}"
                     android:textSize="12sp"/>

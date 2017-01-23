@@ -24,14 +24,12 @@ import com.mvvm.lux.framework.utils.DateUtil;
 public class ComicItemSection extends StatelessSection {
     private final ComicDesActivity mActivity;
     private final ComicResponse mComicResponse;
-    private String mObjId;
     private ClassifyResponse mClassifyResponse;
 
-    public ComicItemSection(ComicDesActivity activity, ComicResponse comicResponse, String objId, ClassifyResponse classifyResponse) {
+    public ComicItemSection(ComicDesActivity activity, ComicResponse comicResponse, ClassifyResponse classifyResponse) {
         super(R.layout.section_comic_item);
         mActivity = activity;
         mComicResponse = comicResponse;
-        mObjId = objId;
         mClassifyResponse = classifyResponse;
     }
 
@@ -48,7 +46,7 @@ public class ComicItemSection extends StatelessSection {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         ComicItemViewModel viewModel = new ComicItemViewModel(mActivity, (SectionComicItemBinding) ((ItemViewHoder) holder).mDataBinding);
-        viewModel.obj_id.set(mObjId);
+        viewModel.obj_id.set(mComicResponse.getId() + "");
         viewModel.title.set(mComicResponse.getTitle());
         viewModel.cover.set(mComicResponse.getCover());
         viewModel.last_updatetime.set("更新: " + DateUtil.getStringTime(mComicResponse.getLast_updatetime()));
@@ -68,6 +66,7 @@ public class ComicItemSection extends StatelessSection {
         }
         viewModel.tempList.addAll(viewModel.chaptersListLess);
         viewModel.getLocalData(mClassifyResponse);
+        viewModel.initEvent();
         ((ItemViewHoder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((ItemViewHoder) holder).mDataBinding.executePendingBindings();
     }

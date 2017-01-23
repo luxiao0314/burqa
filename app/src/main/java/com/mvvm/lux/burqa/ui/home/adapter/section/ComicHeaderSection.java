@@ -25,14 +25,12 @@ public class ComicHeaderSection extends StatelessSection {
 
     private final ComicDesActivity mActivity;
     private final ComicResponse mComicResponse;
-    private String mObjId;
     private ClassifyResponse mClassifyResponse;
 
-    public ComicHeaderSection(ComicDesActivity activity, ComicResponse comicResponse, String objId, ClassifyResponse classifyResponse) {
+    public ComicHeaderSection(ComicDesActivity activity, ComicResponse comicResponse, ClassifyResponse classifyResponse) {
         super(R.layout.section_comic_des);
         mActivity = activity;
         mComicResponse = comicResponse;
-        mObjId = objId;
         mClassifyResponse = classifyResponse;
     }
 
@@ -48,7 +46,7 @@ public class ComicHeaderSection extends StatelessSection {
 
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ComicHeaderViewModel viewModel = new ComicHeaderViewModel(mActivity,mObjId,mClassifyResponse,((ItemViewHolder) holder).mDataBinding);
+        ComicHeaderViewModel viewModel = new ComicHeaderViewModel(mActivity,mComicResponse,mClassifyResponse,((ItemViewHolder) holder).mDataBinding);
         viewModel.cover.set(mComicResponse.getCover());
         viewModel.title.set(mComicResponse.getTitle());
         viewModel.description.set(mComicResponse.getDescription());

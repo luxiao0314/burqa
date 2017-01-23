@@ -45,6 +45,7 @@ public class ClassifyResponse extends RealmObject implements Serializable {
     private String chapters;
     private String chapter_title;
     private String chapter_id;
+    private boolean isCollection;
 
     public int getId() {
         return id;
@@ -156,5 +157,13 @@ public class ClassifyResponse extends RealmObject implements Serializable {
 
     public void setChapter_id(String chapter_id) {
         this.chapter_id = chapter_id;
+    }
+
+    public boolean isCollection() {
+        return isCollection;
+    }
+
+    public void setCollection(boolean collection) {
+        isCollection = collection;
     }
 }

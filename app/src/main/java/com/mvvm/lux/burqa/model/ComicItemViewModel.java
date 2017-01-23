@@ -14,10 +14,12 @@ import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
 import com.mvvm.lux.burqa.model.event.ChaptersEvent;
+import com.mvvm.lux.burqa.model.event.TagSelectEvent;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
+import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.rx.RxBus;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
@@ -74,7 +76,7 @@ public class ComicItemViewModel extends BaseViewModel {
                 mDataBinding.chaptersFlow.setAdapter(chaptersAdapter);
                 chaptersAdapter.setSelectedList(classifyResponse.getTagPosition()); //设置tag默认给选中记录
             }
-            RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get()));
+            RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get(), classifyResponse.isCollection()));
         }
     }
 
@@ -112,7 +114,7 @@ public class ComicItemViewModel extends BaseViewModel {
      * 流式布局item点击事件
      */
     public TagFlowLayout.OnTagClickListener mOnChaptersClickListener = (view, position, parent) -> {
-        RxBus.init().postSticky(new ChaptersEvent(chaptersList.get(position).getChapter_title(), obj_id.get()));
+        RxBus.init().postSticky(new ChaptersEvent(chaptersList.get(position).getChapter_title(), obj_id.get(), false));
         ImagePicsListActivity.launch(mActivity,
                 chaptersList.get(position).getChapter_id(),
                 position,
@@ -124,7 +126,7 @@ public class ComicItemViewModel extends BaseViewModel {
     };
 
     public TagFlowLayout.OnTagClickListener mOnOtherChaptersClickListener = (view, position, parent) -> {
-        RxBus.init().postSticky(new ChaptersEvent(chaptersList.get(position).getChapter_title(), obj_id.get()));
+        RxBus.init().postSticky(new ChaptersEvent(chaptersList.get(position).getChapter_title(), obj_id.get(), false));
         ImagePicsListActivity.launch(mActivity,
                 chaptersOther.get(position).getChapter_id(),
                 position,
@@ -152,4 +154,16 @@ public class ComicItemViewModel extends BaseViewModel {
         }
         chaptersAdapter.notifyDataChanged();
     };
+
+    public void initEvent() {
+        RxBus.init()
+                .toObservableSticky(TagSelectEvent.class)
+                .compose(RxHelper.io_main())
+                .subscribe(tagSelectEvent -> {
+                    if (String.valueOf(tagSelectEvent.mId).equals(obj_id.get())) {
+                        mDataBinding.chaptersFlow.setAdapter(chaptersAdapter);
+                        chaptersAdapter.setSelectedList(tagSelectEvent.mTagPosition); //设置tag默认给选中记录
+                    }
+                });
+    }
 }

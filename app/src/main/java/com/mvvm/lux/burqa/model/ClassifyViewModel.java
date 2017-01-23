@@ -92,7 +92,7 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
 
         //如果都为空,就是查看本地历史
         if (TextUtils.isEmpty(tag_id.get())) {
-            queryClassifyFormLocal(isLoadMore);
+            queryHistoryData(isLoadMore);
         } else {
             queryClassifyFromNet(isLoadMore);
         }
@@ -119,8 +119,8 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
                 });
     }
 
-    private void queryClassifyFormLocal(boolean isLoadMore) {
-        List<ClassifyResponse> responses = RealmHelper.getInstance().queryClassifyList();
+    private void queryHistoryData(boolean isLoadMore) {
+        List<ClassifyResponse> responses = RealmHelper.getInstance().queryHistoryList();
         onNext(responses, isLoadMore);
     }
 
