@@ -13,7 +13,6 @@ import android.view.View;
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
-import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.event.ChaptersEvent;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
@@ -66,16 +65,14 @@ public class ComicItemViewModel extends BaseViewModel {
         mDataBinding = dataBinding;
     }
 
-    public void getLocalData() {
-        ClassifyResponse classifyResponse = RealmHelper.getInstance()
-                .queryTagResponse(Integer.parseInt(obj_id.get()));
+    public void getLocalData(ClassifyResponse classifyResponse) {
         if (classifyResponse != null) {
-            if (CHAPTERS.equals(classifyResponse.getChapters())) {
-                mDataBinding.chaptersFlow.setAdapter(chaptersAdapter);
-                chaptersAdapter.setSelectedList(classifyResponse.getTagPosition()); //设置tag默认给选中记录
-            } else {
+            if (OTHER_CHAPTERS.equals(classifyResponse.getChapters())) {
                 mDataBinding.otherChaptersFlow.setAdapter(chaptersOtherAdapter);
                 chaptersOtherAdapter.setSelectedList(classifyResponse.getTagPosition());
+            } else {
+                mDataBinding.chaptersFlow.setAdapter(chaptersAdapter);
+                chaptersAdapter.setSelectedList(classifyResponse.getTagPosition()); //设置tag默认给选中记录
             }
             RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get()));
         }
@@ -115,13 +112,11 @@ public class ComicItemViewModel extends BaseViewModel {
      * 流式布局item点击事件
      */
     public TagFlowLayout.OnTagClickListener mOnChaptersClickListener = (view, position, parent) -> {
-        RxBus.init().postSticky(new ChaptersEvent(chaptersList.get(position).getChapter_title(),obj_id.get()));
-        RealmHelper.getInstance()
-                .insertTagPosition(Integer.parseInt(obj_id.get()),  // "obj_id": 39504,
-                        position, CHAPTERS,   //连载 : 番剧
-                        chaptersList.get(position).getChapter_title()); //"chapter_title": "2卷",
+        RxBus.init().postSticky(new ChaptersEvent(chaptersList.get(position).getChapter_title(), obj_id.get()));
         ImagePicsListActivity.launch(mActivity,
                 chaptersList.get(position).getChapter_id(),
+                position,
+                CHAPTERS,
                 obj_id.get(),
                 title.get(),
                 cover.get());
@@ -130,12 +125,10 @@ public class ComicItemViewModel extends BaseViewModel {
 
     public TagFlowLayout.OnTagClickListener mOnOtherChaptersClickListener = (view, position, parent) -> {
         RxBus.init().postSticky(new ChaptersEvent(chaptersList.get(position).getChapter_title(), obj_id.get()));
-        RealmHelper.getInstance()
-                .insertTagPosition(Integer.parseInt(obj_id.get()),
-                        position, OTHER_CHAPTERS,
-                        chaptersList.get(position).getChapter_title());
         ImagePicsListActivity.launch(mActivity,
                 chaptersOther.get(position).getChapter_id(),
+                position,
+                OTHER_CHAPTERS,
                 obj_id.get(),
                 title.get(),
                 cover.get());

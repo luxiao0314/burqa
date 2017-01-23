@@ -7,6 +7,7 @@ import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.base.StatelessSection;
 import com.mvvm.lux.burqa.model.ComicHeaderViewModel;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.framework.utils.CommonUtils;
@@ -25,12 +26,14 @@ public class ComicHeaderSection extends StatelessSection {
     private final ComicDesActivity mActivity;
     private final ComicResponse mComicResponse;
     private String mObjId;
+    private ClassifyResponse mClassifyResponse;
 
-    public ComicHeaderSection(ComicDesActivity activity, ComicResponse comicResponse, String objId) {
+    public ComicHeaderSection(ComicDesActivity activity, ComicResponse comicResponse, String objId, ClassifyResponse classifyResponse) {
         super(R.layout.section_comic_des);
         mActivity = activity;
         mComicResponse = comicResponse;
         mObjId = objId;
+        mClassifyResponse = classifyResponse;
     }
 
     @Override
@@ -45,7 +48,7 @@ public class ComicHeaderSection extends StatelessSection {
 
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
-        ComicHeaderViewModel viewModel = new ComicHeaderViewModel(mActivity,mObjId);
+        ComicHeaderViewModel viewModel = new ComicHeaderViewModel(mActivity,mObjId,mClassifyResponse,((ItemViewHolder) holder).mDataBinding);
         viewModel.cover.set(mComicResponse.getCover());
         viewModel.title.set(mComicResponse.getTitle());
         viewModel.description.set(mComicResponse.getDescription());
@@ -67,7 +70,6 @@ public class ComicHeaderSection extends StatelessSection {
         }
         String com_type = buffer.toString().substring(0, buffer.toString().length() - 1);
         viewModel.authors.set(mComicResponse.getAuthors().get(0).getTag_name() + "/" + com_type); //作者/热血_言情
-
         ((ItemViewHolder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((ItemViewHolder) holder).mDataBinding.executePendingBindings();
     }

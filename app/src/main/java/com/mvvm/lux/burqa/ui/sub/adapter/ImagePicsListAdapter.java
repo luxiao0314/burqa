@@ -32,11 +32,12 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     private FragmentActivity content;
     private PhotoDraweeView mPhotoView;
-    public String chapterTitle;
+    private String chapterTitle;
     public int currentPosition;
 
-    public ImagePicsListAdapter(FragmentActivity context, int layoutId, List<String> urls) {
+    public ImagePicsListAdapter(FragmentActivity context, int layoutId, List<String> urls, String chapterTitle) {
         super(context, layoutId, urls);
+        this.chapterTitle = chapterTitle;
         this.content = context;
     }
 

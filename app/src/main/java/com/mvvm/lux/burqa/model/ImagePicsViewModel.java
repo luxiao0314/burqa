@@ -13,7 +13,6 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
-import com.mvvm.lux.framework.base.BaseEvent;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.burqa.model.event.SwitchModeEvent;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
@@ -21,6 +20,7 @@ import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.burqa.ui.sub.adapter.ImagePicsListAdapter;
 import com.mvvm.lux.burqa.ui.sub.adapter.ImagePicsPagerAdapter;
+import com.mvvm.lux.framework.base.BaseEvent;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
@@ -41,12 +41,14 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     public ObservableField<String> obj_id = new ObservableField<>();
     public ObservableField<String> chapter_id = new ObservableField<>();
     public ObservableField<String> cover = new ObservableField<>();
+    public ObservableField<String> chapters = new ObservableField<>();
     public ObservableField<String> chapter_title = new ObservableField<>();
     public ObservableField<String> adver_tv = new ObservableField<>();  // 18/50
     public ObservableField<String> time = new ObservableField<>();
     public ObservableField<String> network_status = new ObservableField<>();
     public ObservableField<Integer> current_position = new ObservableField<>(0); //从FlowLayout传递过来的默认的position
     public ObservableField<Integer> pageLimit = new ObservableField<>(3);
+    public ObservableField<Integer> tag_position = new ObservableField<>();
     private ArrayList<String> mUrls = new ArrayList<>();
     private ActivityImagePicsListBinding mDataBinding;
     private ImagePicsListActivity mImagePicsListActivity;
@@ -87,7 +89,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     }
 
     public void initData() {
-        RetrofitHelper.init()
+        addSubscribe(RetrofitHelper.init()
                 .getChapter("chapter/" + obj_id.get() + "/" + chapter_id.get() + ".json")
                 .compose(RxHelper.io_main())
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
@@ -101,7 +103,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                         mPagerAdapter.notifyDataSetChanged();
                         refreshPosition(current_position.get());
                     }
-                });
+                }));
     }
 
     private boolean checkIllegal() {
@@ -110,7 +112,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     private void refreshPosition(int position) {
         adver_tv.set((position + 1) + "/" + mUrls.size());
-        mDataBinding.pager.setCurrentItem(position);
+        mDataBinding.pager.setCurrentItem(position,false);
         mPagerAdapter.currentPosition = position;
         if (mListAdapter != null)   //竖屏的时候mListAdapter并没有初始化
             mListAdapter.currentPosition = position;
@@ -128,9 +130,8 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public ImagePicsPagerAdapter getPagerAdapter() {
         if (mPagerAdapter == null) {
-            mPagerAdapter = new ImagePicsPagerAdapter(mImagePicsListActivity, mUrls);
+            mPagerAdapter = new ImagePicsPagerAdapter(mImagePicsListActivity, mUrls,chapter_title.get());
         }
-        mPagerAdapter.chapterTitle = chapter_title.get();
         return mPagerAdapter;
     }
 
@@ -138,9 +139,8 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public ImagePicsListAdapter getCommonAdapter() {
         if (mListAdapter == null) {
-            mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls);
+            mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls,chapter_title.get());
         }
-        mListAdapter.chapterTitle = chapter_title.get();
         return mListAdapter;
     }
 
@@ -186,14 +186,18 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         response.setTitle(title.get()); //标题
         response.setCover(cover.get()); //图片url
         response.setAuthors(chapter_title.get());   //12页/30话
+        response.setChapter_title(chapter_title.get());   //12页/30话
         response.setTime(System.currentTimeMillis());   //当前时间戳,用于排序
         response.setPagePosition(mPosition); //当前页面的position
+        response.setTagPosition(tag_position.get()); //当tagLotout的position
+        response.setChapter_id(chapter_id.get()); //当tagLotout的position
+        response.setChapters(chapters.get());   //是连载还是番剧
         RealmHelper.getInstance().insertClassifyList(response);
     }
 
     public void getLocalData() {
         int pagePosition = RealmHelper.getInstance()
-                .queryPagePosition(Integer.parseInt(obj_id.get()));
+                .queryPagePosition(Integer.parseInt(obj_id.get()),tag_position.get());
         current_position.set(pagePosition);
     }
 }

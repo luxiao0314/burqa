@@ -22,12 +22,13 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
     private FragmentActivity mContext = null;
     private ArrayList<String> mUrls;
     private PhotoDraweeView mPhotoView;
-    public String chapterTitle;
+    private String chapterTitle;
     public int currentPosition;
 
-    public ImagePicsPagerAdapter(FragmentActivity context, ArrayList<String> urls) {
+    public ImagePicsPagerAdapter(FragmentActivity context, ArrayList<String> urls, String chapterTitle) {
         this.mContext = context;
         this.mUrls = urls;
+        this.chapterTitle = chapterTitle;
     }
 
     public int getCount() {

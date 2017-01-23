@@ -6,6 +6,7 @@ import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.view.KeyEvent;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
@@ -50,8 +51,10 @@ public class ImagePicsListActivity extends BaseActivity {
         Intent intent = getIntent();
         mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
         mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
+        mViewModel.tag_position.set(intent.getIntExtra("tag_position",0));
         mViewModel.title.set(intent.getStringExtra("title"));
         mViewModel.cover.set(intent.getStringExtra("cover"));
+        mViewModel.chapters.set(intent.getStringExtra("chapters"));
         mViewModel.current_position.set(0);
         mViewModel.time.set(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
         mViewModel.network_status.set(NetworkUtil.getAPNType(this));
@@ -60,14 +63,29 @@ public class ImagePicsListActivity extends BaseActivity {
         mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
-    public static void launch(Activity activity, int chapter_id, String obj_id, String title, String cover) {
+    public static void launch(Activity activity, int chapter_id, int tagPosition, String chapters, String obj_id, String title, String cover) {
         Router.from(activity)
                 .putString("chapter_id", chapter_id + "")
+                .putInt("tag_position", tagPosition)
                 .putString("obj_id", obj_id)
+                .putString("chapters", chapters)
                 .putString("title", title + "")
                 .putString("cover", cover)
                 .to(ImagePicsListActivity.class)
                 .launch();
     }
 
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        Router.pop(this);
+        return super.onKeyDown(keyCode, event);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (mViewModel != null) {
+            mViewModel.detachView();
+        }
+    }
 }

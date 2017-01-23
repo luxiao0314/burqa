@@ -6,6 +6,8 @@ import android.support.v7.widget.RecyclerView;
 import com.mvvm.lux.burqa.base.SectionedRecyclerViewAdapter;
 import com.mvvm.lux.burqa.databinding.ActivityComicDesBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
+import com.mvvm.lux.burqa.model.db.RealmHelper;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.burqa.ui.home.adapter.section.ComicCommentSection;
@@ -28,6 +30,7 @@ public class ComicDesViewModel extends BaseViewModel {
     private ActivityComicDesBinding mDataBinding;
     private String mObjId;
     private SectionedRecyclerViewAdapter mAdapter;
+    private ClassifyResponse mClassifyResponse;
 
     public ComicDesViewModel(ComicDesActivity activity, ActivityComicDesBinding dataBinding, String obj_id) {
         super(activity);
@@ -35,6 +38,7 @@ public class ComicDesViewModel extends BaseViewModel {
         mDataBinding = dataBinding;
         mObjId = obj_id;
         initData();
+        initLocalData();
     }
 
     public RecyclerView.LayoutManager getLayoutManager() {
@@ -48,6 +52,11 @@ public class ComicDesViewModel extends BaseViewModel {
         return layoutManager;
     }
 
+    private void initLocalData() {
+        mClassifyResponse = RealmHelper.getInstance()
+                .queryTagResponse(Integer.parseInt(mObjId));
+    }
+
     private void initData() {
         String url = "comic/" + mObjId + ".json";
         RetrofitHelper.init()
@@ -58,8 +67,8 @@ public class ComicDesViewModel extends BaseViewModel {
                     public void onNext(ComicResponse comicResponse) {
                         title.set(comicResponse.getTitle());
                         mAdapter = new SectionedRecyclerViewAdapter();
-                        mAdapter.addSection(new ComicHeaderSection(mActivity, comicResponse,mObjId));
-                        mAdapter.addSection(new ComicItemSection(mActivity, comicResponse, mObjId));
+                        mAdapter.addSection(new ComicHeaderSection(mActivity, comicResponse, mObjId,mClassifyResponse));
+                        mAdapter.addSection(new ComicItemSection(mActivity, comicResponse, mObjId, mClassifyResponse));
                         mAdapter.addSection(new ComicCommentSection(mActivity, comicResponse));
                         mDataBinding.recyclerView.setAdapter(mAdapter);
                     }

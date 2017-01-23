@@ -4,6 +4,7 @@ import java.io.Serializable;
 
 import io.realm.RealmObject;
 import io.realm.annotations.PrimaryKey;
+import io.realm.annotations.Required;
 
 /**
  * @Description
@@ -33,6 +34,7 @@ public class ClassifyResponse extends RealmObject implements Serializable {
     private String title;
     private String authors;
     private String status;
+    @Required   //强制禁止空值（null）被存储
     private String cover;
     private String types;
     private int last_updatetime;
@@ -42,6 +44,7 @@ public class ClassifyResponse extends RealmObject implements Serializable {
     private int TagPosition;
     private String chapters;
     private String chapter_title;
+    private String chapter_id;
 
     public int getId() {
         return id;
@@ -145,5 +148,13 @@ public class ClassifyResponse extends RealmObject implements Serializable {
 
     public void setChapter_title(String chapter_title) {
         this.chapter_title = chapter_title;
+    }
+
+    public String getChapter_id() {
+        return chapter_id;
+    }
+
+    public void setChapter_id(String chapter_id) {
+        this.chapter_id = chapter_id;
     }
 }

@@ -54,6 +54,31 @@ public class RealmHelper {
     }
 
     /**
+     * 通过漫画id查询漫画并更新tag的position
+     *
+     * @param id
+     * @param tagPosition
+     * @param chapters
+     * @param chapter_title
+     */
+    public void updateTagPosition(int id, int tagPosition, String chapters, String chapter_title) {
+        ClassifyResponse response = getRealm()
+                .where(ClassifyResponse.class)
+                .equalTo("id", id)
+                .findFirst();
+        getRealm().beginTransaction();
+
+        if (response != null) {
+            response.setTagPosition(tagPosition);
+            response.setChapters(chapters);
+            response.setChapter_title(chapter_title);
+            getRealm().copyToRealmOrUpdate(response);
+            getRealm().commitTransaction();
+        }
+
+    }
+
+    /**
      * 收藏列表:通过存入的时间戳查询,并排序
      *
      * @return
@@ -84,37 +109,15 @@ public class RealmHelper {
      *
      * @return
      */
-    public int queryPagePosition(int id) {
+    public int queryPagePosition(int id, int tagPosition) {
         ClassifyResponse response = getRealm()
                 .where(ClassifyResponse.class)
                 .equalTo("id", id)
+                .equalTo("TagPosition",tagPosition)
                 .findFirst();
         if (response == null)
             return 0;
         return response.getPagePosition();
-    }
-
-    /**
-     * 通过漫画id查询漫画并更新tag的position
-     *
-     * @param id
-     * @param tagPosition
-     * @param chapters
-     * @param chapter_title
-     */
-    public void insertTagPosition(int id, int tagPosition, String chapters, String chapter_title) {
-        ClassifyResponse response = getRealm()
-                .where(ClassifyResponse.class)
-                .equalTo("id", id)
-                .findFirst();
-        getRealm().beginTransaction();
-        if (response != null) {
-            response.setTagPosition(tagPosition);
-            response.setChapters(chapters);
-            response.setChapter_title(chapter_title);
-            getRealm().copyToRealmOrUpdate(response);
-            getRealm().commitTransaction();
-        }
     }
 
     /**

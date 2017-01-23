@@ -8,6 +8,7 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.base.StatelessSection;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
 import com.mvvm.lux.burqa.model.ComicItemViewModel;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.framework.utils.DateUtil;
@@ -24,12 +25,14 @@ public class ComicItemSection extends StatelessSection {
     private final ComicDesActivity mActivity;
     private final ComicResponse mComicResponse;
     private String mObjId;
+    private ClassifyResponse mClassifyResponse;
 
-    public ComicItemSection(ComicDesActivity activity, ComicResponse comicResponse, String objId) {
+    public ComicItemSection(ComicDesActivity activity, ComicResponse comicResponse, String objId, ClassifyResponse classifyResponse) {
         super(R.layout.section_comic_item);
         mActivity = activity;
         mComicResponse = comicResponse;
         mObjId = objId;
+        mClassifyResponse = classifyResponse;
     }
 
     @Override
@@ -64,7 +67,7 @@ public class ComicItemSection extends StatelessSection {
             viewModel.chaptersListLess.add(chapters.getData().get(i));
         }
         viewModel.tempList.addAll(viewModel.chaptersListLess);
-        viewModel.getLocalData();
+        viewModel.getLocalData(mClassifyResponse);
         ((ItemViewHoder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((ItemViewHoder) holder).mDataBinding.executePendingBindings();
     }

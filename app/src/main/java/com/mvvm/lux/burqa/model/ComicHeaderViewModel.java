@@ -2,9 +2,14 @@ package com.mvvm.lux.burqa.model;
 
 import android.app.Activity;
 import android.databinding.ObservableField;
+import android.databinding.ViewDataBinding;
 import android.text.TextUtils;
+import android.view.View;
 
+import com.mvvm.lux.burqa.databinding.SectionComicDesBinding;
 import com.mvvm.lux.burqa.model.event.ChaptersEvent;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
+import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.rx.RxBus;
 
@@ -31,8 +36,17 @@ public class ComicHeaderViewModel extends BaseViewModel {
 
     public ObservableField<String> islong = new ObservableField<>();   //是否为长文章:2为长文章
 
-    public ComicHeaderViewModel(Activity activity, String objId) {
+    private String objId;
+
+    private ClassifyResponse classifyResponse;
+
+    private SectionComicDesBinding dataBinding;
+
+    public ComicHeaderViewModel(Activity activity, String objId, ClassifyResponse classifyResponse, ViewDataBinding dataBinding) {
         super(activity);
+        this.objId = objId;
+        this.dataBinding = (SectionComicDesBinding) dataBinding;
+        this.classifyResponse = classifyResponse;
         initEvent(objId);
     }
 
@@ -48,4 +62,18 @@ public class ComicHeaderViewModel extends BaseViewModel {
                         }
                 });
     }
+
+    public View.OnClickListener onclickListener() {
+        return view -> {
+            ImagePicsListActivity.launch(mActivity,
+                    Integer.parseInt(classifyResponse.getChapter_id()),
+                    classifyResponse.getTagPosition(),
+                    classifyResponse.getChapters(),
+                    objId,
+                    classifyResponse.getTitle(),
+                    classifyResponse.getCover());
+        };
+    }
+
+
 }
