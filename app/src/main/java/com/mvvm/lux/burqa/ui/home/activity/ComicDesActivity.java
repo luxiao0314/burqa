@@ -10,6 +10,7 @@ import com.mvvm.lux.burqa.databinding.ActivityComicDesBinding;
 import com.mvvm.lux.burqa.model.ComicDesViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
+import com.mvvm.lux.framework.widget.SwipeBackLayout;
 
 /**
  * @Description 漫画描述页面
@@ -27,6 +28,7 @@ public class ComicDesActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_comic_des);
         initData();
+        setDragEdge(SwipeBackLayout.DragEdge.TOP);
     }
 
     private void initData() {

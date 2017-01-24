@@ -29,6 +29,7 @@ public class ComicClassifyActivity extends SwipeBackActivity {
         initData();
     }
 
+
     private void initData() {
         String tag_id = getIntent().getExtras().getString("tag_id");
         String title = getIntent().getExtras().getString("title");

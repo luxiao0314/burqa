@@ -71,4 +71,5 @@ dependencies {
     compile viewDependencies.flowlayout
     compile viewDependencies.leakcanary
     compile viewDependencies.multidex
+    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
 }

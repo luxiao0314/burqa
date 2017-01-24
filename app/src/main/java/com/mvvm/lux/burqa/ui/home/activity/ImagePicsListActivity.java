@@ -12,10 +12,11 @@ import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
-import com.mvvm.lux.framework.base.BaseActivity;
+import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.utils.DateUtil;
 import com.mvvm.lux.framework.utils.NetworkUtil;
+import com.mvvm.lux.framework.widget.SwipeBackLayout;
 
 
 /**
@@ -25,7 +26,7 @@ import com.mvvm.lux.framework.utils.NetworkUtil;
  * @Date 2017/1/21 15:38
  * @Version 1.0.0
  */
-public class ImagePicsListActivity extends BaseActivity {
+public class ImagePicsListActivity extends SwipeBackActivity {
 
     private ViewDataBinding mDataBinding;
     private ImagePicsViewModel mViewModel;
@@ -36,6 +37,7 @@ public class ImagePicsListActivity extends BaseActivity {
         setTheme(R.style.image_pic_fullscreen);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
         init();
+        setDragEdge(SwipeBackLayout.DragEdge.BOTTOM);
     }
 
     @Override
