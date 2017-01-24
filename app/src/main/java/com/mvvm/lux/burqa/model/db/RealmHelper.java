@@ -39,6 +39,12 @@ public class RealmHelper {
         return mRealm;
     }
 
+    public void close(){
+        if (!getRealm().isClosed()) {
+            getRealm().close();
+        }
+    }
+
     //--------------------------------------------------收藏相关----------------------------------------------------
 
     /**

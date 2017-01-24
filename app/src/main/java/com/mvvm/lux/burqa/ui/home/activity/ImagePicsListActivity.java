@@ -12,11 +12,11 @@ import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
-import com.mvvm.lux.framework.base.SwipeBackActivity;
+import com.mvvm.lux.burqa.model.db.RealmHelper;
+import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.utils.DateUtil;
 import com.mvvm.lux.framework.utils.NetworkUtil;
-import com.mvvm.lux.framework.widget.SwipeBackLayout;
 
 
 /**
@@ -26,7 +26,7 @@ import com.mvvm.lux.framework.widget.SwipeBackLayout;
  * @Date 2017/1/21 15:38
  * @Version 1.0.0
  */
-public class ImagePicsListActivity extends SwipeBackActivity {
+public class ImagePicsListActivity extends BaseActivity {
 
     private ViewDataBinding mDataBinding;
     private ImagePicsViewModel mViewModel;
@@ -37,7 +37,6 @@ public class ImagePicsListActivity extends SwipeBackActivity {
         setTheme(R.style.image_pic_fullscreen);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
         init();
-        setDragEdge(SwipeBackLayout.DragEdge.BOTTOM);
     }
 
     @Override
@@ -53,7 +52,7 @@ public class ImagePicsListActivity extends SwipeBackActivity {
         Intent intent = getIntent();
         mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
         mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
-        mViewModel.tag_position.set(intent.getIntExtra("tag_position",0));
+        mViewModel.tag_position.set(intent.getIntExtra("tag_position", 0));
         mViewModel.title.set(intent.getStringExtra("title"));
         mViewModel.cover.set(intent.getStringExtra("cover"));
         mViewModel.chapters.set(intent.getStringExtra("chapters"));
@@ -84,10 +83,16 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     }
 
     @Override
-    protected void onDestroy() {
-        super.onDestroy();
+    protected void onPause() {
         if (mViewModel != null) {
             mViewModel.detachView();
         }
+        super.onStop();
+    }
+
+    @Override
+    protected void onDestroy() {
+        RealmHelper.getInstance().close();
+        super.onDestroy();
     }
 }

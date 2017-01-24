@@ -37,8 +37,8 @@ public class ComicDesViewModel extends BaseViewModel {
         mActivity = activity;
         mDataBinding = dataBinding;
         mObjId = obj_id;
-        initData();
         initLocalData();
+        initData();
     }
 
     public RecyclerView.LayoutManager getLayoutManager() {
