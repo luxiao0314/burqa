@@ -10,6 +10,7 @@ import com.mvvm.lux.burqa.databinding.ActivityComicClassifyBinding;
 import com.mvvm.lux.burqa.model.ClassifyViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
+import com.mvvm.lux.framework.widget.swipeback.SwipeBackLayout;
 
 /**
  * @Description
@@ -27,8 +28,8 @@ public class ComicClassifyActivity extends SwipeBackActivity {
         super.onCreate(savedInstanceState);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_comic_classify);
         initData();
+        setEdge(SwipeBackLayout.EDGE_ALL);
     }
-
 
     private void initData() {
         String tag_id = getIntent().getExtras().getString("tag_id");
