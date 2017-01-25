@@ -12,7 +12,6 @@ import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
-import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.utils.DateUtil;
@@ -83,16 +82,10 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     }
 
     @Override
-    protected void onPause() {
+    protected void onDestroy() {
         if (mViewModel != null) {
             mViewModel.detachView();
         }
-        super.onStop();
-    }
-
-    @Override
-    protected void onDestroy() {
-        RealmHelper.getInstance().close();
         super.onDestroy();
     }
 }
