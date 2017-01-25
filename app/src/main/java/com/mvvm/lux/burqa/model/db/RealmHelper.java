@@ -39,7 +39,7 @@ public class RealmHelper {
         return mRealm;
     }
 
-    public void close(){
+    public void close() {
         if (!getRealm().isClosed()) {
             getRealm().close();
         }
@@ -62,7 +62,7 @@ public class RealmHelper {
     /**
      * 通过漫画id查询漫画并更新tag的position
      */
-    public void insertCollection(int id,boolean isCollection) {
+    public void insertCollection(int id, boolean isCollection) {
         ClassifyResponse response = getRealm()
                 .where(ClassifyResponse.class)
                 .equalTo("id", id)
@@ -77,15 +77,28 @@ public class RealmHelper {
         }
     }
 
+    public boolean queryCollectionId(int id) {
+        RealmResults<ClassifyResponse> classifyResponses = getRealm().where(ClassifyResponse.class)
+                .equalTo("isCollection",true)
+                .findAll();
+        for (ClassifyResponse classifyResponse : classifyResponses) {
+            if (classifyResponse.getId() == id) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     /**
      * 获取收藏的记录
+     *
      * @return
      */
-    public List<ClassifyResponse> queryCollectionList(){
+    public List<ClassifyResponse> queryCollectionList() {
         //使用findAllSort ,先findAll再result.sort排序
         RealmResults<ClassifyResponse> results = getRealm()
                 .where(ClassifyResponse.class)
-                .equalTo("isCollection",true)
+                .equalTo("isCollection", true)
                 .findAllSorted("time", Sort.DESCENDING);
         return getRealm().copyToRealmOrUpdate(results);
     }
@@ -125,7 +138,7 @@ public class RealmHelper {
         ClassifyResponse response = getRealm()
                 .where(ClassifyResponse.class)
                 .equalTo("id", id)
-                .equalTo("TagPosition",tagPosition)
+                .equalTo("TagPosition", tagPosition)
                 .findFirst();
         if (response == null)
             return 0;

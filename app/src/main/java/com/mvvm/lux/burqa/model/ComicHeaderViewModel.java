@@ -90,7 +90,7 @@ public class ComicHeaderViewModel extends BaseViewModel {
                         comicResponse.getTitle(),
                         comicResponse.getCover());
                 chapter_title.set(data.get(data.size() - 1).getChapter_title());
-                RxBus.init().postSticky(new TagSelectEvent(data.size() - 1,comicResponse.getId()));
+                RxBus.init().postSticky(new TagSelectEvent(data.size() - 1, comicResponse.getId()));
             } else {
                 ImagePicsListActivity.launch(mActivity,
                         Integer.parseInt(classifyResponse.getChapter_id()),
@@ -106,16 +106,15 @@ public class ComicHeaderViewModel extends BaseViewModel {
     //收藏的点击事件
     public View.OnClickListener onCollectClickListener() {
         return view -> {
-            if (!isCollection.get()) {
+            boolean isCollection = RealmHelper.getInstance().queryCollectionId(comicResponse.getId());
+            if (!isCollection) {
                 RealmHelper.getInstance().insertCollection(comicResponse.getId(), true);
                 dataBinding.collect.setSelected(true);
                 dataBinding.collect.setText("已收藏");
-                isCollection.set(false);
             } else {
                 RealmHelper.getInstance().insertCollection(comicResponse.getId(), false);
                 dataBinding.collect.setSelected(false);
                 dataBinding.collect.setText("添加收藏");
-                isCollection.set(true);
             }
         };
     }
