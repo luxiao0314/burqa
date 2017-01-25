@@ -71,8 +71,8 @@ public class ComicItemViewModel extends BaseViewModel {
             ComicChapterLayoutBinding comicChapterBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.comic_chapter_layout, null, false);
             ComicChapterViewModel viewModel = new ComicChapterViewModel(mActivity);
             viewModel.objId.set(response.getId());
-            viewModel.title.set(response.getTitle());
             viewModel.cover.set(response.getCover());
+            viewModel.title.set(response.getTitle());
             if (i == 0)
                 viewModel.last_updatetime.set(last_updatetime.get());
             viewModel.data.addAll(data);
@@ -97,6 +97,7 @@ public class ComicItemViewModel extends BaseViewModel {
         ComicChapterViewModel viewModel = new ComicChapterViewModel(mActivity);
         viewModel.objId.set(response.getId());
         viewModel.cover.set(response.getCover());
+        viewModel.title.set(response.getTitle());
         viewModel.last_updatetime.set(last_updatetime.get());
         viewModel.data.addAll(chaptersListLess);
         viewModel.chapters_title.set(chaptersBean.getTitle() + "(话)");

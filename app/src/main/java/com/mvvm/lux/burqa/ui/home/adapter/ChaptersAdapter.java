@@ -26,16 +26,18 @@ public class ChaptersAdapter extends RecyclerView.Adapter<ChaptersAdapter.TagVie
     private ObservableList<ComicResponse.ChaptersBean.DataBean> mData;
     private int mObjId;
     private String mCover;
+    private String mTitle;
     private int position;
 
     public ChaptersAdapter(Activity activity,
                            ObservableList<ComicResponse.ChaptersBean.DataBean> data,
                            Integer objId,
-                           String cover) {
+                           String cover, String title) {
         mActivity = activity;
         mData = data;
         mObjId = objId;
         mCover = cover;
+        mTitle = title;
     }
 
     @Override
@@ -53,6 +55,7 @@ public class ChaptersAdapter extends RecyclerView.Adapter<ChaptersAdapter.TagVie
         viewModel.position.set(position);
         viewModel.obj_id.set(mObjId);
         viewModel.cover.set(mCover);
+        viewModel.title.set(mTitle);
         viewModel.chapter_id.set(dataBean.getChapter_id());
         holder.mDataBinding.setVariable(BR.viewModel, viewModel);
     }

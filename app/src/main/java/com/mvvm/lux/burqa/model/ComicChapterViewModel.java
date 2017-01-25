@@ -41,7 +41,7 @@ public class ComicChapterViewModel extends BaseViewModel {
 
     public ChaptersAdapter getAdapter() {
         if (mAdapter == null) {
-            mAdapter = new ChaptersAdapter(mActivity, data, objId.get(), cover.get());
+            mAdapter = new ChaptersAdapter(mActivity, data, objId.get(), cover.get(),title.get());
         }
         return mAdapter;
     }
