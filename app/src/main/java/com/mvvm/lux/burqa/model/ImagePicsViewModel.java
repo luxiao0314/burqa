@@ -100,7 +100,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                         mUrls.addAll(comicPageResponse.getPage_url());
                         if (!checkIllegal())
                             mActivity.finish();
-                        mPagerAdapter.notifyDataSetChanged();
+                        getPagerAdapter().notifyDataSetChanged();
                         refreshPosition(current_position.get());
                     }
                 }));
@@ -113,7 +113,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     private void refreshPosition(int position) {
         adver_tv.set((position + 1) + "/" + mUrls.size());
         mDataBinding.pager.setCurrentItem(position,false);
-        mPagerAdapter.currentPosition = position;
+        getPagerAdapter().currentPosition = position;
         if (mListAdapter != null)   //竖屏的时候mListAdapter并没有初始化
             mListAdapter.currentPosition = position;
     }

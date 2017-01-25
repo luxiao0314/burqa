@@ -12,11 +12,11 @@ import com.mvvm.lux.framework.base.BaseViewModel;
  * @Date 2016/11/17 18:56
  * @Version $VALUE
  */
-public class TagAdapterViewModel extends BaseViewModel {
+public class SearchTagAdapterViewModel extends BaseViewModel {
 
     public ObservableField<String> keyword = new ObservableField<>();
 
-    public TagAdapterViewModel(Activity activity) {
+    public SearchTagAdapterViewModel(Activity activity) {
         super(activity);
     }
 }

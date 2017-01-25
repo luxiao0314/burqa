@@ -5,7 +5,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mvvm.lux.burqa.model.TagAdapterViewModel"/>
+            type="com.mvvm.lux.burqa.model.SearchTagAdapterViewModel"/>
     </data>
     <TextView
         android:id="@+id/tv_tags"

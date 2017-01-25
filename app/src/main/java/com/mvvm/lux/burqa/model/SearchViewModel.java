@@ -147,8 +147,8 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
 
         @Override
         public View getView(FlowLayout parent, int position, HotResponse dataBean) {
-            ViewDataBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.layout_tag_item, parent, false);
-            TagAdapterViewModel viewModel = new TagAdapterViewModel(mActivity);
+            ViewDataBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.layout_search_tag_item, parent, false);
+            SearchTagAdapterViewModel viewModel = new SearchTagAdapterViewModel(mActivity);
             viewModel.keyword.set(dataBean.getName());
             dataBinding.setVariable(BR.viewModel, viewModel);
             return dataBinding.getRoot();

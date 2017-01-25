@@ -12,8 +12,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.SimpleItemAnimator;
 import android.text.TextWatcher;
 import android.widget.CompoundButton;
 import android.widget.EditText;
@@ -26,8 +26,6 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.mvvm.lux.burqa.R;
-import com.mvvm.lux.burqa.model.response.ComicResponse;
-import com.mvvm.lux.burqa.ui.home.adapter.TagFlowAdapter;
 import com.mvvm.lux.widget.banner.BannerEntity;
 import com.mvvm.lux.widget.banner.BannerView;
 import com.mvvm.lux.widget.emptyview.EmptyView;
@@ -120,7 +118,7 @@ public class BindingConfig {
     @BindingAdapter("setAdapter")
     public static void setAdapter(RecyclerView recyclerView, RecyclerView.Adapter adapter) {
         recyclerView.setAdapter(adapter);
-        recyclerView.setItemAnimator(new DefaultItemAnimator());
+        ((SimpleItemAnimator)recyclerView.getItemAnimator()).setSupportsChangeAnimations(false);
         recyclerView.setHasFixedSize(true);    //高度不变,提高性能
     }
 
@@ -338,13 +336,13 @@ public class BindingConfig {
         }
     };*/
 
-    @BindingAdapter(value = {"flowAdapter", "onClickAttrChanged"}, requireAll = false)
-    public static void setAdapter(TagFlowLayout flowLayout, ObservableList<ComicResponse.ChaptersBean.DataBean> datas, InverseBindingListener inverseBindingListener) {
-        if (inverseBindingListener != null) {
-            flowLayout.setAdapter(new TagFlowAdapter(datas));   //onClick状态发生改变就重新设置adapter
-            inverseBindingListener.onChange();  //onClick状态发生改变同时更新textview内容
-        }
-    }
+//    @BindingAdapter(value = {"flowAdapter", "onClickAttrChanged"}, requireAll = false)
+//    public static void setAdapter(TagFlowLayout flowLayout, ObservableList<ComicResponse.ChaptersBean.DataBean> datas, InverseBindingListener inverseBindingListener) {
+//        if (inverseBindingListener != null) {
+//            flowLayout.setAdapter(new ChaptersAdapter(datas));   //onClick状态发生改变就重新设置adapter
+//            inverseBindingListener.onChange();  //onClick状态发生改变同时更新textview内容
+//        }
+//    }
 
     /**
      * 所谓双向绑定,
