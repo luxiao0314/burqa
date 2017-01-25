@@ -29,7 +29,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:layoutManager="@{viewModel.layoutManager}"
-                bind:addItemDecoration="@{viewModel.itemDecoration}"
                 bind:setAdapter="@{viewModel.mAdapter}"/>
         </android.support.v4.widget.SwipeRefreshLayout>
 

@@ -6,7 +6,6 @@ import android.databinding.ObservableBoolean;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
@@ -15,9 +14,7 @@ import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.manager.recycler.baserecycleview.BaseQuickAdapter;
 import com.mvvm.lux.framework.manager.recycler.baserecycleview.BaseViewHolder;
-import com.mvvm.lux.framework.manager.recycler.itemDecoration.AlphaDividerItemDecoration;
 import com.mvvm.lux.widget.emptyview.EmptyView;
-import com.mvvm.lux.widget.utils.DisplayUtil;
 
 import java.util.List;
 
@@ -40,7 +37,9 @@ public class FavoriteViewModel extends BaseViewModel {
         mAdapter.isFirstOnly(false);
     }
 
-    public RecyclerView.ItemDecoration itemDecoration = new AlphaDividerItemDecoration(DisplayUtil.dp2px(5));
+//    public RecyclerView.ItemDecoration itemDecoration(){
+//        return new DividerGridItemDecoration(mActivity);
+//    }
 
     public GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 3);
 

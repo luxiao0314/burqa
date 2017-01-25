@@ -87,7 +87,7 @@ public class RealmHelper {
                 .where(ClassifyResponse.class)
                 .equalTo("isCollection",true)
                 .findAllSorted("time", Sort.DESCENDING);
-        return getRealm().copyToRealm(results);
+        return getRealm().copyToRealmOrUpdate(results);
     }
 
     /**

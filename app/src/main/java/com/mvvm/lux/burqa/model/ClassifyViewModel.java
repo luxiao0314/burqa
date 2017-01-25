@@ -7,7 +7,6 @@ import android.databinding.ObservableField;
 import android.databinding.ObservableList;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.GridLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 
 import com.mvvm.lux.burqa.BR;
@@ -21,9 +20,7 @@ import com.mvvm.lux.framework.http.RxSubscriber;
 import com.mvvm.lux.framework.manager.recycler.baserecycleview.BaseQuickAdapter;
 import com.mvvm.lux.framework.manager.recycler.baserecycleview.BaseViewHolder;
 import com.mvvm.lux.framework.manager.recycler.baserecycleview.loadmore.SimpleLoadMoreView;
-import com.mvvm.lux.framework.manager.recycler.itemDecoration.AlphaDividerItemDecoration;
 import com.mvvm.lux.widget.emptyview.EmptyView;
-import com.mvvm.lux.widget.utils.DisplayUtil;
 
 import java.util.List;
 
@@ -57,7 +54,9 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
 
     public GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 3);
 
-    public RecyclerView.ItemDecoration itemDecoration = new AlphaDividerItemDecoration(DisplayUtil.dp2px(5));
+//    public RecyclerView.ItemDecoration itemDecoration(){
+//        return new DividerGridItemDecoration(mActivity);
+//    }
 
     public EmptyView.ReloadOnClickListener mReloadOnClickListener = () -> initData(false);
 

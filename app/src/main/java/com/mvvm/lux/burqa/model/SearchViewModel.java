@@ -23,12 +23,10 @@ import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.http.RxSubscriber;
 import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
-import com.mvvm.lux.framework.manager.recycler.itemDecoration.AlphaDividerItemDecoration;
 import com.mvvm.lux.framework.manager.recycler.recyclerview.CommonAdapter;
 import com.mvvm.lux.framework.manager.recycler.recyclerview.base.ViewHolder;
 import com.mvvm.lux.framework.manager.recycler.recyclerview.wrapper.LoadMoreWrapper;
 import com.mvvm.lux.widget.emptyview.EmptyView;
-import com.mvvm.lux.widget.utils.DisplayUtil;
 import com.zhy.view.flowlayout.FlowLayout;
 import com.zhy.view.flowlayout.TagAdapter;
 import com.zhy.view.flowlayout.TagFlowLayout;
@@ -65,7 +63,9 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
 
     public EmptyView.ReloadOnClickListener mReloadOnClickListener = this::initData;
 
-    public RecyclerView.ItemDecoration itemDecoration = new AlphaDividerItemDecoration(DisplayUtil.dp2px(5));
+//    public RecyclerView.ItemDecoration itemDecoration(){
+//        return new DividerGridItemDecoration(mActivity);
+//    }
 
     public RecyclerView.LayoutManager getLayoutManager() {
         GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 6);

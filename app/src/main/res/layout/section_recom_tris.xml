@@ -7,6 +7,8 @@
         <variable
             name="viewModel"
             type="com.mvvm.lux.burqa.model.RecomDoubleViewModel"/>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
     </data>
     <LinearLayout
         android:layout_width="match_parent"
@@ -14,7 +16,7 @@
         android:background="@color/white"
         android:onClick="@{viewModel.mOnClickListener}"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="match_parent"
@@ -37,6 +39,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingTop="5dp"
-            android:text="@{viewModel.sub_title}"/>
+            android:text="@{viewModel.sub_title}"
+            android:visibility="@{TextUtils.isEmpty(viewModel.sub_title) ? View.GONE : View.VISIBLE}"/>
     </LinearLayout>
 </layout>
