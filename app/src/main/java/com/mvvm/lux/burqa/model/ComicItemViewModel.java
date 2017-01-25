@@ -10,6 +10,7 @@ import android.view.View;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ComicChapterLayoutBinding;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
+import com.mvvm.lux.burqa.model.event.ChaptersEvent;
 import com.mvvm.lux.burqa.model.event.TagSelectEvent;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
@@ -34,7 +35,7 @@ public class ComicItemViewModel extends BaseViewModel {
 
     public ObservableField<String> show_more = new ObservableField<>("查看全部章节");
 
-    public ObservableField<Integer> objId = new ObservableField<>();
+    public ObservableField<Integer> obj_id = new ObservableField<>();
 
     public ObservableBoolean showAll = new ObservableBoolean(false);
 
@@ -105,17 +106,11 @@ public class ComicItemViewModel extends BaseViewModel {
         mDataBinding.llFlowlayout.addView(comicChapterBinding.getRoot());
     }
 
+    //这里还有一步操作是记录点击item的背景
     public void getLocalData(ClassifyResponse classifyResponse) {
-//        if (classifyResponse != null) {
-//            if (OTHER_CHAPTERS.equals(classifyResponse.getChapters())) {
-//                mDataBinding.otherChaptersFlow.setAdapter(chaptersOtherAdapter);
-//                chaptersOtherAdapter.setSelectedList(classifyResponse.getTagPosition());
-//            } else {
-//                mDataBinding.chaptersFlow.setAdapter(chaptersAdapter);
-//                chaptersAdapter.setSelectedList(classifyResponse.getTagPosition()); //设置tag默认给选中记录
-//            }
-//            RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get(), classifyResponse.isCollection()));
-//        }
+        if (classifyResponse != null) {
+            RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get()+"", classifyResponse.isCollection()));
+        }
     }
 
     public void initEvent() {
@@ -123,10 +118,9 @@ public class ComicItemViewModel extends BaseViewModel {
                 .toObservableSticky(TagSelectEvent.class)
                 .compose(RxHelper.io_main())
                 .subscribe(tagSelectEvent -> {
-                    if (tagSelectEvent.mId == objId.get()) {
-//                        mDataBinding.chaptersFlow.setAdapter(chaptersAdapter);
-//                        chaptersAdapter.setSelectedList(tagSelectEvent.mTagPosition); //设置tag默认给选中记录
-                    }
+                    if (tagSelectEvent.mId == obj_id.get()) {   //用于记录点击的item的背景
+
+                   }
                 });
     }
 }

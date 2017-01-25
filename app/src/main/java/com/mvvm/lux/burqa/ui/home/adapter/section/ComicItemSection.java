@@ -46,7 +46,7 @@ public class ComicItemSection extends StatelessSection {
     @Override
     public void onBindItemViewHolder(RecyclerView.ViewHolder holder, int position) {
         ComicItemViewModel viewModel = new ComicItemViewModel(mActivity, (SectionComicItemBinding) ((ItemViewHoder) holder).mDataBinding,mComicResponse);
-        viewModel.objId.set(mComicResponse.getId());
+        viewModel.obj_id.set(mComicResponse.getId());
         viewModel.title.set(mComicResponse.getTitle());
         viewModel.last_updatetime.set("更新: " + DateUtil.getStringTime(mComicResponse.getLast_updatetime()));
 
