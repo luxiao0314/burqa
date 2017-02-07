@@ -45,7 +45,7 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
     }
 
     public void initView() {
-        mAdapter.isFirstOnly(false);
+//        mAdapter.isFirstOnly(false);
         if (!TextUtils.isEmpty(tag_id.get())) { //历史记录没有加载更多
             mAdapter.setLoadMoreView(new SimpleLoadMoreView());
             mAdapter.setOnLoadMoreListener(this);
@@ -53,10 +53,6 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
     }
 
     public GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 3);
-
-//    public RecyclerView.ItemDecoration itemDecoration(){
-//        return new DividerGridItemDecoration(mActivity);
-//    }
 
     public EmptyView.ReloadOnClickListener mReloadOnClickListener = () -> initData(false);
 
@@ -70,7 +66,7 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
 
         @Override
         protected void convert(BaseViewHolder holder, ClassifyResponse categoryResponse, int positions) {
-            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);  //因为这个adapter会预先加载,所以进来的时候要在在这里设置动画
+//            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);  //因为这个adapter会预先加载,所以进来的时候要在在这里设置动画
 
             ClassifyItemViewModel viewModel = new ClassifyItemViewModel(mActivity);
             viewModel.title.set(categoryResponse.getTitle());

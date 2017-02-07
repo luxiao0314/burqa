@@ -36,7 +36,7 @@ public class CategoryViewModel extends BaseViewModel {
     public CategoryViewModel(Activity activity) {
         super(activity);
         refreshing.set(true);
-        mAdapter.isFirstOnly(false);
+//        mAdapter.isFirstOnly(false);
     }
 
     public GridLayoutManager layoutManager(){
@@ -49,7 +49,7 @@ public class CategoryViewModel extends BaseViewModel {
 
         @Override
         protected void convert(BaseViewHolder holder, CategoryResponse categoryResponse, int position) {
-            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
+//            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);
             CategoryItemViewModel viewModel = new CategoryItemViewModel(mActivity);
             viewModel.title.set(categoryResponse.getTitle());
             viewModel.cover.set(categoryResponse.getCover());

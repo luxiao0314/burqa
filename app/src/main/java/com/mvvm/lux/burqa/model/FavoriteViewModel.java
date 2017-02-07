@@ -34,12 +34,8 @@ public class FavoriteViewModel extends BaseViewModel {
     public FavoriteViewModel(Activity activity) {
         super(activity);
         refreshing.set(true);
-        mAdapter.isFirstOnly(false);
+//        mAdapter.isFirstOnly(false);
     }
-
-//    public RecyclerView.ItemDecoration itemDecoration(){
-//        return new DividerGridItemDecoration(mActivity);
-//    }
 
     public GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 3);
 
@@ -49,7 +45,7 @@ public class FavoriteViewModel extends BaseViewModel {
 
         @Override
         protected void convert(BaseViewHolder holder, ClassifyResponse categoryResponse, int positions) {
-            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);  //因为这个adapter会预先加载,所以进来的时候要在在这里设置动画
+//            mAdapter.openLoadAnimation(BaseQuickAdapter.SLIDEIN_RIGHT);  //因为这个adapter会预先加载,所以进来的时候要在在这里设置动画
 
             ClassifyItemViewModel viewModel = new ClassifyItemViewModel(mActivity);
             viewModel.title.set(categoryResponse.getTitle());
