@@ -11,11 +11,13 @@ import android.view.KeyEvent;
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
+import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.utils.DateUtil;
 import com.mvvm.lux.framework.utils.NetworkUtil;
+import com.mvvm.lux.widget.utils.DisplayUtil;
 
 
 /**
@@ -32,28 +34,27 @@ public class ImagePicsListActivity extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-        setTheme(R.style.image_pic_fullscreen); //必须在oncreare之前执行
+        setTheme(R.style.image_pic_fullscreen); //必须在oncreate之前执行
         super.onCreate(savedInstanceState);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
+        mViewModel = new ImagePicsViewModel(this,  (ActivityImagePicsListBinding) mDataBinding);
         init();
-    }
-
-    @Override
-    protected void onResume() {
-        setTheme(R.style.image_pic_fullscreen); //必须在oncreare之前执行
-        super.onResume();
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
+        if (DisplayUtil.isPortrait()) {
+            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
+        } else {
+            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
+            mViewModel.setDataBinding((ActivityImagePicsListLandBinding) mDataBinding);
+        }
+        mViewModel.refresh();
         mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
     private void init() {
-        mViewModel = new ImagePicsViewModel(this, (ActivityImagePicsListBinding) mDataBinding);
-        // 没有任何url时，直接return跳走，UI交互上是用户根本进不来
         Intent intent = getIntent();
         mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
         mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
@@ -61,7 +62,6 @@ public class ImagePicsListActivity extends SwipeBackActivity {
         mViewModel.title.set(intent.getStringExtra("title"));
         mViewModel.cover.set(intent.getStringExtra("cover"));
         mViewModel.chapters.set(intent.getStringExtra("chapters"));
-        mViewModel.current_position.set(0);
         mViewModel.time.set(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
         mViewModel.network_status.set(NetworkUtil.getAPNType(this));
         mViewModel.getLocalData();

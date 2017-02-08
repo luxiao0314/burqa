@@ -1,13 +1,16 @@
 package com.mvvm.lux.burqa.model;
 
 import android.content.pm.ActivityInfo;
-import android.content.res.Configuration;
 import android.databinding.ObservableField;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
+import android.widget.AbsListView;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
+import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
@@ -23,6 +26,7 @@ import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
 import com.mvvm.lux.framework.rx.RxBus;
+import com.mvvm.lux.widget.utils.DisplayUtil;
 
 import java.util.ArrayList;
 
@@ -48,11 +52,11 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     public ObservableField<Integer> tag_position = new ObservableField<>();
     private ArrayList<String> mUrls = new ArrayList<>();
     private ActivityImagePicsListBinding mDataBinding;
+    private ActivityImagePicsListLandBinding mDataLandBinding;
     private ImagePicsListActivity mImagePicsListActivity;
     private ImagePicsPagerAdapter mPagerAdapter;
     private ImagePicsListAdapter mListAdapter;
     private int mComic_id;
-    private int mPosition;
 
     public ImagePicsViewModel(ImagePicsListActivity imagePicsListActivity, ActivityImagePicsListBinding dataBinding) {
         super(imagePicsListActivity);
@@ -77,15 +81,15 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     }
 
     private void switchMode() {
-        int mCurrentOrientation = mImagePicsListActivity.getResources().getConfiguration().orientation;
-        if (mCurrentOrientation == Configuration.ORIENTATION_PORTRAIT) {
+        if (DisplayUtil.isPortrait()) {
             mImagePicsListActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);   //设置横屏
-        } else if (mCurrentOrientation == Configuration.ORIENTATION_LANDSCAPE) {
+        } else {
             mImagePicsListActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);   //设置竖屏
         }
     }
 
     public void initData() {
+        mUrls.clear();
         addSubscribe(RetrofitHelper.init()
                 .getChapter("chapter/" + obj_id.get() + "/" + chapter_id.get() + ".json")
                 .compose(RxHelper.io_main())
@@ -97,7 +101,6 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                         mUrls.addAll(comicPageResponse.getPage_url());
                         if (!checkIllegal())
                             mActivity.finish();
-                        getPagerAdapter().notifyDataSetChanged();
                         refreshPosition(current_position.get());
                     }
                 }));
@@ -108,8 +111,14 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     }
 
     private void refreshPosition(int position) {
+        getPagerAdapter().notifyDataSetChanged();
+        getCommonAdapter().notifyDataSetChanged();
+        current_position.set(position);
         adver_tv.set((position + 1) + "/" + mUrls.size());
-        mDataBinding.pager.setCurrentItem(position, false);
+        if (mDataBinding != null)
+            mDataBinding.pager.setCurrentItem(position, false);
+        if (mDataLandBinding != null)
+            mDataLandBinding.recyclerView.scrollToPosition(position);
         getPagerAdapter().currentPosition = position;
         getCommonAdapter().currentPosition = position;
     }
@@ -120,7 +129,6 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int position) {
-        mPosition = position;
         refreshPosition(position);
     }
 
@@ -138,6 +146,41 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
             mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls, chapter_title.get());
         }
         return mListAdapter;
+    }
+
+    public RecyclerView.OnScrollListener onScrollListener() {
+        return new RecyclerView.OnScrollListener() {
+            @Override
+            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
+                switch (scrollState) {
+                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
+                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
+                        //ImageLoader.pauseLoader();
+                        if (!Fresco.getImagePipeline().isPaused()) {
+                            Fresco.getImagePipeline().pause();
+                        }
+                        break;
+                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
+                        //ImageLoader.resumeLoader();
+                        if (Fresco.getImagePipeline().isPaused()) {
+                            Fresco.getImagePipeline().resume();
+                        }
+                        break;
+                }
+
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                //判断是当前layoutManager是否为LinearLayoutManager
+                // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
+                if (layoutManager instanceof LinearLayoutManager) {
+                    LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                    //获取最后一个可见view的位置
+                    int lastItemPosition = linearManager.findLastVisibleItemPosition();
+                    //获取第一个可见view的位置
+                    int firstItemPosition = linearManager.findFirstVisibleItemPosition();
+                    current_position.set(lastItemPosition);
+                }
+            }
+        };
     }
 
     @Override
@@ -161,8 +204,8 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         response.setAuthors(chapter_title.get());   //12页/30话
         response.setChapter_title(chapter_title.get());   //12页/30话
         response.setTime(System.currentTimeMillis());   //当前时间戳,用于排序
-        response.setPagePosition(mPosition); //当前页面的position
-        response.setTagPosition(tag_position.get()); //当tagLotout的position
+        response.setPagePosition(current_position.get()); //当前页面的position
+        response.setTagPosition(tag_position.get()); //当tagLoyout的position
         response.setChapter_id(chapter_id.get()); //当tagLotout的position
         response.setChapters(chapters.get());   //是连载还是番剧
         RealmHelper.getInstance().insertClassifyList(response);
@@ -172,5 +215,13 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         int pagePosition = RealmHelper.getInstance()
                 .queryPagePosition(Integer.parseInt(obj_id.get()), tag_position.get());
         current_position.set(pagePosition);
+    }
+
+    public void setDataBinding(ActivityImagePicsListLandBinding dataBinding) {
+        mDataLandBinding = dataBinding;
+    }
+
+    public void refresh() {
+        refreshPosition(current_position.get());
     }
 }

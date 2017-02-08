@@ -130,7 +130,7 @@ public class RealmHelper {
     }
 
     /**
-     * 通过漫画id查询page的pisition
+     * 通过漫画id查询page的position
      *
      * @return
      */
