@@ -32,7 +32,8 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingTop="5dp"
-            android:text="@{viewModel.title}"/>
+            android:text="@{viewModel.title}"
+            android:textSize="12sp"/>
         <TextView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -40,6 +41,8 @@
             android:maxLines="1"
             android:paddingTop="5dp"
             android:text="@{viewModel.sub_title}"
+            android:textColor="@color/gray_dark"
+            android:textSize="10sp"
             android:visibility="@{TextUtils.isEmpty(viewModel.sub_title) ? View.GONE : View.VISIBLE}"/>
     </LinearLayout>
 </layout>

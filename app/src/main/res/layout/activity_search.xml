@@ -87,6 +87,7 @@
                 android:layout_height="match_parent"
                 android:visibility="@{viewModel.showEmpty ? View.GONE : View.VISIBLE}"
                 app:layoutManager="@{viewModel.layoutManager}"
+                bind:onScrollListener="@{viewModel.onScrollListener}"
                 bind:setAdapter="@{viewModel.mLoadMoreWrapper}"/>
 
             <LinearLayout

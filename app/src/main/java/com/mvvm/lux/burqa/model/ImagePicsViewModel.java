@@ -5,10 +5,7 @@ import android.content.res.Configuration;
 import android.databinding.ObservableField;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
-import android.widget.AbsListView;
 
-import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
@@ -142,29 +139,6 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
             mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls,chapter_title.get());
         }
         return mListAdapter;
-    }
-
-    public RecyclerView.OnScrollListener onScrollListener() {
-        return new RecyclerView.OnScrollListener() {
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
-                switch (scrollState) {
-                    case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
-                    case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
-                        //ImageLoader.pauseLoader();
-                        if (!Fresco.getImagePipeline().isPaused()) {
-                            Fresco.getImagePipeline().pause();
-                        }
-                        break;
-                    case AbsListView.OnScrollListener.SCROLL_STATE_IDLE:
-                        //ImageLoader.resumeLoader();
-                        if (Fresco.getImagePipeline().isPaused()) {
-                            Fresco.getImagePipeline().resume();
-                        }
-                        break;
-                }
-            }
-        };
     }
 
     @Override

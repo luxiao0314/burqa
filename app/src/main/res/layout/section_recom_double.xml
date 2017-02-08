@@ -29,6 +29,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingTop="5dp"
-            android:text="@{viewModel.title}"/>
+            android:text="@{viewModel.title}"
+            android:textSize="12sp"/>
     </LinearLayout>
 </layout>

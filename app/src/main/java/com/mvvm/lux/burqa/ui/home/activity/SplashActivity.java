@@ -35,7 +35,7 @@ public class SplashActivity extends Activity {
 
     private void setUpSplash() {
 
-        Observable.timer(2000, TimeUnit.MILLISECONDS)
+        Observable.timer(1000, TimeUnit.MILLISECONDS)
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(aLong -> {
                     finishTask();
