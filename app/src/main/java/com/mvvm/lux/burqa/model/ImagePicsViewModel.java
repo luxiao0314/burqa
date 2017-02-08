@@ -217,11 +217,15 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         current_position.set(pagePosition);
     }
 
-    public void setDataBinding(ActivityImagePicsListLandBinding dataBinding) {
+    /**
+     * 获取的dataBinding不对,导致setCurrentPosition使用的是之前的控件,说所以不执行,而且需要一定的延迟才能设置成功
+     * @param dataBinding
+     */
+    public void setDataLandBinding(ActivityImagePicsListLandBinding dataBinding) {
         mDataLandBinding = dataBinding;
     }
 
-    public void refresh() {
-        refreshPosition(current_position.get());
+    public void setDataBinding(ActivityImagePicsListBinding dataBinding) {
+        mDataBinding = dataBinding;
     }
 }

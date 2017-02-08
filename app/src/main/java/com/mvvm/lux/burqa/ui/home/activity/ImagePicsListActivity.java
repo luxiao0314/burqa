@@ -46,11 +46,12 @@ public class ImagePicsListActivity extends SwipeBackActivity {
         super.onConfigurationChanged(newConfig);
         if (DisplayUtil.isPortrait()) {
             mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
+            mViewModel.setDataBinding((ActivityImagePicsListBinding) mDataBinding);
         } else {
             mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
-            mViewModel.setDataBinding((ActivityImagePicsListLandBinding) mDataBinding);
+            mViewModel.setDataLandBinding((ActivityImagePicsListLandBinding) mDataBinding);
         }
-        mViewModel.refresh();
+        mViewModel.initData();
         mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
