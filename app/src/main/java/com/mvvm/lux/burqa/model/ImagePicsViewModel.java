@@ -109,10 +109,9 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     private void refreshPosition(int position) {
         adver_tv.set((position + 1) + "/" + mUrls.size());
-        mDataBinding.pager.setCurrentItem(position,false);
+        mDataBinding.pager.setCurrentItem(position, false);
         getPagerAdapter().currentPosition = position;
-        if (mListAdapter != null)   //竖屏的时候mListAdapter并没有初始化
-            mListAdapter.currentPosition = position;
+        getCommonAdapter().currentPosition = position;
     }
 
     public ViewPager.OnPageChangeListener onPageChange() {
@@ -127,7 +126,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public ImagePicsPagerAdapter getPagerAdapter() {
         if (mPagerAdapter == null) {
-            mPagerAdapter = new ImagePicsPagerAdapter(mImagePicsListActivity, mUrls,chapter_title.get());
+            mPagerAdapter = new ImagePicsPagerAdapter(mImagePicsListActivity, mUrls, chapter_title.get());
         }
         return mPagerAdapter;
     }
@@ -136,7 +135,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public ImagePicsListAdapter getCommonAdapter() {
         if (mListAdapter == null) {
-            mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls,chapter_title.get());
+            mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls, chapter_title.get());
         }
         return mListAdapter;
     }
@@ -171,7 +170,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public void getLocalData() {
         int pagePosition = RealmHelper.getInstance()
-                .queryPagePosition(Integer.parseInt(obj_id.get()),tag_position.get());
+                .queryPagePosition(Integer.parseInt(obj_id.get()), tag_position.get());
         current_position.set(pagePosition);
     }
 }

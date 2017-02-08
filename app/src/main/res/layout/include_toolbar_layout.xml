@@ -12,17 +12,15 @@
     <android.support.design.widget.AppBarLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:theme="@style/AppTheme.AppBarOverlay">
-
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:elevation="0dp">
         <android.support.v7.widget.Toolbar
             android:id="@+id/toolbar"
             android:layout_width="match_parent"
-            android:layout_height="?attr/actionBarSize"
+            android:layout_height="wrap_content"
             android:background="?attr/colorPrimary"
-            android:contentInsetStart="0dp"
             app:contentInsetStart="0dp"
-            app:popupTheme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
-            app:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+            app:popupTheme="@style/ThemeOverlay.AppCompat.Light">
 
             <RelativeLayout
                 android:id="@+id/navigation_layout"

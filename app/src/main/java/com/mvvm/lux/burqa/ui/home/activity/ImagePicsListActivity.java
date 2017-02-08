@@ -32,10 +32,16 @@ public class ImagePicsListActivity extends SwipeBackActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+        setTheme(R.style.image_pic_fullscreen); //必须在oncreare之前执行
         super.onCreate(savedInstanceState);
-        setTheme(R.style.image_pic_fullscreen);
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
         init();
+    }
+
+    @Override
+    protected void onResume() {
+        setTheme(R.style.image_pic_fullscreen); //必须在oncreare之前执行
+        super.onResume();
     }
 
     @Override

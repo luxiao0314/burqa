@@ -16,17 +16,9 @@
         android:background="@color/white"
         android:tag="ComicHeaderViewModel">
 
-        <com.mvvm.lux.widget.waveview.WaveView
-            android:id="@+id/wave_view"
+        <com.mvvm.lux.widget.PathmMultiView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/colorPrimary"
-            app:above_wave_color="@android:color/white"
-            app:blow_wave_color="@android:color/white"
-            app:progress="10"
-            app:wave_height="large"
-            app:wave_hz="slow"
-            app:wave_length="large"/>
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"

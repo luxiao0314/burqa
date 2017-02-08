@@ -16,6 +16,7 @@
 package com.mvvm.lux.burqa.ui.sub;
 
 import android.databinding.DataBindingUtil;
+import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 import android.view.LayoutInflater;
 
@@ -35,15 +36,15 @@ import com.mvvm.lux.framework.manager.dialogs.config.BaseTask;
 public class ImagePicDialogFragment extends SimpleDialogFragment {
 
     public static String TAG = "jayne";
-    private static int sUrlistsize;
-    private static int sCurrentPosition;
-    private static String sChapterTitle;
 
     public static void show(FragmentActivity activity, int urlistsize, int currentPosition, String chapterTitle) {
-        sUrlistsize = urlistsize;
-        sCurrentPosition = currentPosition;
-        sChapterTitle = chapterTitle;
-        new ImagePicDialogFragment().show(activity.getSupportFragmentManager(), TAG);
+        Bundle bundle = new Bundle();
+        bundle.putInt("urlistsize",urlistsize);
+        bundle.putInt("currentPosition",currentPosition);
+        bundle.putString("chapterTitle",chapterTitle);
+        ImagePicDialogFragment imagePicDialogFragment = new ImagePicDialogFragment();
+        imagePicDialogFragment.setArguments(bundle);
+        imagePicDialogFragment.show(activity.getSupportFragmentManager(), TAG);
     }
 
     public static void show(BaseTask baseTask) {
@@ -57,12 +58,16 @@ public class ImagePicDialogFragment extends SimpleDialogFragment {
 
     @Override
     public Builder build(Builder builder) {
+        int urlistsize = getArguments().getInt("urlistsize");
+        int currentPosition = getArguments().getInt("currentPosition");
+        String chapterTitle = getArguments().getString("chapterTitle");
+
         FragmentImagePicListBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(getActivity()), R.layout.fragment_image_pic_list, null, false);
         ImagePicDialogViewModel viewModel = new ImagePicDialogViewModel(getActivity(), this);
-        viewModel.maxProgress.set(sUrlistsize);
-        viewModel.progress.set(sCurrentPosition);
-        viewModel.adver_tv.set((sCurrentPosition + 1) + "/" + sUrlistsize);
-        viewModel.chapter_title.set(sChapterTitle);
+        viewModel.maxProgress.set(urlistsize);
+        viewModel.progress.set(currentPosition);
+        viewModel.adver_tv.set((currentPosition + 1) + "/" + urlistsize);
+        viewModel.chapter_title.set(chapterTitle);
         dataBinding.setViewModel(viewModel);
         builder.setView(dataBinding.getRoot());
         return builder;

@@ -12,7 +12,8 @@
         android:layout_width="match_parent"
         android:layout_height="fill_parent"
         android:background="#000000"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:tag="ActivityImagePicsListLand">
 
         <com.mvvm.lux.widget.MultiTouchRecycleView
             android:layout_width="match_parent"
