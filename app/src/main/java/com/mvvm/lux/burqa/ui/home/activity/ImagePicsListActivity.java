@@ -13,6 +13,7 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
+import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.utils.DateUtil;
@@ -31,13 +32,22 @@ public class ImagePicsListActivity extends SwipeBackActivity {
 
     private ViewDataBinding mDataBinding;
     private ImagePicsViewModel mViewModel;
+    private String mObjId;
+    private String mChapterId;
+    private int mTagPosition;
+    private String mTitle;
+    private String mCover;
+    private String mChapters;
+    private int mPagePosition;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         setTheme(R.style.image_pic_fullscreen); //必须在oncreate之前执行
         super.onCreate(savedInstanceState);
+        getIntentData();
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
-        mViewModel = new ImagePicsViewModel(this,  (ActivityImagePicsListBinding) mDataBinding);
+        mViewModel = new ImagePicsViewModel(this, (ActivityImagePicsListBinding) mDataBinding);
+        mViewModel.current_position.set(mPagePosition);
         init();
     }
 
@@ -51,23 +61,32 @@ public class ImagePicsListActivity extends SwipeBackActivity {
             mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
             mViewModel.setDataLandBinding((ActivityImagePicsListLandBinding) mDataBinding);
         }
+        init();
+    }
+
+    private void init() {
+        mViewModel.obj_id.set(mObjId);
+        mViewModel.chapter_id.set(mChapterId);
+        mViewModel.tag_position.set(mTagPosition);
+        mViewModel.title.set(mTitle);
+        mViewModel.cover.set(mCover);
+        mViewModel.chapters.set(mChapters);
+        mViewModel.time.set(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
+        mViewModel.network_status.set(NetworkUtil.getAPNType(this));
         mViewModel.initData();
         mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
-    private void init() {
+    private void getIntentData() {
         Intent intent = getIntent();
-        mViewModel.obj_id.set(intent.getStringExtra("obj_id"));
-        mViewModel.chapter_id.set(intent.getStringExtra("chapter_id"));
-        mViewModel.tag_position.set(intent.getIntExtra("tag_position", 0));
-        mViewModel.title.set(intent.getStringExtra("title"));
-        mViewModel.cover.set(intent.getStringExtra("cover"));
-        mViewModel.chapters.set(intent.getStringExtra("chapters"));
-        mViewModel.time.set(DateUtil.getCurrentTime(DateUtil.DATETIME_PATTERN_6_2));
-        mViewModel.network_status.set(NetworkUtil.getAPNType(this));
-        mViewModel.getLocalData();
-        mViewModel.initData();
-        mDataBinding.setVariable(BR.viewModel, mViewModel);
+        mObjId = intent.getStringExtra("obj_id");
+        mChapterId = intent.getStringExtra("chapter_id");
+        mTagPosition = intent.getIntExtra("tag_position", 0);
+        mTitle = intent.getStringExtra("title");
+        mCover = intent.getStringExtra("cover");
+        mChapters = intent.getStringExtra("chapters");
+        mPagePosition = RealmHelper.getInstance()
+                .queryPagePosition(Integer.parseInt(mObjId), mTagPosition);
     }
 
     public static void launch(Activity activity, int chapter_id, int tagPosition, String chapters, String obj_id, String title, String cover) {
@@ -90,9 +109,8 @@ public class ImagePicsListActivity extends SwipeBackActivity {
 
     @Override
     protected void onDestroy() {
-        if (mViewModel != null) {
+        if (mViewModel != null)
             mViewModel.detachView();
-        }
         super.onDestroy();
     }
 }

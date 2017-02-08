@@ -129,7 +129,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int position) {
-        refreshPosition(position);
+        current_position.set(position);
     }
 
     public ImagePicsPagerAdapter getPagerAdapter() {
@@ -175,8 +175,6 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取最后一个可见view的位置
                     int lastItemPosition = linearManager.findLastVisibleItemPosition();
-                    //获取第一个可见view的位置
-                    int firstItemPosition = linearManager.findFirstVisibleItemPosition();
                     current_position.set(lastItemPosition);
                 }
             }
@@ -209,12 +207,6 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         response.setChapter_id(chapter_id.get()); //当tagLotout的position
         response.setChapters(chapters.get());   //是连载还是番剧
         RealmHelper.getInstance().insertClassifyList(response);
-    }
-
-    public void getLocalData() {
-        int pagePosition = RealmHelper.getInstance()
-                .queryPagePosition(Integer.parseInt(obj_id.get()), tag_position.get());
-        current_position.set(pagePosition);
     }
 
     /**
