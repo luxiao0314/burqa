@@ -119,8 +119,6 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
             mDataBinding.pager.setCurrentItem(position, false);
         if (mDataLandBinding != null)
             mDataLandBinding.recyclerView.scrollToPosition(position);
-        getPagerAdapter().currentPosition = position;
-        getCommonAdapter().currentPosition = position;
     }
 
     public ViewPager.OnPageChangeListener onPageChange() {
@@ -129,7 +127,9 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     @Override
     public void onPageSelected(int position) {
+        getPagerAdapter().currentPosition = position;
         current_position.set(position);
+        adver_tv.set((position + 1) + "/" + mUrls.size());
     }
 
     public ImagePicsPagerAdapter getPagerAdapter() {
@@ -175,7 +175,9 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                     LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
                     //获取最后一个可见view的位置
                     int lastItemPosition = linearManager.findLastVisibleItemPosition();
+                    getCommonAdapter().currentPosition = lastItemPosition;
                     current_position.set(lastItemPosition);
+                    adver_tv.set((lastItemPosition + 1) + "/" + mUrls.size());
                 }
             }
         };
