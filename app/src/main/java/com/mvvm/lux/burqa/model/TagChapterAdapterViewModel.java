@@ -38,6 +38,9 @@ public class TagChapterAdapterViewModel extends BaseViewModel {
         mChaptersAdapter = chaptersAdapter;
     }
 
+    /**
+     * 章节的点击事件
+     */
     public View.OnClickListener mOnClickListener = view -> {
         ImagePicsListActivity.launch(mActivity,
                 chapter_id.get(),
@@ -47,6 +50,6 @@ public class TagChapterAdapterViewModel extends BaseViewModel {
                 title.get(),
                 cover.get());
         mChaptersAdapter.setSelectPosition(position.get());
-        RxBus.init().postSticky(new ChaptersEvent(chapter_title.get(), obj_id.get() + "", false));
+        RxBus.init().postSticky(new ChaptersEvent(chapter_title.get(), obj_id.get() + ""));
     };
 }

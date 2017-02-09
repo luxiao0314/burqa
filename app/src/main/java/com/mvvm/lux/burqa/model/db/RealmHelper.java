@@ -77,16 +77,17 @@ public class RealmHelper {
         }
     }
 
+    /**
+     * 根据漫画id获取当前漫画是否被收藏
+     *
+     * @param id
+     * @return
+     */
     public boolean queryCollectionId(int id) {
-        RealmResults<ClassifyResponse> classifyResponses = getRealm().where(ClassifyResponse.class)
-                .equalTo("isCollection",true)
-                .findAll();
-        for (ClassifyResponse classifyResponse : classifyResponses) {
-            if (classifyResponse.getId() == id) {
-                return true;
-            }
-        }
-        return false;
+        ClassifyResponse response = getRealm().where(ClassifyResponse.class)
+                .equalTo("id", id)
+                .findFirst();
+        return response.isCollection();
     }
 
     /**
@@ -177,23 +178,6 @@ public class RealmHelper {
         getRealm().commitTransaction();
     }
 
-    */
-
-    /**
-     * 查询 收藏记录
-     *
-     * @param id
-     * @return
-     */
-//    public boolean queryCollectionId(String id) {
-//        RealmResults<ComicResponse> results = getRealm().where(ComicResponse.class).findAll();
-//        for (ComicResponse item : results) {
-//            if (String.valueOf(item.getId()).equals(id)) {
-//                return true;
-//            }
-//        }
-//        return false;
-//    }
 
     //--------------------------------------------------播放记录相关----------------------------------------------------
 

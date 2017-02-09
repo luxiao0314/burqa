@@ -39,7 +39,10 @@ public class ComicItemViewModel extends BaseViewModel {
 
     public ObservableBoolean showAll = new ObservableBoolean(false);
 
+    private List<ComicResponse.ChaptersBean.DataBean> chaptersListLess = new ArrayList<>();
+
     private SectionComicItemBinding mDataBinding;
+
     private ComicResponse mResponse;
 
     public ComicItemViewModel(Activity activity, SectionComicItemBinding dataBinding, ComicResponse comicResponse) {
@@ -83,8 +86,6 @@ public class ComicItemViewModel extends BaseViewModel {
         }
     }
 
-    private List<ComicResponse.ChaptersBean.DataBean> chaptersListLess = new ArrayList<>();
-
     private void getSimpleChapter(ComicResponse response) {
         chaptersListLess.clear();
         mDataBinding.llFlowlayout.removeAllViews();
@@ -108,9 +109,8 @@ public class ComicItemViewModel extends BaseViewModel {
 
     //这里还有一步操作是记录点击item的背景
     public void getLocalData(ClassifyResponse classifyResponse) {
-        if (classifyResponse != null) {
-            RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get()+"", classifyResponse.isCollection()));
-        }
+        if (classifyResponse != null)
+            RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get() + ""));   //续看按钮事件
     }
 
     public void initEvent() {
@@ -120,7 +120,7 @@ public class ComicItemViewModel extends BaseViewModel {
                 .subscribe(tagSelectEvent -> {
                     if (tagSelectEvent.mId == obj_id.get()) {   //用于记录点击的item的背景
 
-                   }
+                    }
                 });
     }
 }

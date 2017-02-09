@@ -1,7 +1,6 @@
 package com.mvvm.lux.burqa.model;
 
 import android.app.Activity;
-import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.databinding.ViewDataBinding;
 import android.text.TextUtils;
@@ -47,7 +46,6 @@ public class ComicHeaderViewModel extends BaseViewModel {
     private ClassifyResponse classifyResponse;
 
     private SectionComicDesBinding dataBinding;
-    private ObservableBoolean isCollection = new ObservableBoolean(false);
 
     public ComicHeaderViewModel(Activity activity, ComicResponse comicResponse, ClassifyResponse classifyResponse, ViewDataBinding dataBinding) {
         super(activity);
@@ -55,6 +53,18 @@ public class ComicHeaderViewModel extends BaseViewModel {
         this.dataBinding = (SectionComicDesBinding) dataBinding;
         this.classifyResponse = classifyResponse;
         initEvent(comicResponse.getId() + "");
+        initCollection();
+    }
+
+    private void initCollection() {
+        boolean isCollection = RealmHelper.getInstance().queryCollectionId(comicResponse.getId());
+        if (!isCollection) {
+            dataBinding.collect.setSelected(false);
+            dataBinding.collect.setText("添加收藏");
+        } else {
+            dataBinding.collect.setSelected(true);
+            dataBinding.collect.setText("已收藏");
+        }
     }
 
     private void initEvent(String objId) {
@@ -66,12 +76,6 @@ public class ComicHeaderViewModel extends BaseViewModel {
                             chapter_title.set("开始阅读");
                         } else {
                             chapter_title.set("续看 " + chaptersEvent.mChapter_title);
-                        }
-                        if (chaptersEvent.mIsCollection) {
-                            dataBinding.collect.setSelected(true);
-                            dataBinding.collect.setText("已收藏");
-                        } else {
-                            dataBinding.collect.setText("添加收藏");
                         }
                     }
                 });
@@ -89,7 +93,7 @@ public class ComicHeaderViewModel extends BaseViewModel {
                         comicResponse.getId() + "",
                         comicResponse.getTitle(),
                         comicResponse.getCover());
-                chapter_title.set(data.get(data.size() - 1).getChapter_title());
+                chapter_title.set("续看 " + data.get(data.size() - 1).getChapter_title());
                 RxBus.init().postSticky(new TagSelectEvent(data.size() - 1, comicResponse.getId()));
             } else {
                 ImagePicsListActivity.launch(mActivity,

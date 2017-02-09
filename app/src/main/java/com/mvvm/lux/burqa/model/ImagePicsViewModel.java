@@ -13,10 +13,12 @@ import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
+import com.mvvm.lux.burqa.model.event.ChaptersEvent;
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
 import com.mvvm.lux.burqa.model.event.SwitchModeEvent;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
+import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.burqa.ui.sub.adapter.ImagePicsListAdapter;
 import com.mvvm.lux.burqa.ui.sub.adapter.ImagePicsPagerAdapter;
@@ -24,11 +26,16 @@ import com.mvvm.lux.framework.base.BaseEvent;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
+import com.mvvm.lux.framework.http.exception.CusException;
+import com.mvvm.lux.framework.http.exception.RetrofitException;
 import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
 import com.mvvm.lux.framework.rx.RxBus;
 import com.mvvm.lux.widget.utils.DisplayUtil;
 
 import java.util.ArrayList;
+
+import rx.Observable;
+import rx.functions.Func1;
 
 /**
  * @Description
@@ -57,6 +64,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     private ImagePicsPagerAdapter mPagerAdapter;
     private ImagePicsListAdapter mListAdapter;
     private int mComic_id;
+    private boolean misScrolled;
 
     public ImagePicsViewModel(ImagePicsListActivity imagePicsListActivity, ActivityImagePicsListBinding dataBinding) {
         super(imagePicsListActivity);
@@ -89,21 +97,25 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     }
 
     public void initData() {
-        mUrls.clear();
         addSubscribe(RetrofitHelper.init()
                 .getChapter("chapter/" + obj_id.get() + "/" + chapter_id.get() + ".json")
                 .compose(RxHelper.io_main())
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
-                        chapter_title.set(comicPageResponse.getTitle());    //"title": "第61话",
-                        mComic_id = comicPageResponse.getComic_id();
-                        mUrls.addAll(comicPageResponse.getPage_url());
-                        if (!checkIllegal())
-                            mActivity.finish();
-                        refreshPosition(current_position.get());
+                        result(comicPageResponse, current_position.get());
                     }
                 }));
+    }
+
+    private void result(ComicPageResponse comicPageResponse, Integer position) {
+        mUrls.clear();
+        chapter_title.set(comicPageResponse.getTitle());    //"title": "第61话",
+        mComic_id = comicPageResponse.getComic_id();
+        mUrls.addAll(comicPageResponse.getPage_url());
+        if (!checkIllegal())
+            mActivity.finish();
+        refreshPosition(position);
     }
 
     private boolean checkIllegal() {
@@ -113,8 +125,11 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     private void refreshPosition(int position) {
         getPagerAdapter().notifyDataSetChanged();
         getCommonAdapter().notifyDataSetChanged();
+
         getPagerAdapter().chapter_title = chapter_title.get();
         getCommonAdapter().chapter_title = chapter_title.get();
+        getPagerAdapter().currentPosition = position;
+        getCommonAdapter().currentPosition = position;
         current_position.set(position);
         adver_tv.set((position + 1) + "/" + mUrls.size());
         if (mDataBinding != null)
@@ -190,9 +205,59 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     }
 
+    /**
+     * 当滑向viewPager最后一页时,切换为下一章节
+     *
+     * @param state
+     */
     @Override
     public void onPageScrollStateChanged(int state) {
+        switch (state) {
+            case ViewPager.SCROLL_STATE_DRAGGING:
+                misScrolled = false;
+                break;
+            case ViewPager.SCROLL_STATE_SETTLING:
+                misScrolled = true;
+                break;
+            case ViewPager.SCROLL_STATE_IDLE:
+                if (mDataBinding.pager.getCurrentItem() == mDataBinding.pager.getAdapter().getCount() - 1 && !misScrolled) {
+                    initNextData();
+                }
+                misScrolled = true;
+                break;
+        }
+    }
 
+    private void initNextData() {
+        String url = "comic/" + obj_id.get() + ".json";
+        RetrofitHelper.init()
+                .getComic(url)
+                .compose(RxHelper.handleErr())
+                .flatMap(new Func1<ComicResponse, Observable<ComicPageResponse>>() {
+                    @Override
+                    public Observable<ComicPageResponse> call(ComicResponse comicResponse) {
+                        tag_position.set(tag_position.get() - 1);
+                        if (tag_position.get() < 0) {
+                            return Observable.error(RetrofitException.handleException(new CusException("已经看完咯O(∩_∩)O~")));
+                        }
+                        ComicResponse.ChaptersBean.DataBean dataBean = comicResponse.getChapters()
+                                .get(0)
+                                .getData()
+                                .get(tag_position.get());
+                        int chapter_id = dataBean.getChapter_id();
+                        chapter_title.set(dataBean.getChapter_title());
+                        RxBus.init().postSticky(new ChaptersEvent(dataBean.getChapter_title(), obj_id.get()+""));   //续看 按钮
+                        return RetrofitHelper.init()
+                                .getChapter("chapter/" + obj_id.get() + "/" + chapter_id + ".json")
+                                .compose(RxHelper.handleErr());
+                    }
+                })
+                .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
+                    @Override
+                    public void onNext(ComicPageResponse comicPageResponse) {
+                        result(comicPageResponse, 0);
+                    }
+                });
     }
 
     @Override
