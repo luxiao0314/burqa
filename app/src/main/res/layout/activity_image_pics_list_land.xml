@@ -24,7 +24,10 @@
             bind:onScrollListener="@{viewModel.onScrollListener}"
             bind:setAdapter="@{viewModel.getCommonAdapter}"/>
 
-        <include layout="@layout/include_image_status"/>
+        <include
+            android:id="@+id/inclide"
+            layout="@layout/include_image_status"
+            bind:viewModel="@{viewModel}"/>
 
     </RelativeLayout>
 </layout>
