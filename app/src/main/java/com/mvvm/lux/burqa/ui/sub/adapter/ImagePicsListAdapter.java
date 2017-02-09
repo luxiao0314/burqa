@@ -32,12 +32,11 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     private FragmentActivity content;
     private PhotoDraweeView mPhotoView;
-    private String chapterTitle;
     public int currentPosition;
+    public String chapter_title;
 
-    public ImagePicsListAdapter(FragmentActivity context, int layoutId, List<String> urls, String chapterTitle) {
+    public ImagePicsListAdapter(FragmentActivity context, int layoutId, List<String> urls) {
         super(context, layoutId, urls);
-        this.chapterTitle = chapterTitle;
         this.content = context;
     }
 
@@ -79,7 +78,7 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(content, mDatas.size(), currentPosition, chapterTitle);
+                ImagePicDialogFragment.show(content, mDatas.size(), currentPosition, chapter_title);
             }
         }
     };

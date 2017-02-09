@@ -113,6 +113,8 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     private void refreshPosition(int position) {
         getPagerAdapter().notifyDataSetChanged();
         getCommonAdapter().notifyDataSetChanged();
+        getPagerAdapter().chapter_title = chapter_title.get();
+        getCommonAdapter().chapter_title = chapter_title.get();
         current_position.set(position);
         adver_tv.set((position + 1) + "/" + mUrls.size());
         if (mDataBinding != null)
@@ -134,7 +136,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public ImagePicsPagerAdapter getPagerAdapter() {
         if (mPagerAdapter == null) {
-            mPagerAdapter = new ImagePicsPagerAdapter(mImagePicsListActivity, mUrls, chapter_title.get());
+            mPagerAdapter = new ImagePicsPagerAdapter(mImagePicsListActivity, mUrls);
         }
         return mPagerAdapter;
     }
@@ -143,7 +145,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     public ImagePicsListAdapter getCommonAdapter() {
         if (mListAdapter == null) {
-            mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls, chapter_title.get());
+            mListAdapter = new ImagePicsListAdapter(mImagePicsListActivity, R.layout.adapter_image_pics_list_land, mUrls);
         }
         return mListAdapter;
     }
@@ -213,6 +215,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
 
     /**
      * 获取的dataBinding不对,导致setCurrentPosition使用的是之前的控件,说所以不执行,而且需要一定的延迟才能设置成功
+     *
      * @param dataBinding
      */
     public void setDataLandBinding(ActivityImagePicsListLandBinding dataBinding) {

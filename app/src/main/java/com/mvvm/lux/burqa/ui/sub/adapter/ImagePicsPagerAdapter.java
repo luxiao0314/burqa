@@ -22,13 +22,12 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
     private FragmentActivity mContext = null;
     private ArrayList<String> mUrls;
     private PhotoDraweeView mPhotoView;
-    private String chapterTitle;
     public int currentPosition;
+    public String chapter_title;
 
-    public ImagePicsPagerAdapter(FragmentActivity context, ArrayList<String> urls, String chapterTitle) {
+    public ImagePicsPagerAdapter(FragmentActivity context, ArrayList<String> urls) {
         this.mContext = context;
         this.mUrls = urls;
-        this.chapterTitle = chapterTitle;
     }
 
     public int getCount() {
@@ -63,7 +62,7 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(mContext, mUrls.size(), currentPosition, chapterTitle);
+                ImagePicDialogFragment.show(mContext, mUrls.size(), currentPosition, chapter_title);
             }
         }
     };
@@ -75,5 +74,9 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
 
     public boolean isViewFromObject(View arg0, Object arg1) {
         return arg0 == arg1;
+    }
+
+    public void setChapterTitle(String s) {
+
     }
 }
