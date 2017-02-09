@@ -245,8 +245,9 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                                 .getData()
                                 .get(tag_position.get());
                         int chapter_id = dataBean.getChapter_id();
+                        ImagePicsViewModel.this.chapter_id.set(String.valueOf(chapter_id));
                         chapter_title.set(dataBean.getChapter_title());
-                        RxBus.init().postSticky(new ChaptersEvent(dataBean.getChapter_title(), obj_id.get()+""));   //续看 按钮
+                        RxBus.init().postSticky(new ChaptersEvent(dataBean.getChapter_title(), obj_id.get() + ""));   //续看 按钮
                         return RetrofitHelper.init()
                                 .getChapter("chapter/" + obj_id.get() + "/" + chapter_id + ".json")
                                 .compose(RxHelper.handleErr());
