@@ -60,6 +60,8 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     private ImagePicsListAdapter mListAdapter;
     private int mComic_id;
     private boolean misScrolled;
+    private boolean loading = true;
+    private int previousTotal = 0;
 
     public ImagePicsViewModel(ImagePicsListActivity imagePicsListActivity, ActivityImagePicsListBinding dataBinding) {
         super(imagePicsListActivity);
@@ -144,6 +146,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         return new RecyclerView.OnScrollListener() {
             @Override
             public void onScrollStateChanged(RecyclerView recyclerView, int scrollState) {
+                super.onScrollStateChanged(recyclerView, scrollState);
                 switch (scrollState) {
                     case AbsListView.OnScrollListener.SCROLL_STATE_FLING:
                     case AbsListView.OnScrollListener.SCROLL_STATE_TOUCH_SCROLL:
@@ -163,13 +166,35 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                 RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
                 //判断是当前layoutManager是否为LinearLayoutManager
                 // 只有LinearLayoutManager才有查找第一个和最后一个可见view位置的方法
-                if (layoutManager instanceof LinearLayoutManager) {
-                    LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
-                    //获取最后一个可见view的位置
-                    int lastItemPosition = linearManager.findLastVisibleItemPosition();
-                    getCommonAdapter().currentPosition = lastItemPosition;
-                    current_position.set(lastItemPosition);
-                    adver_tv.set((lastItemPosition + 1) + "/" + mUrls.size());
+                LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                //获取最后一个可见view的位置
+                int lastItemPosition = linearManager.findLastVisibleItemPosition();
+                getCommonAdapter().currentPosition = lastItemPosition;
+                current_position.set(lastItemPosition);
+                adver_tv.set((lastItemPosition + 1) + "/" + mUrls.size());
+            }
+
+            @Override
+            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
+                super.onScrolled(recyclerView, dx, dy);
+                RecyclerView.LayoutManager layoutManager = recyclerView.getLayoutManager();
+                LinearLayoutManager linearManager = (LinearLayoutManager) layoutManager;
+                if (dy == 0)
+                    return;
+                int visibleItemCount = recyclerView.getChildCount();
+                int totalItemCount = linearManager.getItemCount();
+                int lastCompletelyVisiableItemPosition = linearManager.findLastCompletelyVisibleItemPosition();
+
+                if (loading) {
+                    if (totalItemCount > previousTotal) {
+                        loading = false;
+                        previousTotal = totalItemCount;
+                    }
+                }
+                if (!loading && (visibleItemCount > 0)
+                        && (lastCompletelyVisiableItemPosition >= totalItemCount - 1)) {
+                    initNextData();
+                    loading = true;
                 }
             }
         };
