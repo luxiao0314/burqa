@@ -5,11 +5,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.github.mzule.activityrouter.annotation.Router;
+import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityComicDesBinding;
 import com.mvvm.lux.burqa.model.ComicDesViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
-import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.widget.swipeback.SwipeBackLayout;
 
 /**
@@ -19,6 +20,7 @@ import com.mvvm.lux.framework.widget.swipeback.SwipeBackLayout;
  * @Date 2017/1/8 12:31
  * @Version 1.0.0
  */
+@Router("comicDes")
 public class ComicDesActivity extends SwipeBackActivity {
 
     private ActivityComicDesBinding mDataBinding;
@@ -38,9 +40,6 @@ public class ComicDesActivity extends SwipeBackActivity {
     }
 
     public static void launch(Activity activity, String obj_id) {
-        Router.from(activity)
-                .putString("obj_id", obj_id)
-                .to(ComicDesActivity.class)
-                .launch();
+        Routers.open(activity,"lux://comicDes?obj_id="+obj_id);
     }
 }

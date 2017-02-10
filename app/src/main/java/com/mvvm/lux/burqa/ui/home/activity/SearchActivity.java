@@ -18,7 +18,7 @@ import com.mvvm.lux.framework.base.SwipeBackActivity;
  * @Date 2017/1/16 17:03
  * @Version
  */
-@Router("SearchActivity")
+@Router("search")
 public class SearchActivity extends SwipeBackActivity {
     private ActivitySearchBinding mDataBinding;
 
@@ -36,6 +36,6 @@ public class SearchActivity extends SwipeBackActivity {
     }
 
     public static void launch(Activity activity) {
-        Routers.open(activity,"lux://SearchActivity");
+        Routers.open(activity,"lux://search");
     }
 }

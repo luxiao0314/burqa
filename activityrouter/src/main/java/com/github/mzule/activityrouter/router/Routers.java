@@ -1,14 +1,14 @@
 package com.github.mzule.activityrouter.router;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 /**
  * Created by CaoDongping on 4/6/16.
@@ -18,6 +18,9 @@ public class Routers {
     public static String KEY_RAW_URL = "com.github.mzule.activityrouter.router.KeyRawUrl";
 
     private static List<Mapping> mappings = new ArrayList<>();
+
+    private static int enterAnim = R.anim.anim_fragment_in;
+    private static int exitAnim = R.anim.anim_fragment_out;
 
     private static void initIfNeed() {
         if (!mappings.isEmpty()) {
@@ -142,6 +145,10 @@ public class Routers {
                     }
                 } else {
                     context.startActivity(intent);
+                }
+                if (context instanceof Activity) {
+                    if (enterAnim > 0 && exitAnim > 0)
+                        ((Activity) context).overridePendingTransition(enterAnim, exitAnim);
                 }
                 return true;
             }

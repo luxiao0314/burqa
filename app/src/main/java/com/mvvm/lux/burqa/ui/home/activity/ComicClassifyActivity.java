@@ -5,11 +5,12 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.text.TextUtils;
 
+import com.github.mzule.activityrouter.annotation.Router;
+import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityComicClassifyBinding;
 import com.mvvm.lux.burqa.model.ClassifyViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
-import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.widget.swipeback.SwipeBackLayout;
 
 /**
@@ -19,6 +20,7 @@ import com.mvvm.lux.framework.widget.swipeback.SwipeBackLayout;
  * @Date 2017/1/16 10:13
  * @Version
  */
+@Router("classify/:tag_id/:title")  //tag_id和title为跳转传递的参数名,传递参数第一种
 public class ComicClassifyActivity extends SwipeBackActivity {
 
     private ActivityComicClassifyBinding mDataBinding;
@@ -45,10 +47,6 @@ public class ComicClassifyActivity extends SwipeBackActivity {
     }
 
     public static void launch(Activity activity, String tag_id, String title) {
-        Router.from(activity)
-                .putString("tag_id", tag_id)
-                .putString("title", title)
-                .to(ComicClassifyActivity.class)
-                .launch();
+        Routers.open(activity, "lux://classify/" + tag_id + "/" + title);
     }
 }
