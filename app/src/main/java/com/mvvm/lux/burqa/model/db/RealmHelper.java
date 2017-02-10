@@ -87,7 +87,7 @@ public class RealmHelper {
         ClassifyResponse response = getRealm().where(ClassifyResponse.class)
                 .equalTo("id", id)
                 .findFirst();
-        return response.isCollection();
+        return response != null && response.isCollection();
     }
 
     /**

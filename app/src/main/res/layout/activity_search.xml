@@ -56,6 +56,8 @@
                         android:layout_marginStart="10dp"
                         android:layout_toEndOf="@+id/back"
                         android:layout_toStartOf="@+id/iv_search"
+                        android:singleLine="true"
+                        android:imeOptions="actionSearch"
                         android:background="@drawable/search_line"
                         android:hint="输入漫画名或作者名"
                         android:textColor="@color/white"

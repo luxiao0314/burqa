@@ -8,8 +8,11 @@ import android.databinding.ViewDataBinding;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
+import android.widget.TextView;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
@@ -18,6 +21,7 @@ import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.response.HotResponse;
 import com.mvvm.lux.burqa.model.response.SearchResponse;
 import com.mvvm.lux.burqa.ui.home.activity.SearchActivity;
+import com.mvvm.lux.burqa.utils.ImeUtil;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
@@ -40,7 +44,7 @@ import java.util.List;
  * @Date 2017/1/16 17:04
  * @Version
  */
-public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.OnLoadMoreListener {
+public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.OnLoadMoreListener, TextView.OnEditorActionListener {
 
     private String keyword;
 
@@ -51,7 +55,6 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
     public ObservableBoolean showEmpty = new ObservableBoolean(false);
 
     private ObservableList<SearchResponse> mSearchResponses = new ObservableArrayList<>();
-    private int page;
     private SearchActivity mSearchActivity;
     private ActivitySearchBinding mDataBinding;
 
@@ -59,13 +62,10 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
         super(activity);
         mSearchActivity = activity;
         mDataBinding = dataBinding;
+        mDataBinding.etSearch.setOnEditorActionListener(this);
     }
 
     public EmptyView.ReloadOnClickListener mReloadOnClickListener = this::initData;
-
-//    public RecyclerView.ItemDecoration itemDecoration(){
-//        return new DividerGridItemDecoration(mActivity);
-//    }
 
     public RecyclerView.LayoutManager getLayoutManager() {
         GridLayoutManager layoutManager = new GridLayoutManager(mActivity, 6);
@@ -97,7 +97,7 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
                 });
     }
 
-    public void search() {
+    private void search() {
         mSearchResponses.clear();
         //search/show/0/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/0.json :搜索结果
         RetrofitHelper.init()
@@ -136,7 +136,6 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
 
     @Override
     public void onLoadMoreRequested(int position) {
-        page++;
         initData();
     }
 
@@ -173,5 +172,18 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
             if (!TextUtils.isEmpty(keyword))
                 search();
         };
+    }
+
+    @Override
+    public boolean onEditorAction(TextView textView, int actionId, KeyEvent keyEvent) {
+        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+            ImeUtil.hideSoftKeyboard(textView);
+            showSearch.set(true);
+            keyword = mDataBinding.etSearch.getText().toString();
+            if (!TextUtils.isEmpty(keyword))
+                search();
+            return true;
+        }
+        return false;
     }
 }

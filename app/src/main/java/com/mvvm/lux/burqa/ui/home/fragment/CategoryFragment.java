@@ -5,6 +5,7 @@ import android.view.LayoutInflater;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.databinding.FragmentCategoryBinding;
 import com.mvvm.lux.burqa.model.CategoryViewModel;
 import com.mvvm.lux.framework.base.MvvmFragment;
 
@@ -23,7 +24,7 @@ public class CategoryFragment extends MvvmFragment {
 
     @Override
     protected void initView(LayoutInflater inflater) {
-        mViewModel = new CategoryViewModel(getActivity());
+        mViewModel = new CategoryViewModel(getActivity(),(FragmentCategoryBinding)mDataBinding);
     }
 
     @Override

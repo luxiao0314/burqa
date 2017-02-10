@@ -30,13 +30,16 @@
             android:name=".ui.home.activity.MainActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:label="@string/app_name"/>
+        <!--保证横竖屏切换的时候生命周期只调用onConfigurationChanged()-->
         <activity android:name=".ui.home.activity.ImagePicsListActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"/>  <!--保证横竖屏切换的时候生命周期只调用onConfigurationChanged()-->
+                  android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".ui.home.activity.ComicDesActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity android:name=".ui.home.activity.ComicClassifyActivity"
                   android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!--防止软键盘会把原来的界面挤上去-->
         <activity android:name=".ui.home.activity.SearchActivity"
+                  android:windowSoftInputMode="adjustPan"
                   android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 
