@@ -4,11 +4,12 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 
+import com.github.mzule.activityrouter.annotation.Router;
+import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivitySearchBinding;
 import com.mvvm.lux.burqa.model.SearchViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
-import com.mvvm.lux.framework.manager.router.Router;
 
 /**
  * @Description
@@ -17,6 +18,7 @@ import com.mvvm.lux.framework.manager.router.Router;
  * @Date 2017/1/16 17:03
  * @Version
  */
+@Router("SearchActivity")
 public class SearchActivity extends SwipeBackActivity {
     private ActivitySearchBinding mDataBinding;
 
@@ -34,8 +36,6 @@ public class SearchActivity extends SwipeBackActivity {
     }
 
     public static void launch(Activity activity) {
-        Router.from(activity)
-                .to(SearchActivity.class)
-                .launch();
+        Routers.open(activity,"lux://SearchActivity");
     }
 }

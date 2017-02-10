@@ -71,5 +71,9 @@ dependencies {
     compile viewDependencies.flowlayout
     compile viewDependencies.leakcanary
     compile viewDependencies.multidex
-    compile 'me.imid.swipebacklayout.lib:library:1.0.0'
+
+//    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
+//    apt 'com.github.mzule.activityrouter:compiler:1.1.7'
+    compile project(':activityrouter')
+    apt project(':compiler')
 }
