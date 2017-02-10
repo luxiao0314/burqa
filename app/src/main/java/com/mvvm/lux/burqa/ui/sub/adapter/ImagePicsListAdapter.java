@@ -78,7 +78,11 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(content, mDatas.size(), currentPosition, chapter_title);
+                ImagePicDialogFragment.createBuilder(content)
+                        .setChapterTitle(chapter_title)
+                        .setCurrentPosition(currentPosition)
+                        .setUrlistsize(mDatas.size())
+                        .showAllowingStateLoss();
             }
         }
     };

@@ -62,7 +62,11 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(mContext, mUrls.size(), currentPosition, chapter_title);
+                ImagePicDialogFragment.createBuilder(mContext)
+                        .setChapterTitle(chapter_title)
+                        .setCurrentPosition(currentPosition)
+                        .setUrlistsize(mUrls.size())
+                        .showAllowingStateLoss();
             }
         }
     };

@@ -6,7 +6,7 @@ import android.view.View;
 import android.widget.SeekBar;
 
 import com.mvvm.lux.burqa.model.event.ProgressEvent;
-import com.mvvm.lux.burqa.model.event.SwitchModeEvent;
+import com.mvvm.lux.burqa.model.event.ImagePicDialogEvent;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.rx.RxBus;
@@ -63,8 +63,10 @@ public class ImagePicDialogViewModel extends BaseViewModel {
     };
 
     public View.OnClickListener onLandscapeModeCLick() {
-        return view -> {
-            RxBus.init().postSticky(new SwitchModeEvent());
-        };
+        return view -> RxBus.init().postSticky(new ImagePicDialogEvent(ImagePicDialogEvent.SWITCH_SCREEN_MODE));
+    }
+
+    public View.OnClickListener onSettingClick() {
+        return view -> RxBus.init().postSticky(new ImagePicDialogEvent(ImagePicDialogEvent.SETTING));
     }
 }

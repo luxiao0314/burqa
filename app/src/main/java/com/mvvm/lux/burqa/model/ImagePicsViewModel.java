@@ -1,6 +1,5 @@
 package com.mvvm.lux.burqa.model;
 
-import android.content.pm.ActivityInfo;
 import android.databinding.ObservableField;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -14,15 +13,12 @@ import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.event.ChaptersEvent;
-import com.mvvm.lux.burqa.model.event.ProgressEvent;
-import com.mvvm.lux.burqa.model.event.SwitchModeEvent;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.burqa.ui.sub.adapter.ImagePicsListAdapter;
 import com.mvvm.lux.burqa.ui.sub.adapter.ImagePicsPagerAdapter;
-import com.mvvm.lux.framework.base.BaseEvent;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.ProgressSubscriber;
 import com.mvvm.lux.framework.http.RxHelper;
@@ -30,7 +26,6 @@ import com.mvvm.lux.framework.http.exception.CusException;
 import com.mvvm.lux.framework.http.exception.RetrofitException;
 import com.mvvm.lux.framework.manager.dialogs.config.ServiceTask;
 import com.mvvm.lux.framework.rx.RxBus;
-import com.mvvm.lux.widget.utils.DisplayUtil;
 
 import java.util.ArrayList;
 
@@ -70,30 +65,10 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         super(imagePicsListActivity);
         mImagePicsListActivity = imagePicsListActivity;
         mDataBinding = dataBinding;
-        initEvent();
-    }
-
-    private void initEvent() {
-        RxBus.init().toObservable(BaseEvent.class)
-                .subscribe(baseEvent -> {
-                    if (baseEvent instanceof ProgressEvent) {
-                        refreshPosition(((ProgressEvent) baseEvent).mProgress);
-                    } else if (baseEvent instanceof SwitchModeEvent) {
-                        switchMode();
-                    }
-                });
     }
 
     public LinearLayoutManager linearLayoutManager() {
         return new LinearLayoutManager(mImagePicsListActivity);
-    }
-
-    private void switchMode() {
-        if (DisplayUtil.isPortrait()) {
-            mImagePicsListActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);   //设置横屏
-        } else {
-            mImagePicsListActivity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);   //设置竖屏
-        }
     }
 
     public void initData() {
@@ -122,7 +97,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         return mUrls != null && mUrls.size() > 0;
     }
 
-    private void refreshPosition(int position) {
+    public void refreshPosition(int position) {
         getPagerAdapter().notifyDataSetChanged();
         getCommonAdapter().notifyDataSetChanged();
 
@@ -265,6 +240,10 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     public void detachView() {
         super.detachView();
         //销毁当前页面的时候存一下
+        saveLocal();
+    }
+
+    private void saveLocal() {
         ClassifyResponse response = new ClassifyResponse();
         response.setId(mComic_id);  //对应漫画id
         response.setTitle(title.get()); //标题

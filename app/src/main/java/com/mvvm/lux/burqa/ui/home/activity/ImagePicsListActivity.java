@@ -2,11 +2,11 @@ package com.mvvm.lux.burqa.ui.home.activity;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.databinding.DataBindingUtil;
 import android.databinding.ViewDataBinding;
 import android.os.Bundle;
-import android.view.KeyEvent;
 
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
@@ -14,11 +14,16 @@ import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
+import com.mvvm.lux.burqa.model.event.ImagePicDialogEvent;
+import com.mvvm.lux.burqa.model.event.ProgressEvent;
+import com.mvvm.lux.framework.base.BaseEvent;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
+import com.mvvm.lux.framework.rx.RxBus;
 import com.mvvm.lux.framework.utils.DateUtil;
 import com.mvvm.lux.framework.utils.NetworkUtil;
 import com.mvvm.lux.widget.utils.DisplayUtil;
+
 
 
 /**
@@ -39,6 +44,7 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     private String mCover;
     private String mChapters;
     private int mPagePosition;
+    private boolean isPortraitLayout;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,18 +55,71 @@ public class ImagePicsListActivity extends SwipeBackActivity {
         mViewModel = new ImagePicsViewModel(this, (ActivityImagePicsListBinding) mDataBinding);
         mViewModel.current_position.set(mPagePosition);
         init();
+        initEvent();
+    }
+
+    private void initEvent() {
+        RxBus.init().toObservable(BaseEvent.class)
+                .subscribe(baseEvent -> {
+                    if (baseEvent instanceof ProgressEvent) {
+                        mViewModel.refreshPosition(((ProgressEvent) baseEvent).mProgress);
+                    } else if (baseEvent instanceof ImagePicDialogEvent) {
+                        ImagePicDialogEvent imagePicDialogEvent = (ImagePicDialogEvent) baseEvent;
+                        switch (imagePicDialogEvent.mType) {
+                            case ImagePicDialogEvent.SWITCH_SCREEN_MODE:
+                                switchScreenMode();
+                                break;
+                            case ImagePicDialogEvent.SETTING:
+                                switchLayoutMode();
+                                break;
+                        }
+                    }
+                });
+    }
+
+    public void switchScreenMode() {
+        if (DisplayUtil.isPortrait()) {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);   //设置横屏
+        } else {
+            setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);   //设置竖屏
+        }
+    }
+
+    private void switchLayoutMode() {
+        if (!isPortraitLayout) {
+            landscapeLayout();  //设置为横屏的布局
+            isPortraitLayout = true;
+        } else {
+            portraitLayout();
+            isPortraitLayout = false;
+        }
     }
 
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (DisplayUtil.isPortrait()) {
-            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
-            mViewModel.setDataBinding((ActivityImagePicsListBinding) mDataBinding);
+            portraitLayout();
         } else {
-            mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
-            mViewModel.setDataLandBinding((ActivityImagePicsListLandBinding) mDataBinding);
+            landscapeLayout();
         }
+    }
+
+    /**
+     * 使用横屏布局
+     */
+    private void landscapeLayout() {
+        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
+        mViewModel.setDataLandBinding((ActivityImagePicsListLandBinding) mDataBinding);
+        init();
+    }
+
+    /**
+     * 使用竖屏布局
+     */
+    private void portraitLayout() {
+        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
+        mViewModel.setDataBinding((ActivityImagePicsListBinding) mDataBinding);
         init();
     }
 
@@ -102,19 +161,10 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     }
 
     @Override
-    public boolean onKeyDown(int keyCode, KeyEvent event) {
-        if ((keyCode == KeyEvent.KEYCODE_BACK)) {
-            Router.pop(this);
-            return false;
-        } else {
-            return super.onKeyDown(keyCode, event);
-        }
-    }
-
-    @Override
     protected void onDestroy() {
-        if (mViewModel != null)
-            mViewModel.detachView();
         super.onDestroy();
+        if (mViewModel != null) {
+            mViewModel.detachView();
+        }
     }
 }

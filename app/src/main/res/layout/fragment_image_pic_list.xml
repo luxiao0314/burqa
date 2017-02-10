@@ -175,6 +175,7 @@
                     android:drawablePadding="5dp"
                     android:drawableTop="@drawable/icon_rm_setting"
                     android:gravity="center"
+                    android:onClick="@{viewModel.onSettingClick}"
                     android:padding="5dp"
                     android:text="设置"
                     android:textColor="@color/white"
