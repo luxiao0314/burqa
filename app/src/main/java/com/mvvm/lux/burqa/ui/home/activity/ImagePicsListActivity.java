@@ -11,7 +11,6 @@ import android.os.Bundle;
 import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
-import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.model.ImagePicsViewModel;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.event.ImagePicDialogEvent;
@@ -20,10 +19,12 @@ import com.mvvm.lux.framework.base.BaseEvent;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.rx.RxBus;
+import com.mvvm.lux.framework.rx.RxSubscriptions;
 import com.mvvm.lux.framework.utils.DateUtil;
 import com.mvvm.lux.framework.utils.NetworkUtil;
 import com.mvvm.lux.widget.utils.DisplayUtil;
 
+import rx.Subscription;
 
 
 /**
@@ -45,6 +46,7 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     private String mChapters;
     private int mPagePosition;
     private boolean isPortraitLayout;
+    private Subscription mSubscribe;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -54,15 +56,17 @@ public class ImagePicsListActivity extends SwipeBackActivity {
         mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
         mViewModel = new ImagePicsViewModel(this, (ActivityImagePicsListBinding) mDataBinding);
         mViewModel.current_position.set(mPagePosition);
-        init();
+        mViewModel.chapter_id.set(mChapterId);
+        init(true);
         initEvent();
     }
 
     private void initEvent() {
-        RxBus.init().toObservable(BaseEvent.class)
+        mSubscribe = RxBus.init().toObservable(BaseEvent.class)
                 .subscribe(baseEvent -> {
                     if (baseEvent instanceof ProgressEvent) {
-                        mViewModel.refreshPosition(((ProgressEvent) baseEvent).mProgress);
+                        mViewModel.current_position.set(((ProgressEvent) baseEvent).mProgress);
+                        mViewModel.refreshPosition();
                     } else if (baseEvent instanceof ImagePicDialogEvent) {
                         ImagePicDialogEvent imagePicDialogEvent = (ImagePicDialogEvent) baseEvent;
                         switch (imagePicDialogEvent.mType) {
@@ -75,6 +79,7 @@ public class ImagePicsListActivity extends SwipeBackActivity {
                         }
                     }
                 });
+        RxSubscriptions.add(mSubscribe);
     }
 
     public void switchScreenMode() {
@@ -87,10 +92,10 @@ public class ImagePicsListActivity extends SwipeBackActivity {
 
     private void switchLayoutMode() {
         if (!isPortraitLayout) {
-            landscapeLayout();  //设置为横屏的布局
+            init(false);
             isPortraitLayout = true;
         } else {
-            portraitLayout();
+            init(true);
             isPortraitLayout = false;
         }
     }
@@ -99,33 +104,15 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
         if (DisplayUtil.isPortrait()) {
-            portraitLayout();
+            init(true);
         } else {
-            landscapeLayout();
+            init(false);
         }
     }
 
-    /**
-     * 使用横屏布局
-     */
-    private void landscapeLayout() {
-        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list_land);
-        mViewModel.setDataLandBinding((ActivityImagePicsListLandBinding) mDataBinding);
-        init();
-    }
-
-    /**
-     * 使用竖屏布局
-     */
-    private void portraitLayout() {
-        mDataBinding = DataBindingUtil.setContentView(this, R.layout.activity_image_pics_list);
-        mViewModel.setDataBinding((ActivityImagePicsListBinding) mDataBinding);
-        init();
-    }
-
-    private void init() {
+    private void init(boolean showPortraitLayout) {
+        mViewModel.showPortraitLayout.set(showPortraitLayout);
         mViewModel.obj_id.set(mObjId);
-        mViewModel.chapter_id.set(mChapterId);
         mViewModel.tag_position.set(mTagPosition);
         mViewModel.title.set(mTitle);
         mViewModel.cover.set(mCover);
@@ -163,8 +150,9 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (mViewModel != null) {
+        if (mViewModel != null)
             mViewModel.detachView();
-        }
+        if (!RxSubscriptions.hasSubscriptions())
+            RxSubscriptions.remove(mSubscribe);
     }
 }

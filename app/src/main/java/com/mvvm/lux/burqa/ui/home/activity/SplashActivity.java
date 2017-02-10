@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.utils.StatusBarUtils;
 
 import java.util.concurrent.TimeUnit;
@@ -12,7 +13,6 @@ import java.util.concurrent.TimeUnit;
 import butterknife.ButterKnife;
 import butterknife.Unbinder;
 import rx.Observable;
-import rx.android.schedulers.AndroidSchedulers;
 
 /**
  * Created by WangChao on 2016/10/19.
@@ -35,7 +35,7 @@ public class SplashActivity extends Activity {
 
     private void setUpSplash() {
         Observable.timer(1000, TimeUnit.MILLISECONDS)
-                .observeOn(AndroidSchedulers.mainThread())
+                .compose(RxHelper.io_main())
                 .subscribe(aLong -> {
                     finishTask();
                 });

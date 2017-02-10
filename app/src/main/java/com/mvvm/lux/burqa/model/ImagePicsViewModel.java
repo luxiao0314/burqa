@@ -1,5 +1,6 @@
 package com.mvvm.lux.burqa.model;
 
+import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,7 +10,6 @@ import android.widget.AbsListView;
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityImagePicsListBinding;
-import com.mvvm.lux.burqa.databinding.ActivityImagePicsListLandBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.event.ChaptersEvent;
@@ -52,9 +52,9 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     public ObservableField<Integer> current_position = new ObservableField<>(0); //从FlowLayout传递过来的默认的position
     public ObservableField<Integer> pageLimit = new ObservableField<>(3);
     public ObservableField<Integer> tag_position = new ObservableField<>();
+    public ObservableBoolean showPortraitLayout = new ObservableBoolean(true);
     private ArrayList<String> mUrls = new ArrayList<>();
     private ActivityImagePicsListBinding mDataBinding;
-    private ActivityImagePicsListLandBinding mDataLandBinding;
     private ImagePicsListActivity mImagePicsListActivity;
     private ImagePicsPagerAdapter mPagerAdapter;
     private ImagePicsListAdapter mListAdapter;
@@ -78,26 +78,27 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
-                        result(comicPageResponse, current_position.get());
+                        result(comicPageResponse);
                     }
                 }));
     }
 
-    private void result(ComicPageResponse comicPageResponse, Integer position) {
+    private void result(ComicPageResponse comicPageResponse) {
         mUrls.clear();
         chapter_title.set(comicPageResponse.getTitle());    //"title": "第61话",
         mComic_id = comicPageResponse.getComic_id();
         mUrls.addAll(comicPageResponse.getPage_url());
         if (!checkIllegal())
             mActivity.finish();
-        refreshPosition(position);
+        refreshPosition();
     }
 
     private boolean checkIllegal() {
         return mUrls != null && mUrls.size() > 0;
     }
 
-    public void refreshPosition(int position) {
+    public void refreshPosition() {
+        int position = current_position.get();
         getPagerAdapter().notifyDataSetChanged();
         getCommonAdapter().notifyDataSetChanged();
 
@@ -105,12 +106,11 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         getCommonAdapter().chapter_title = chapter_title.get();
         getPagerAdapter().currentPosition = position;
         getCommonAdapter().currentPosition = position;
-        current_position.set(position);
         adver_tv.set((position + 1) + "/" + mUrls.size());
-        if (mDataBinding != null)
+        if (mDataBinding != null) {
             mDataBinding.pager.setCurrentItem(position, false);
-        if (mDataLandBinding != null)
-            mDataLandBinding.recyclerView.scrollToPosition(position);
+            mDataBinding.recyclerView.scrollToPosition(position);
+        }
     }
 
     public ViewPager.OnPageChangeListener onPageChange() {
@@ -231,7 +231,8 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
-                        result(comicPageResponse, 0);
+                        current_position.set(0);
+                        result(comicPageResponse);
                     }
                 });
     }
@@ -258,16 +259,4 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
         RealmHelper.getInstance().insertClassifyList(response);
     }
 
-    /**
-     * 获取的dataBinding不对,导致setCurrentPosition使用的是之前的控件,说所以不执行,而且需要一定的延迟才能设置成功
-     *
-     * @param dataBinding
-     */
-    public void setDataLandBinding(ActivityImagePicsListLandBinding dataBinding) {
-        mDataLandBinding = dataBinding;
-    }
-
-    public void setDataBinding(ActivityImagePicsListBinding dataBinding) {
-        mDataBinding = dataBinding;
-    }
 }

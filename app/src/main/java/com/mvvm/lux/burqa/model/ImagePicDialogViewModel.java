@@ -63,10 +63,16 @@ public class ImagePicDialogViewModel extends BaseViewModel {
     };
 
     public View.OnClickListener onLandscapeModeCLick() {
-        return view -> RxBus.init().postSticky(new ImagePicDialogEvent(ImagePicDialogEvent.SWITCH_SCREEN_MODE));
+        return view -> {
+            RxBus.init().postSticky(new ImagePicDialogEvent(ImagePicDialogEvent.SWITCH_SCREEN_MODE));
+            mImagePicDialogFragment.dismissAllowingStateLoss();
+        };
     }
 
     public View.OnClickListener onSettingClick() {
-        return view -> RxBus.init().postSticky(new ImagePicDialogEvent(ImagePicDialogEvent.SETTING));
+        return view -> {
+            RxBus.init().postSticky(new ImagePicDialogEvent(ImagePicDialogEvent.SETTING));
+            mImagePicDialogFragment.dismissAllowingStateLoss();
+        };
     }
 }
