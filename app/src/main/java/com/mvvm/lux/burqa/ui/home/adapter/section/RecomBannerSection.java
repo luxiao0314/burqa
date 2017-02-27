@@ -25,9 +25,9 @@ public class RecomBannerSection extends StatelessSection {
 
     public RecomBannerSection(RecommendResponse recommendResponse, FragmentActivity activity) {
         super(R.layout.section_recom_banner,R.layout.empty);
-        mViewModel = new RecomBannerViewModel(recommendResponse,mActivity);
-        mRecommendResponse = recommendResponse;
         mActivity = activity;
+        mViewModel = new RecomBannerViewModel(recommendResponse,activity);
+        mRecommendResponse = recommendResponse;
     }
 
     @Override

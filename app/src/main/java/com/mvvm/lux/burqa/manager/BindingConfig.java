@@ -25,6 +25,7 @@ import com.facebook.drawee.generic.GenericDraweeHierarchy;
 import com.facebook.drawee.generic.RoundingParams;
 import com.facebook.drawee.interfaces.DraweeController;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.widget.banner.BannerAdapter;
 import com.mvvm.lux.widget.banner.BannerEntity;
 import com.mvvm.lux.widget.banner.BannerView;
 import com.mvvm.lux.widget.emptyview.EmptyView;
@@ -250,6 +251,12 @@ public class BindingConfig {
         bannerView.delayTime(5).build(bannerEntities);
     }
 
+    @BindingAdapter("onItemClick")
+    public static void onItemClick(BannerView bannerView, BannerAdapter.ViewPagerOnItemClickListener listener) {
+        if (listener != null) {
+            bannerView.setmViewPagerOnItemClickListener(listener);
+        }
+    }
 
     @BindingAdapter("reload")
     public static void reload(EmptyView emptyView, EmptyView.ReloadOnClickListener listener) {
