@@ -109,7 +109,7 @@ public class ComicDesViewModel extends BaseViewModel {
                 mDistanceY += dy;
                 Toolbar toolbar = mDataBinding.include.toolbar;
                 //toolbar的高度
-                int toolbarHeight = DisplayUtil.getScreenWidth() / 2 - 50;
+                int toolbarHeight = DisplayUtil.getScreenWidth(mActivity) / 2 - 50;
 
                 //当滑动的距离 <= toolbar高度的时候，改变Toolbar背景色的透明度，达到渐变的效果
                 if (mDistanceY <= toolbarHeight) {

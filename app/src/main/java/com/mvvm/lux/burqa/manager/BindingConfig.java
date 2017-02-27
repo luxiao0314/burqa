@@ -150,7 +150,7 @@ public class BindingConfig {
                 .build();
 
         RoundingParams roundingParams = new RoundingParams()
-                .setBorderWidth(DisplayUtil.dp2px(0.5f))   //设置边框
+                .setBorderWidth(DisplayUtil.dp2px(imageView.getContext(), 0.5f))   //设置边框
                 .setBorderColor(imageView.getResources().getColor(R.color.gray_80));
 
         GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
@@ -171,7 +171,7 @@ public class BindingConfig {
                 .build();
 
         RoundingParams roundingParams = new RoundingParams()
-                .setBorderWidth(DisplayUtil.dp2px(0.5f))
+                .setBorderWidth(DisplayUtil.dp2px(imageView.getContext(),0.5f))
                 .setBorderColor(imageView.getResources().getColor(R.color.gray_80))
                 .setRoundAsCircle(true);
 

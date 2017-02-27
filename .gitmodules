@@ -5,3 +5,6 @@
 [submodule "widget"]
 	path = widget
 	url = https://github.com/luxiao0314/widget.git
+[submodule "framework"]
+	path = framework
+	url = https://github.com/luxiao0314/framework.git

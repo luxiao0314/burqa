@@ -83,7 +83,7 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     }
 
     public void switchScreenMode() {
-        if (DisplayUtil.isPortrait()) {
+        if (DisplayUtil.isPortrait(this)) {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);   //设置横屏
         } else {
             setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);   //设置竖屏
@@ -103,7 +103,7 @@ public class ImagePicsListActivity extends SwipeBackActivity {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-        if (DisplayUtil.isPortrait()) {
+        if (DisplayUtil.isPortrait(this)) {
             init(true);
         } else {
             init(false);

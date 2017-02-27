@@ -48,8 +48,8 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
                 .setStyle(CircleStyle.FAN)
                 .setProgressColor(mContext.getResources().getColor(R.color.white_trans))
                 .setCustomText((position + 1) + "")
-                .setTextSize(DisplayUtil.dp2px(18))
-                .setCircleRadius(DisplayUtil.dp2px(30))
+                .setTextSize(DisplayUtil.dp2px(mContext,18))
+                .setCircleRadius(DisplayUtil.dp2px(mContext,30))
                 .build()
                 .injectFresco(mPhotoView);
 

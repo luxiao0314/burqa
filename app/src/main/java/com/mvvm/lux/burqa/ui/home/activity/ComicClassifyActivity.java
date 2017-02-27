@@ -11,14 +11,14 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityComicClassifyBinding;
 import com.mvvm.lux.burqa.model.ClassifyViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
-import com.mvvm.lux.framework.widget.swipeback.SwipeBackLayout;
+import com.mvvm.lux.widget.swipeback.SwipeBackLayout;
 
 /**
  * @Description
  * @Author luxiao418
  * @Email luxiao418@pingan.com.cn
  * @Date 2017/1/16 10:13
- * @Version
+ * @Version n
  */
 @Router("classify/:tag_id/:title")  //tag_id和title为跳转传递的参数名,传递参数第一种
 public class ComicClassifyActivity extends SwipeBackActivity {

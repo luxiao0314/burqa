@@ -11,7 +11,7 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityComicDesBinding;
 import com.mvvm.lux.burqa.model.ComicDesViewModel;
 import com.mvvm.lux.framework.base.SwipeBackActivity;
-import com.mvvm.lux.framework.widget.swipeback.SwipeBackLayout;
+import com.mvvm.lux.widget.swipeback.SwipeBackLayout;
 
 /**
  * @Description 漫画描述页面

@@ -1,5 +1,5 @@
 include ':app'
-//include ":framework"
+include ":framework"
 include ":frescoUtil"
 include ":widget"
 include ":activityrouter"
