@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mvvm.lux.burqa.model.AuthorDesListViewModel"/>
+        <import type="me.tatarka.bindingcollectionadapter.LayoutManagers"/>
+    </data>
+    <android.support.v7.widget.RecyclerView
+        android:id="@+id/recyclerView"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/white"
+        android:focusable="false"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        bind:itemView="@{viewModel.itemView}"
+        bind:items="@{viewModel.itemViewModel}"
+        bind:layoutManager="@{LayoutManagers.grid(3)}"/>
+</layout>

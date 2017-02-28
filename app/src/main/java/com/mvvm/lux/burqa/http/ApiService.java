@@ -1,5 +1,6 @@
 package com.mvvm.lux.burqa.http;
 
+import com.mvvm.lux.burqa.model.response.AuthorDesResponse;
 import com.mvvm.lux.burqa.model.response.CategoryResponse;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
@@ -55,4 +56,8 @@ public interface ApiService {
 
     @GET("/unableape/url/{name}/get")
     Observable getUnableApeName(@Header("Authorization") String authorization, @Path("name") String name);
+    //http://v2.api.dmzj.com/UCenter/comics/100085704.json
+    @Headers("Referer:http://images.dmzj.com/")
+    @GET("{url}")
+    Observable<AuthorDesResponse> getAuthorDes(@Path("url") String url);
 }

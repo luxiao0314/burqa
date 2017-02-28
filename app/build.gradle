@@ -46,9 +46,8 @@ dependencies {
     compile androidDependencies.appcompat_v7
     compile androidDependencies.design
     //rxjava
-    compile viewDependencies.rxjava
-    compile viewDependencies.rxandroid
-    compile viewDependencies.rxbinding
+//    compile viewDependencies.rxjava
+//    compile viewDependencies.rxandroid
     //retrofit
     compile viewDependencies.retrofit
     compile viewDependencies.retrofit2Gson
@@ -59,13 +58,6 @@ dependencies {
     compile viewDependencies.fresco
     compile viewDependencies.frescoGif
     compile viewDependencies.frescoPhoto
-    compile viewDependencies.gpuImage
-    compile viewDependencies.scaleImage
-    //butterknife
-    compile viewDependencies.butterknife
-    apt viewDependencies.butterknifeCompiler
-    //other
-    compile viewDependencies.gson
     //基类
     compile viewDependencies.fragmentation
     //导航栏
@@ -74,7 +66,6 @@ dependencies {
     compile viewDependencies.flowlayout
     compile viewDependencies.leakcanary
     compile viewDependencies.multidex
-    compile 'com.github.VictorAlbertos.RxCache:runtime:1.8.0-2.x'
 //    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
 //    apt 'com.github.mzule.activityrouter:compiler:1.1.7'
 }

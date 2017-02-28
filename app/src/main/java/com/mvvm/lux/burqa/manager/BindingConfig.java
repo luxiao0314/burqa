@@ -222,7 +222,7 @@ public class BindingConfig {
     public static void setPageAdapter(ViewPager viewPager, android.support.v4.app.FragmentPagerAdapter adapter) {
         if (adapter != null) {
             viewPager.setAdapter(adapter);
-            viewPager.setCurrentItem(2);
+            viewPager.setCurrentItem(3);
             viewPager.setOffscreenPageLimit(4); //设置默认加载多少页
         }
     }

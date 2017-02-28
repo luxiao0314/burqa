@@ -6,6 +6,7 @@ import android.view.View;
 
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
+import com.mvvm.lux.framework.manager.hybrid.BrowserActivity;
 
 /**
  * @Description
@@ -24,7 +25,13 @@ public class RecomDoubleItemViewModel extends BaseViewModel {
 
     public ObservableField<Integer> obj_id = new ObservableField<>();
 
+    public ObservableField<String> url = new ObservableField<>();
+
     public View.OnClickListener mOnClickListener = view -> {
-        ComicDesActivity.launch(mActivity, obj_id.get()+"");
+        if (obj_id.get() == 0) {
+            BrowserActivity.launch(mActivity, url.get(), title.get());
+        } else {
+            ComicDesActivity.launch(mActivity, obj_id.get()+"");
+        }
     };
 }

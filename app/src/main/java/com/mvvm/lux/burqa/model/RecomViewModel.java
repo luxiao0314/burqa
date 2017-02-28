@@ -80,6 +80,7 @@ public class RecomViewModel extends BaseViewModel {
                         mAdapter.addSection(new RecomBannerSection(recommendResponse.get(0), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(1), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemListSection(recommendResponse.get(2), mFragment.getActivity()));
+//                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(3), mFragment.getActivity())); 数据为空
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(4), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemSection(recommendResponse.get(5), mFragment.getActivity()));
                         mAdapter.addSection(new RecomItemListSection(recommendResponse.get(6), mFragment.getActivity()));

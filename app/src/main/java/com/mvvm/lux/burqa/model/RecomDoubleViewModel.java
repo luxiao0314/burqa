@@ -2,9 +2,11 @@ package com.mvvm.lux.burqa.model;
 
 import android.databinding.ObservableField;
 import android.support.v4.app.FragmentActivity;
+import android.text.TextUtils;
 import android.view.View;
 
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
+import com.mvvm.lux.burqa.ui.sub.activity.AuthorDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
 
 /**
@@ -24,6 +26,8 @@ public class RecomDoubleViewModel extends BaseViewModel {
 
     public ObservableField<String> sub_title = new ObservableField<>();
 
+    public ObservableField<String> status = new ObservableField<>();
+
     public ObservableField<String> head_title = new ObservableField<>();
 
     public ObservableField<Boolean> hide_title = new ObservableField<>(false);
@@ -31,6 +35,10 @@ public class RecomDoubleViewModel extends BaseViewModel {
     public ObservableField<Integer> obj_id = new ObservableField<>();
 
     public View.OnClickListener mOnClickListener = view -> {
-        ComicDesActivity.launch(mActivity, obj_id.get()+"");
+        if (TextUtils.isEmpty(status.get())) {
+            AuthorDesActivity.launch(mActivity,obj_id.get()+"");
+        } else {
+            ComicDesActivity.launch(mActivity, obj_id.get()+"");
+        }
     };
 }
