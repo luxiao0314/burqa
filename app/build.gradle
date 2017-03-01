@@ -34,7 +34,6 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':framework')
-    compile project(':mvvmlight')
     compile project(':activityrouter')
     apt project(':compiler')
 
@@ -66,6 +65,9 @@ dependencies {
     compile viewDependencies.flowlayout
     compile viewDependencies.leakcanary
     compile viewDependencies.multidex
+
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.1.0'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'
 //    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
 //    apt 'com.github.mzule.activityrouter:compiler:1.1.7'
 }

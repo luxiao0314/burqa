@@ -8,6 +8,7 @@ import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.model.response.HotResponse;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
 import com.mvvm.lux.burqa.model.response.SearchResponse;
+import com.mvvm.lux.burqa.model.response.SubjectResopnse;
 
 import java.util.List;
 
@@ -56,8 +57,13 @@ public interface ApiService {
 
     @GET("/unableape/url/{name}/get")
     Observable getUnableApeName(@Header("Authorization") String authorization, @Path("name") String name);
+
     //http://v2.api.dmzj.com/UCenter/comics/100085704.json
     @Headers("Referer:http://images.dmzj.com/")
     @GET("{url}")
     Observable<AuthorDesResponse> getAuthorDes(@Path("url") String url);
+
+    @Headers("Referer:http://images.dmzj.com/")
+    @GET("{url}")
+    Observable<List<SubjectResopnse>> getSubject(@Path("url") String ur);
 }

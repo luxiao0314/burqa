@@ -7,17 +7,28 @@
         <variable
             name="viewModel"
             type="com.mvvm.lux.burqa.model.GameViewModel"/>
+        <import type="me.tatarka.bindingcollectionadapter.LayoutManagers"/>
     </data>
-    <LinearLayout
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipe_refresh_layout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        bind:layout_behavior="@string/appbar_scrolling_view_behavior"
+        bind:onRefreshListener="@{viewModel.onRefreshListener}"
+        bind:refreshing="@{viewModel.viewStyle.isRefreshing}">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的游戏"/>
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:itemView="@{viewModel.itemView}"
+            bind:items="@{viewModel.itemViewModel}"
+            bind:layoutManager="@{LayoutManagers.linear()}"
+            bind:layout_behavior="@string/appbar_scrolling_view_behavior"
+            bind:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
+        </android.support.v7.widget.RecyclerView>
 
-    </LinearLayout>
+
+    </android.support.v4.widget.SwipeRefreshLayout>
 </layout>

@@ -39,5 +39,3 @@ dependencies {
     compile viewDependencies.fresco
     compile viewDependencies.rxandroid
 }
-
-apply from: "bintrayUpload.gradle"
