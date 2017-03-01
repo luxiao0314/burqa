@@ -35,7 +35,7 @@ public class ViewBindingAdapter {
                 .setBorderColor(imageView.getResources().getColor(R.color.gray_80));
 
         GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
-        hierarchy.setFadeDuration(500);
+        hierarchy.setFadeDuration(1000);
         hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.FIT_XY);
         hierarchy.setPlaceholderImage(R.drawable.default_bg, ScalingUtils.ScaleType.FIT_XY);
         imageView.setHierarchy(hierarchy);
@@ -57,7 +57,7 @@ public class ViewBindingAdapter {
                 .setRoundAsCircle(true);
 
         GenericDraweeHierarchy hierarchy = imageView.getHierarchy();
-        hierarchy.setFadeDuration(500);
+        hierarchy.setFadeDuration(1000);
         hierarchy.setActualImageScaleType(ScalingUtils.ScaleType.CENTER_CROP);
         hierarchy.setPlaceholderImage(R.drawable.default_circle_bg, ScalingUtils.ScaleType.FIT_XY);
         imageView.setHierarchy(hierarchy);
