@@ -8,6 +8,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.view.MenuItem;
 
+import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityMainBinding;
 import com.mvvm.lux.burqa.model.MainViewModel;
@@ -49,7 +50,7 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_local_manga) {
-
+            Routers.open(this,"lux://needLogin");   //登录页面
         } else if (id == R.id.nav_history) {    //历史观看
             ComicClassifyActivity.launch(this,"","历史记录");
         } else if (id == R.id.nav_download) {
