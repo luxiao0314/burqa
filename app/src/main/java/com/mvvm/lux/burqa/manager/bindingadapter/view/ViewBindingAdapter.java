@@ -2,15 +2,17 @@ package com.mvvm.lux.burqa.manager.bindingadapter.view;
 
 import android.databinding.BindingAdapter;
 import android.databinding.ObservableList;
+import android.net.Uri;
+import android.support.v7.widget.CardView;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.SeekBar;
 
+import com.facebook.drawee.view.SimpleDraweeView;
+import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.manager.ReplyCommand;
 import com.mvvm.lux.burqa.manager.ResponseCommand;
-import com.mvvm.lux.widget.banner.BannerAdapter;
-import com.mvvm.lux.widget.banner.BannerEntity;
-import com.mvvm.lux.widget.banner.BannerView;
+import com.mvvm.lux.widget.bgabanner.BGABanner;
 import com.mvvm.lux.widget.emptyview.EmptyView;
 import com.zhy.view.flowlayout.TagFlowLayout;
 
@@ -68,14 +70,21 @@ public final class ViewBindingAdapter {
     }
 
     @BindingAdapter("initBanner")
-    public static void initBanner(BannerView bannerView, ObservableList<BannerEntity> bannerEntities) {
-        bannerView.delayTime(5).build(bannerEntities);
+    public static void initBanner(BGABanner bannerView, ObservableList<String> bannerEntities) {
+        bannerView.setData(R.layout.item_fresco, bannerEntities, null);
+        bannerView.setAdapter(new BGABanner.Adapter<CardView, String>() {
+            @Override
+            public void fillBannerItem(BGABanner banner, CardView itemView, String model, int position) {
+                SimpleDraweeView simpleDraweeView = (SimpleDraweeView) itemView.findViewById(R.id.sdv_item_fresco_content);
+                simpleDraweeView.setImageURI(Uri.parse(model));
+            }
+        });
     }
 
     @BindingAdapter("onItemClick")
-    public static void onItemClick(BannerView bannerView, BannerAdapter.ViewPagerOnItemClickListener listener) {
+    public static void onItemClick(BGABanner bannerView, BGABanner.Delegate<CardView, String> listener) {
         if (listener != null) {
-            bannerView.setmViewPagerOnItemClickListener(listener);
+            bannerView.setDelegate(listener);
         }
     }
 
