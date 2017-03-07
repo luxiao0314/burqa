@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.widget.utils.DisplayUtil;
@@ -51,6 +55,13 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
                 .build()
                 .injectFresco(mPhotoView);
 
+        ImageRequest request = ImageRequestBuilder
+                .newBuilderWithSource(Uri.parse(url))
+                .setResizeOptions(new ResizeOptions(DisplayUtil.getScreenWidth(mContext),DisplayUtil.getScreenHeight(mContext)))
+                .build();
+
+        mPhotoView.setController(Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request).build());
         mPhotoView.setPhotoUri(Uri.parse(url));
         container.addView(contentview);
         return contentview;

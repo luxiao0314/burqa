@@ -4,8 +4,8 @@ import android.app.Activity;
 import android.databinding.ObservableField;
 import android.view.View;
 
+import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.framework.base.BaseViewModel;
-import com.mvvm.lux.framework.manager.hybrid.BrowserActivity;
 
 /**
  * @Description
@@ -24,7 +24,9 @@ public class GameViewItemViewModel extends BaseViewModel {
     }
 
     public View.OnClickListener mOnClickListener = view -> {
-        String url = "http://duxingxia081.gicp.net/suum/pingAnBinding.do?method=goPingAnBindingPage&systemCode=1026";
-        BrowserActivity.launch(mActivity, url, "调试", "paAccountApp");
+//        String url = "http://duxingxia081.gicp.net/suum/pingAnBinding.do?method=goPingAnBindingPage&systemCode=1026";
+//        BrowserActivity.launch(mActivity, url, "调试", "paAccountApp");
+
+        Routers.open(mActivity, "lux://authordes?isOpen=false");
     };
 }

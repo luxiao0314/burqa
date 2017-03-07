@@ -4,6 +4,9 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
+import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentActivity;
+import android.support.v4.app.FragmentManager;
 
 import com.github.mzule.activityrouter.router.RouterCallback;
 import com.github.mzule.activityrouter.router.RouterCallbackProvider;
@@ -12,6 +15,10 @@ import com.mvvm.lux.burqa.ui.home.activity.LoginActivity;
 import com.mvvm.lux.burqa.ui.sub.activity.ErrorStackActivity;
 import com.mvvm.lux.burqa.ui.sub.activity.NotFoundActivity;
 import com.mvvm.lux.framework.BaseApplication;
+import com.mvvm.lux.framework.config.FrameWorkConfig;
+import com.mvvm.lux.framework.config.FrameworkSupport;
+import com.mvvm.lux.framework.config.session.SessionState;
+import com.mvvm.lux.framework.manager.dialogs.config.BaseTask;
 import com.mvvm.lux.framework.utils.ToastUtil;
 
 import java.util.HashMap;
@@ -29,6 +36,48 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
     @Override
     public void onCreate() {
         super.onCreate();
+        FrameWorkConfig.frameworkSupport = new FrameworkSupport() {
+
+            @Override
+            public void onSessionInvaild() {
+
+            }
+
+            @Override
+            public void onCardInValid() {
+
+            }
+
+            @Override
+            public SessionState getSessionState() {
+                return null;
+            }
+
+            @Override
+            public String getPhoneNumber() {
+                return null;
+            }
+
+            @Override
+            public String getToken() {
+                return null;
+            }
+
+            @Override
+            public void goToActivity(FragmentActivity activity, int id, String params) {
+
+            }
+
+            @Override
+            public String getAppType() {
+                return null;
+            }
+
+            @Override
+            public DialogFragment showNetworkProcessDialog(BaseTask taskExchangeModel, FragmentManager fragmentManager, String tag) {
+                return null;
+            }
+        };
     }
 
     @Override
@@ -36,7 +85,7 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         return new SimpleRouterCallback() {
             @Override
             public boolean beforeOpen(Context context, Uri uri) {
-                return permissions(context, uri);
+                return permissions(context, uri.toString());
             }
 
             @Override
@@ -51,25 +100,25 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         };
     }
 
-    private boolean permissions(Context context, Uri uri) {
-        if (uri.toString().contains("needLogin")) {   //如果需要登录就跳转到登录页面
+    private boolean permissions(Context context, String url) {
+        if (url.contains("needLogin")) {   //如果需要登录就跳转到登录页面
             context.startActivity(new Intent(context, LoginActivity.class));
             return true;
         }
-        if (uri.toString().contains("needBind")) {
+        if (url.contains("needBind")) {
 //            context.startActivity(new Intent(context, BindActivity.class));
             return true;
         }
-        if (uri.toString().contains("needGesture")) {
+        if (url.contains("needGesture")) {
 //            context.startActivity(new Intent(context, GestureActivity.class));
             return true;
         }
-        if (uri.toString().contains("needV2")) {
+        if (url.contains("needV2")) {
 //            context.startActivity(new Intent(context, V2AuthActivity.class));
             return true;
         }
         //lux://comicDes?isOpen=true
-        if (!getString(uri)) {   //如果需要登录就跳转到登录页面
+        if (url.contains("isOpen") && !isOpen(url)) {
             ToastUtil.showToast("暂未开放");
             return true;
         }
@@ -77,10 +126,9 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
     }
 
     @NonNull
-    private boolean getString(Uri uri) {
-        String url = uri.toString();
+    private boolean isOpen(String url) {
         Map<String, String> map = new HashMap<>();
-        String substring = url.substring(url.indexOf("?"), url.length());
+        String substring = url.substring(url.indexOf("?") + 1, url.length());
         if (!url.contains("&")) {
             String[] split = substring.split("=");
             map.put(split[0], split[1]);

@@ -35,11 +35,11 @@ public class ComicDesActivity extends SwipeBackActivity {
 
     private void initData() {
         String obj_id = getIntent().getStringExtra("obj_id");
-        mViewModel = new ComicDesViewModel(this, mDataBinding,obj_id);
+        mViewModel = new ComicDesViewModel(this, mDataBinding, obj_id);
         mDataBinding.setViewModel((ComicDesViewModel) mViewModel);
     }
 
     public static void launch(Activity activity, String obj_id) {
-        Routers.open(activity,"lux://comicDes?obj_id="+obj_id);
+        Routers.open(activity, "lux://comicDes?obj_id=" + obj_id);
     }
 }

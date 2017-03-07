@@ -41,6 +41,7 @@ public class ViewBindingAdapter {
         imageView.setHierarchy(hierarchy);
         imageView.setRoundingParmas(roundingParams);
         imageView.setController(controller);
+//        imageView.setResize(new Point()); 设置说缩放比,会减小图片的大小
     }
 
     @BindingAdapter({"circleImageUrl"})

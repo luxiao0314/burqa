@@ -20,7 +20,6 @@ import rx.Observable;
 public class SplashActivity extends Activity {
 
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -32,9 +31,7 @@ public class SplashActivity extends Activity {
     private void setUpSplash() {
         Observable.timer(1000, TimeUnit.MILLISECONDS)
                 .compose(RxHelper.io_main())
-                .subscribe(aLong -> {
-                    finishTask();
-                });
+                .subscribe(aLong -> finishTask());
     }
 
     private void finishTask() {

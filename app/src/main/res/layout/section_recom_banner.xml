@@ -11,16 +11,15 @@
 
     <com.mvvm.lux.widget.bgabanner.BGABanner
         android:id="@+id/recom_banner"
+        style="@style/BannerDefaultStyle"
         android:layout_width="match_parent"
         android:layout_height="220dp"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        app:banner_indicatorGravity="bottom|center_horizontal"
+        app:banner_indicatorGravity="bottom|right"
         app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
         app:banner_isNumberIndicator="false"
-        app:banner_pointAutoPlayAble="true"
         app:banner_pointContainerBackground="@android:color/transparent"
-        app:banner_pointDrawable="@drawable/bga_banner_selector_point_hollow"
-        app:banner_transitionEffect="cube"
+        app:banner_transitionEffect="depth"
         bind:initBanner="@{viewModel.bannerList}"
         bind:onItemClick="@{viewModel.onItemListener}"/>
 
