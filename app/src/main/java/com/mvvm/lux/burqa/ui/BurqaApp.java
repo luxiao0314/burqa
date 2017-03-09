@@ -4,22 +4,20 @@ import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.support.annotation.NonNull;
-import android.support.v4.app.DialogFragment;
-import android.support.v4.app.FragmentActivity;
-import android.support.v4.app.FragmentManager;
+import android.support.multidex.MultiDex;
 
 import com.github.mzule.activityrouter.router.RouterCallback;
 import com.github.mzule.activityrouter.router.RouterCallbackProvider;
 import com.github.mzule.activityrouter.router.SimpleRouterCallback;
+import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.config.BurqaFrameworkSupport;
 import com.mvvm.lux.burqa.ui.home.activity.LoginActivity;
 import com.mvvm.lux.burqa.ui.sub.activity.ErrorStackActivity;
 import com.mvvm.lux.burqa.ui.sub.activity.NotFoundActivity;
 import com.mvvm.lux.framework.BaseApplication;
 import com.mvvm.lux.framework.config.FrameWorkConfig;
-import com.mvvm.lux.framework.config.FrameworkSupport;
-import com.mvvm.lux.framework.config.session.SessionState;
-import com.mvvm.lux.framework.manager.dialogs.config.BaseTask;
-import com.mvvm.lux.framework.utils.ToastUtil;
+import com.mvvm.lux.framework.utils.ToastManager;
+import com.mvvm.lux.widget.emptyview.LoadingLayout;
 
 import java.util.HashMap;
 import java.util.Map;
@@ -36,48 +34,28 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
     @Override
     public void onCreate() {
         super.onCreate();
-        FrameWorkConfig.frameworkSupport = new FrameworkSupport() {
 
-            @Override
-            public void onSessionInvaild() {
+        initEmptyView();
 
-            }
+        FrameWorkConfig.frameworkSupport = new BurqaFrameworkSupport();
+    }
 
-            @Override
-            public void onCardInValid() {
-
-            }
-
-            @Override
-            public SessionState getSessionState() {
-                return null;
-            }
-
-            @Override
-            public String getPhoneNumber() {
-                return null;
-            }
-
-            @Override
-            public String getToken() {
-                return null;
-            }
-
-            @Override
-            public void goToActivity(FragmentActivity activity, int id, String params) {
-
-            }
-
-            @Override
-            public String getAppType() {
-                return null;
-            }
-
-            @Override
-            public DialogFragment showNetworkProcessDialog(BaseTask taskExchangeModel, FragmentManager fragmentManager, String tag) {
-                return null;
-            }
-        };
+    private void initEmptyView() {
+        LoadingLayout.getConfig()
+                .setErrorText("出错啦~请稍后重试！")
+                .setEmptyText("抱歉，暂无数据")
+                .setNoNetworkText("无网络连接，请检查您的网络···")
+                .setErrorImage(R.drawable.define_error)
+                .setEmptyImage(R.drawable.define_empty)
+                .setNoNetworkImage(R.drawable.define_nonetwork)
+                .setAllTipTextColor(R.color.gray)
+                .setAllTipTextSize(14)
+                .setReloadButtonText("点我重试哦")
+                .setReloadButtonTextSize(14)
+                .setReloadButtonTextColor(R.color.gray)
+                .setReloadButtonWidthAndHeight(150, 40)
+                .setAllPageBackgroundColor(R.color.window_background);
+//        .setLoadingPageLayout(R.layout.define_loading_page)
     }
 
     @Override
@@ -119,7 +97,7 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         }
         //lux://comicDes?isOpen=true
         if (url.contains("isOpen") && !isOpen(url)) {
-            ToastUtil.showToast("暂未开放");
+            ToastManager.showToast("暂未开放");
             return true;
         }
         return false;
@@ -147,5 +125,11 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
             }
         }
         return false;
+    }
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(this);
     }
 }

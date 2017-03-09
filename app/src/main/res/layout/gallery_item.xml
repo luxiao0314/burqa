@@ -10,6 +10,6 @@
         android:layout_height="match_parent"
         android:layout_gravity="center"
         fresco:fadeDuration="500"
-        fresco:failureImage="@drawable/network_error"
+        fresco:failureImage="@drawable/define_nonetwork"
         fresco:failureImageScaleType="center"/>
 </RelativeLayout>
