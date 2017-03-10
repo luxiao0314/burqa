@@ -8,6 +8,7 @@ import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.model.response.HotResponse;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
 import com.mvvm.lux.burqa.model.response.SearchResponse;
+import com.mvvm.lux.burqa.model.response.SubjectDesResponse;
 import com.mvvm.lux.burqa.model.response.SubjectResopnse;
 
 import java.util.List;
@@ -66,4 +67,8 @@ public interface ApiService {
     @Headers("Referer:http://images.dmzj.com/")
     @GET("{url}")
     Observable<List<SubjectResopnse>> getSubject(@Path("url") String ur);
+
+    //http://v2.api.dmzj.com/subject/172.json
+    @GET("{url}")
+    Observable<SubjectDesResponse> getSubjectDes(@Path("url") String url);
 }

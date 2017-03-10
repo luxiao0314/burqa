@@ -47,6 +47,7 @@ public class GameViewModel extends BaseViewModel {
 
     //刷新数据
     public final ReplyCommand onRefreshCommand = new ReplyCommand<>(() -> {
+
         initData(1);
     });
 
@@ -72,7 +73,6 @@ public class GameViewModel extends BaseViewModel {
     private void initData(int type) {
         if (type == 1) {
             page = 0;
-            GameViewModel.this.itemViewModel.clear();
         } else {
             page += 1;
         }
@@ -83,12 +83,14 @@ public class GameViewModel extends BaseViewModel {
 
                     @Override
                     public void onNext(List<SubjectResopnse> subjectResopnses) {
-                        viewStyle.isRefreshing.set(false);
+                        if (type == 1) GameViewModel.this.itemViewModel.clear();
+                        viewStyle.isRefreshing.set(false);  //因为双向绑定的原因,所以isRefresh没效果
                         for (SubjectResopnse subjectResopnse : subjectResopnses) {
                             GameViewItemViewModel viewModel = new GameViewItemViewModel(mActivity);
                             viewModel.create_time.set(DateUtil.getStringTime(subjectResopnse.getCreate_time()));
                             viewModel.title.set(subjectResopnse.getTitle());
                             viewModel.img.set(subjectResopnse.getSmall_cover());
+                            viewModel.id.set(subjectResopnse.getId());
                             GameViewModel.this.itemViewModel.add(viewModel);
                         }
                     }

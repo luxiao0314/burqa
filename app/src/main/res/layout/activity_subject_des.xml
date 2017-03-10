@@ -6,9 +6,7 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mvvm.lux.burqa.model.AuthorDesViewModel"/>
-        <import type="me.tatarka.bindingcollectionadapter.LayoutManagers"/>
-        <import type="android.view.View"/>
+            type="com.mvvm.lux.burqa.model.SubjectDesViewModel"/>
     </data>
     <FrameLayout
         android:layout_width="match_parent"
@@ -29,12 +27,9 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@color/white"
-                android:focusable="true"
-                app:layoutManager="@{LayoutManagers.linear()}"
+                app:layoutManager="@{viewModel.getLayoutManager}"
                 app:layout_behavior="@string/appbar_scrolling_view_behavior"
-                bind:itemView="@{viewModel.itemView}"
-                bind:items="@{viewModel.itemViewModel}"/>
+                bind:setAdapter="@{viewModel.getAdapter}"/>
         </android.support.design.widget.CoordinatorLayout>
     </FrameLayout>
 </layout>

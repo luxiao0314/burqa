@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.github.mzule.activityrouter.router.RouterCallback;
 import com.github.mzule.activityrouter.router.RouterCallbackProvider;
 import com.github.mzule.activityrouter.router.SimpleRouterCallback;
@@ -36,6 +37,9 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         super.onCreate();
 
         initEmptyView();
+
+        ARouter.openDebug();
+        ARouter.init(this); // 尽可能早，推荐在Application中初始化
 
         FrameWorkConfig.frameworkSupport = new BurqaFrameworkSupport();
     }

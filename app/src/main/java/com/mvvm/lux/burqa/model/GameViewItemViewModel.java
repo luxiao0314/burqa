@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.databinding.ObservableField;
 import android.view.View;
 
-import com.github.mzule.activityrouter.router.Routers;
+import com.mvvm.lux.burqa.ui.sub.activity.SubjectDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
 
 /**
@@ -18,6 +18,7 @@ public class GameViewItemViewModel extends BaseViewModel {
 
     public ObservableField<String> create_time = new ObservableField<>();
     public ObservableField<String> img = new ObservableField<>();
+    public ObservableField<Integer> id = new ObservableField<>();
 
     public GameViewItemViewModel(Activity activity) {
         super(activity);
@@ -27,6 +28,8 @@ public class GameViewItemViewModel extends BaseViewModel {
 //        String url = "http://duxingxia081.gicp.net/suum/pingAnBinding.do?method=goPingAnBindingPage&systemCode=1026";
 //        BrowserActivity.launch(mActivity, url, "调试", "paAccountApp");
 
-        Routers.open(mActivity, "lux://authordes?isOpen=false");
+//        Routers.open(mActivity, "lux://authordes?sOpen=false");
+        // 跳转并携带参数
+        SubjectDesActivity.launch(mActivity,id.get());
     };
 }

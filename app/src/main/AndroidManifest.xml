@@ -93,6 +93,9 @@
         <activity
             android:name=".ui.home.activity.LoginActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.sub.activity.SubjectDesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 
 </manifest>
