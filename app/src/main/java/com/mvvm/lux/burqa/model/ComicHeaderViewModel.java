@@ -68,7 +68,7 @@ public class ComicHeaderViewModel extends BaseViewModel {
     }
 
     private void initEvent(String objId) {
-        RxBus.init()
+        addSubscribe(RxBus.init()
                 .toObservableSticky(ChaptersEvent.class)
                 .subscribe(chaptersEvent -> {
                     if (objId.equals(chaptersEvent.mObjId)) {
@@ -78,7 +78,7 @@ public class ComicHeaderViewModel extends BaseViewModel {
                             chapter_title.set("续看 " + chaptersEvent.mChapter_title);
                         }
                     }
-                });
+                }));
     }
 
     //章节的点击事件

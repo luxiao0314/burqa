@@ -42,7 +42,7 @@ public class GameViewModel extends BaseViewModel {
     }
 
     public class ViewStyle {
-        public final ObservableBoolean isRefreshing = new ObservableBoolean(true);
+        public ObservableBoolean isRefreshing = new ObservableBoolean(true);
     }
 
     //刷新数据
@@ -70,6 +70,12 @@ public class GameViewModel extends BaseViewModel {
      * @param type 1: 刷新 , 2 : 加载更多
      */
     private void initData(int type) {
+        if (type == 1) {
+            page = 0;
+            GameViewModel.this.itemViewModel.clear();
+        } else {
+            page += 1;
+        }
         RetrofitHelper.init()
                 .getSubject("subject/0/" + page + ".json")
                 .compose(RxHelper.handleErr())
@@ -78,14 +84,7 @@ public class GameViewModel extends BaseViewModel {
                     @Override
                     public void onNext(List<SubjectResopnse> subjectResopnses) {
                         viewStyle.isRefreshing.set(false);
-                        if (type == 1) {
-                            page = 0;
-                            mSubjectResopnse = subjectResopnses;
-                        } else {
-                            page += 1;
-                            mSubjectResopnse.addAll(subjectResopnses);
-                        }
-                        for (SubjectResopnse subjectResopnse : mSubjectResopnse) {
+                        for (SubjectResopnse subjectResopnse : subjectResopnses) {
                             GameViewItemViewModel viewModel = new GameViewItemViewModel(mActivity);
                             viewModel.create_time.set(DateUtil.getStringTime(subjectResopnse.getCreate_time()));
                             viewModel.title.set(subjectResopnse.getTitle());

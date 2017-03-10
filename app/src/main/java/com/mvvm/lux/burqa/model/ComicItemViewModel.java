@@ -114,13 +114,13 @@ public class ComicItemViewModel extends BaseViewModel {
     }
 
     public void initEvent() {
-        RxBus.init()
+        addSubscribe(RxBus.init()
                 .toObservableSticky(TagSelectEvent.class)
                 .compose(RxHelper.io_main())
                 .subscribe(tagSelectEvent -> {
                     if (tagSelectEvent.mId == obj_id.get()) {   //用于记录点击的item的背景
 
                     }
-                });
+                }));
     }
 }

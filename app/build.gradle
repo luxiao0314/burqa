@@ -2,6 +2,7 @@ apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
 apply plugin: 'realm-android'   //一定要在gradle加入这行,不然报错:"Object" is not part of the schema for this Realm
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -71,6 +72,7 @@ dependencies {
     compile viewDependencies.flowlayout
     compile viewDependencies.leakcanary
     compile viewDependencies.multidex
+    compile viewDependencies.greendao
 
     compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.1.0'
     compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'

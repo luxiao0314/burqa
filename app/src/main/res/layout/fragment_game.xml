@@ -16,7 +16,8 @@
         android:orientation="vertical"
         bind:layout_behavior="@string/appbar_scrolling_view_behavior"
         bind:onRefreshListener="@{viewModel.onRefreshListener}"
-        bind:refreshing="@{viewModel.viewStyle.isRefreshing}">
+        bind:onRefreshCommand="@{viewModel.onRefreshCommand}"
+        bind:refreshing="@={viewModel.viewStyle.isRefreshing}">
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recyclerView"
@@ -25,10 +26,7 @@
             bind:itemView="@{viewModel.itemView}"
             bind:items="@{viewModel.itemViewModel}"
             bind:layoutManager="@{LayoutManagers.linear()}"
-            bind:layout_behavior="@string/appbar_scrolling_view_behavior"
-            bind:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}">
-        </android.support.v7.widget.RecyclerView>
-
+            bind:onLoadMoreCommand="@{viewModel.onLoadMoreCommand}"/>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 </layout>
