@@ -6,6 +6,7 @@ import android.databinding.ViewDataBinding;
 import android.text.TextUtils;
 import android.view.View;
 
+import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.SectionComicDesBinding;
 import com.mvvm.lux.burqa.model.db.RealmHelper;
 import com.mvvm.lux.burqa.model.event.ChaptersEvent;
@@ -40,6 +41,10 @@ public class ComicHeaderViewModel extends BaseViewModel {
     public ObservableField<String> chapter_title = new ObservableField<>("开始阅读");   //章节
 
     public ObservableField<String> islong = new ObservableField<>();   //是否为长文章:2为长文章
+
+    public ObservableField<Integer> maxLines = new ObservableField<>(2);
+
+    public ObservableField<Integer> src = new ObservableField<Integer>(R.drawable.detail_intr_expand);
 
     private ComicResponse comicResponse;
 
@@ -122,6 +127,19 @@ public class ComicHeaderViewModel extends BaseViewModel {
             }
         };
     }
+
+    private boolean loadMore = true;
+    public View.OnClickListener loadMoreDes = view -> {
+        if (loadMore) {
+            loadMore = false;
+            maxLines.set(10);
+            src.set(R.drawable.detail_intr_close);
+        } else {
+            src.set(R.drawable.detail_intr_expand);
+            loadMore = true;
+            maxLines.set(2);
+        }
+    };
 
 
 }

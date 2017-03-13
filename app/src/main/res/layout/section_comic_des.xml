@@ -124,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:maxLines="2"
+                android:maxLines="@{viewModel.maxLines}"
                 android:text="@{viewModel.description}"
                 android:textSize="12sp"/>
 
@@ -132,7 +132,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:src="@drawable/detail_intr_expand"/>
+                android:onClick="@{viewModel.loadMoreDes}"
+                android:padding="5dp"
+                bind:setSrc="@{viewModel.src}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
