@@ -1,7 +1,6 @@
 package com.mvvm.lux.burqa.model.response;
 
 import com.google.gson.annotations.SerializedName;
-import com.mvvm.lux.framework.manager.recycler.baserecycleview.entity.MultiItemEntity;
 
 import java.util.List;
 
@@ -62,9 +61,7 @@ public class SubjectDesResponse {
     }
 
 
-    public static class ComicsBean implements MultiItemEntity {
-        public static final int DES_TYPE = 1;
-        public static final int LIST_TYPE = 2;
+    public static class ComicsBean {
         /**
          * cover : http://images.dmzj.com/webpic/6/jichangluludemali.jpg
          * recommend_brief : 新作力推性转男主
@@ -80,11 +77,6 @@ public class SubjectDesResponse {
         private int id;
         private String name;
         private String alias_name;
-
-        @Override
-        public int getItemType() {
-            return 0;
-        }
 
         public String getCover() {
             return cover;

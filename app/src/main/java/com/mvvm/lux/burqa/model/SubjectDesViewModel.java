@@ -1,10 +1,15 @@
 package com.mvvm.lux.burqa.model;
 
 import android.app.Activity;
+import android.databinding.ObservableArrayList;
 import android.databinding.ObservableField;
+import android.databinding.ObservableList;
+import android.databinding.ViewDataBinding;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
+import com.mvvm.lux.burqa.BR;
+import com.mvvm.lux.burqa.databinding.ActivitySubjectDesBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.response.SubjectDesResponse;
 import com.mvvm.lux.burqa.ui.sub.adapter.SubjectDesAdapter;
@@ -26,12 +31,12 @@ import java.util.List;
 public class SubjectDesViewModel extends BaseViewModel {
 
     public ObservableField<String> id = new ObservableField<>();
-    private List<SubjectDesResponse.ComicsBean> mComics;
-    private SubjectDesResponse mSubjectDesResponse;
-    private SubjectDesAdapter mSubjectDesAdapter;
+    private ObservableList<SubjectDesResponse.ComicsBean> mComics = new ObservableArrayList<>();
+    private ActivitySubjectDesBinding mDataBinding;
 
-    public SubjectDesViewModel(Activity activity) {
+    public SubjectDesViewModel(Activity activity, ActivitySubjectDesBinding dataBinding) {
         super(activity);
+        mDataBinding = dataBinding;
     }
 
     public RecyclerView.LayoutManager getLayoutManager() {
@@ -39,25 +44,15 @@ public class SubjectDesViewModel extends BaseViewModel {
         layoutManager.setSpanSizeLookup(new GridLayoutManager.SpanSizeLookup() {
             @Override
             public int getSpanSize(int position) {
-                switch (position) {
-                    case 0:
-                        return 1;
-                    default:
-                        return 1;
-                }
+                return 1;
             }
         });
         return layoutManager;
     }
 
-    public RecyclerView.Adapter getAdapter() {
-        if (mSubjectDesAdapter == null) {
-            mSubjectDesAdapter = new SubjectDesAdapter(mActivity, mComics, mSubjectDesResponse);
-        }
-        return mSubjectDesAdapter;
-    }
+    public SubjectDesAdapter getAdapter = new SubjectDesAdapter(mActivity, mComics);
 
-    public void initData() {
+    public void initData(ViewDataBinding headView) {
         RetrofitHelper.init()
                 .getSubjectDes("subject/" + id.get() + ".json")
                 .compose(RxHelper.handleErr())
@@ -65,10 +60,22 @@ public class SubjectDesViewModel extends BaseViewModel {
 
                     @Override
                     public void onNext(SubjectDesResponse subjectDesResponse) {
-                        mSubjectDesResponse = subjectDesResponse;
-                        mComics = subjectDesResponse.getComics();
-                        mSubjectDesAdapter.notifyDataSetChanged();
+                        refreshView(subjectDesResponse, headView);
+                        List<SubjectDesResponse.ComicsBean> comics = subjectDesResponse.getComics();
+                        getAdapter.setNewData(comics);
+                        mDataBinding.recyclerView.setAdapter(getAdapter);   //?????????????????????不明白这里为什么一定要使用recycleView设置adapter
                     }
                 });
     }
+
+    private void refreshView(SubjectDesResponse subjectDesResponse, ViewDataBinding headView) {
+        title.set(subjectDesResponse.getTitle());
+        SubjectDesListViewModel viewModel = new SubjectDesListViewModel(mActivity);
+        viewModel.title_img.set(subjectDesResponse.getMobile_header_pic());
+        viewModel.title.set(subjectDesResponse.getTitle());
+        viewModel.title_des.set(subjectDesResponse.getDescription());
+        headView.setVariable(BR.viewModel, viewModel);
+        getAdapter.addHeaderView(headView.getRoot());
+    }
+
 }

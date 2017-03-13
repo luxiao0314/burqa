@@ -2,7 +2,9 @@ package com.mvvm.lux.burqa.ui.sub.activity;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
+import android.databinding.ViewDataBinding;
 import android.os.Bundle;
+import android.view.LayoutInflater;
 
 import com.github.mzule.activityrouter.annotation.Router;
 import com.github.mzule.activityrouter.router.Routers;
@@ -26,9 +28,10 @@ public class SubjectDesActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         ActivitySubjectDesBinding dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_subject_des);
-        SubjectDesViewModel viewModel = new SubjectDesViewModel(this);
+        ViewDataBinding headView = DataBindingUtil.inflate(LayoutInflater.from(this), R.layout.item_subject_des_view, null, false);
+        SubjectDesViewModel viewModel = new SubjectDesViewModel(this,dataBinding);
         viewModel.id.set(getIntent().getStringExtra("id"));
-        viewModel.initData();
+        viewModel.initData(headView);
         dataBinding.setViewModel(viewModel);
     }
 

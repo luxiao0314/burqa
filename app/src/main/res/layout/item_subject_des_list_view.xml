@@ -9,19 +9,21 @@
             type="com.mvvm.lux.burqa.model.SubjectDesListViewModel"/>
     </data>
     <RelativeLayout
+        android:background="@color/white"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="2dp"
         android:padding="10dp">
 
         <lib.lhh.fiv.library.FrescoImageView
             android:id="@+id/iv_icon"
-            android:layout_width="150dp"
-            android:layout_height="200dp"
+            android:layout_width="100dp"
+            android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:foreground="?android:attr/selectableItemBackgroundBorderless"
             bind:imageUrl="@{viewModel.img}"
             bind:roundedCornerRadius="10dp"
-            bind:viewAspectRatio="1.5"/>
+            bind:viewAspectRatio="0.7"/>
         <TextView
             android:id="@+id/sub_title"
             android:layout_width="wrap_content"
@@ -37,7 +39,7 @@
             android:id="@+id/des_little"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/title"
+            android:layout_below="@+id/sub_title"
             android:layout_marginLeft="10dp"
             android:layout_marginTop="10dp"
             android:layout_toRightOf="@+id/iv_icon"
@@ -56,6 +58,7 @@
             android:layout_height="wrap_content"
             android:layout_alignParentRight="true"
             android:layout_marginLeft="10dp"
+            android:onClick="@{viewModel.mOnClickListener}"
             android:text="漫画订阅"/>
     </RelativeLayout>
 </layout>

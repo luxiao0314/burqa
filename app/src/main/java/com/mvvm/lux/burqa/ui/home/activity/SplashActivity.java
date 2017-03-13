@@ -22,9 +22,9 @@ public class SplashActivity extends Activity {
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
+        StatusBarUtils.hideStatusBar(getWindow(), true);    //不加这个,状态栏会切换闪一下
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_splash);
-        StatusBarUtils.hideStatusBar(getWindow(), true);    //不加这个,状态栏会切换闪一下
         setUpSplash();
     }
 
