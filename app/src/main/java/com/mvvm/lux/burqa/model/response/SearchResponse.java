@@ -11,7 +11,7 @@ public class SearchResponse {
 
     /**
      * id : 9949
-     * status : 连载中
+     * type : 连载中
      * title : 一拳超人
      * last_name : 原作版109(5)
      * cover : http://images.dmzj.com/webpic/1/onepunchmanfengmianl.jpg

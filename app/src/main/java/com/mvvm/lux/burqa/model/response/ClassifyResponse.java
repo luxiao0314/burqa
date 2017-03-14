@@ -22,7 +22,7 @@ public class ClassifyResponse extends RealmObject implements Serializable {
      * id : 15988
      * title : 拳愿阿修罗
      * authors : サンドロビッチ·ヤバ子/だろめおん
-     * status : 连载中
+     * type : 连载中
      * cover : http://images.dmzj.com/webpic/18/0206quanyuanaxiuluofml.jpg
      * types : 格斗/竞技/颜艺
      * last_updatetime : 1483752758

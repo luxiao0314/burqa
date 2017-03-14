@@ -2,7 +2,6 @@ package com.mvvm.lux.burqa.model;
 
 import android.databinding.ObservableField;
 import android.support.v4.app.FragmentActivity;
-import android.text.TextUtils;
 import android.view.View;
 
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
@@ -26,7 +25,7 @@ public class RecomDoubleViewModel extends BaseViewModel {
 
     public ObservableField<String> sub_title = new ObservableField<>();
 
-    public ObservableField<String> status = new ObservableField<>();
+    public ObservableField<Integer> type = new ObservableField<>();
 
     public ObservableField<String> head_title = new ObservableField<>();
 
@@ -35,10 +34,17 @@ public class RecomDoubleViewModel extends BaseViewModel {
     public ObservableField<Integer> obj_id = new ObservableField<>();
 
     public View.OnClickListener mOnClickListener = view -> {
-        if (TextUtils.isEmpty(status.get())) {
-            AuthorDesActivity.launch(mActivity,obj_id.get()+"");
-        } else {
-            ComicDesActivity.launch(mActivity, obj_id.get()+"");
+        switch (type.get()) {
+            case 8:
+                ComicDesActivity.launch(mActivity, obj_id.get()+"");
+                break;
+            case 9:
+                AuthorDesActivity.launch(mActivity,obj_id.get()+"");
+                break;
+            case 1:
+            case 0:
+                ComicDesActivity.launch(mActivity, obj_id.get()+"");
+                break;
         }
     };
 }
