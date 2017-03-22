@@ -17,7 +17,7 @@ import com.mvvm.lux.burqa.ui.sub.activity.ErrorStackActivity;
 import com.mvvm.lux.burqa.ui.sub.activity.NotFoundActivity;
 import com.mvvm.lux.framework.BaseApplication;
 import com.mvvm.lux.framework.config.FrameWorkConfig;
-import com.mvvm.lux.framework.utils.ToastManager;
+import com.mvvm.lux.framework.utils.SnackbarUtil;
 import com.mvvm.lux.widget.emptyview.LoadingLayout;
 
 import java.util.HashMap;
@@ -35,12 +35,9 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
     @Override
     public void onCreate() {
         super.onCreate();
-
         initEmptyView();
-
         ARouter.openDebug();
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
-
         FrameWorkConfig.frameworkSupport = new BurqaFrameworkSupport();
     }
 
@@ -101,7 +98,7 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         }
         //lux://comicDes?isOpen=true
         if (url.contains("isOpen") && !isOpen(url)) {
-            ToastManager.showToast("暂未开放");
+            SnackbarUtil.showMessage("暂未开放");
             return true;
         }
         return false;

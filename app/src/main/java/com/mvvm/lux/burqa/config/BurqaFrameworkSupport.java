@@ -10,7 +10,7 @@ import com.mvvm.lux.framework.config.session.Session;
 import com.mvvm.lux.framework.config.session.SessionState;
 import com.mvvm.lux.framework.manager.dialogs.DialogManager;
 import com.mvvm.lux.framework.manager.dialogs.config.BaseTask;
-import com.mvvm.lux.framework.utils.ToastManager;
+import com.mvvm.lux.framework.utils.SnackbarUtil;
 
 import static com.mvvm.lux.framework.BaseApplication.getAppContext;
 
@@ -25,7 +25,7 @@ public class BurqaFrameworkSupport implements FrameworkSupport {
     @Override
     public void onSessionInvaild() {
         Session.logout();
-        ToastManager.showToast(getAppContext(), "您的账号已在别处登录,请重新登录");
+        SnackbarUtil.showMessage("您的账号已在别处登录,请重新登录");
         Intent it = new Intent(getAppContext(), LoginActivity.class);
         it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getAppContext().startActivity(it);
@@ -34,7 +34,7 @@ public class BurqaFrameworkSupport implements FrameworkSupport {
     @Override
     public void onCardInValid() {
         Session.bindout();
-        ToastManager.showToast(getAppContext(), "您的卡已被其他账号绑定,请重新绑定");
+        SnackbarUtil.showMessage("您的卡已被其他账号绑定,请重新绑定");
         Intent it = new Intent(getAppContext(), LoginActivity.class);
         it.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         getAppContext().startActivity(it);

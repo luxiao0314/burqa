@@ -29,7 +29,7 @@ public class SplashActivity extends Activity {
     }
 
     private void setUpSplash() {
-        Observable.timer(1000, TimeUnit.MILLISECONDS)
+        Observable.timer(2000, TimeUnit.MILLISECONDS)
                 .compose(RxHelper.io_main())
                 .subscribe(aLong -> finishTask());
     }
