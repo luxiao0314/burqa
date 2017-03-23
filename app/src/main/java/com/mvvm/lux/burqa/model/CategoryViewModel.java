@@ -11,6 +11,7 @@ import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.FragmentCategoryBinding;
 import com.mvvm.lux.burqa.http.RetrofitHelper;
 import com.mvvm.lux.burqa.model.response.CategoryResponse;
+import com.mvvm.lux.burqa.model.response.CategoryResponse1;
 import com.mvvm.lux.framework.base.BaseViewModel;
 import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.http.RxSubscriber;
@@ -53,22 +54,29 @@ public class CategoryViewModel extends BaseViewModel {
     public void initData() {
         RetrofitHelper.init()
                 .getCategory()
-                .compose(RxHelper.io_main())
-                .subscribe(new RxSubscriber<List<CategoryResponse>>() {
-
+                .compose(RxHelper.handleVirtualData(CategoryResponse1.class))
+                .subscribe(new RxSubscriber<CategoryResponse1>() {
                     @Override
-                    public void onNext(List<CategoryResponse> categoryResponses) {
+                    public void onNext(CategoryResponse1 categoryResponse1) {
                         refreshing.set(false);
-                        mDataBinding.recyclerView.setAdapter(new MyBaseQuickAdapter(R.layout.adapter_category_layout, categoryResponses));
-                    }
-
-                    @Override
-                    public void onError(Throwable e) {
-                        super.onError(e);
-                        showEmpty.set(true);
-                        refreshing.set(false);
+                        mDataBinding.recyclerView.setAdapter(new MyBaseQuickAdapter(R.layout.adapter_category_layout, categoryResponse1.getBody()));
                     }
                 });
+//                .subscribe(new RxSubscriber<List<CategoryResponse>>() {
+//
+//                    @Override
+//                    public void onNext(List<CategoryResponse> categoryResponses) {
+//                        refreshing.set(false);
+//                        mDataBinding.recyclerView.setAdapter(new MyBaseQuickAdapter(R.layout.adapter_category_layout, categoryResponses));
+//                    }
+//
+//                    @Override
+//                    public void onError(Throwable e) {
+//                        super.onError(e);
+//                        showEmpty.set(true);
+//                        refreshing.set(false);
+//                    }
+//                });
     }
 
     public class MyBaseQuickAdapter extends BaseQuickAdapter<CategoryResponse, BaseViewHolder> {

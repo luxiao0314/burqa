@@ -1,7 +1,7 @@
 package com.mvvm.lux.burqa.http;
 
 import com.mvvm.lux.burqa.model.response.AuthorDesResponse;
-import com.mvvm.lux.burqa.model.response.CategoryResponse;
+import com.mvvm.lux.burqa.model.response.CategoryResponse1;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
@@ -42,7 +42,7 @@ public interface ApiService {
 
     @Headers("Referer:http://images.dmzj.com/")
     @GET("0/category.json")
-    Observable<List<CategoryResponse>> getCategory();
+    Observable<CategoryResponse1> getCategory();
 
     @Headers("Referer:http://images.dmzj.com/")
     @GET("{url}")
