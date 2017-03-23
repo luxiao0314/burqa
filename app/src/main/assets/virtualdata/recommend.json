@@ -1,0 +1,428 @@
+[
+  {
+    "category_id": 46,
+    "title": "大图推荐",
+    "sort": 1,
+    "data": [
+      {
+        "cover": "https://images.dmzj.com/tuijian/750_480/170320gaoerfutj2.jpg",
+        "title": "黑子篮球作者新连载·一杆进洞高尔夫",
+        "sub_title": "黑子篮球作者新连载·一杆进洞高尔夫",
+        "type": 1,
+        "url": "",
+        "obj_id": 40017,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/750_480/170322xinwentj2.jpg",
+        "title": "话题：迪士尼长期存在抄袭问题？",
+        "sub_title": "话题：迪士尼长期存在抄袭问题？",
+        "type": 7,
+        "url": "http://v2.api.dmzj.com/article/show/v2/9466.html",
+        "obj_id": 9466,
+        "status": ""
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/750_480/170317erciyuanyouxitj2.jpg",
+        "title": "DmzJ二次元游戏官方安利",
+        "sub_title": "DmzJ二次元游戏官方安利",
+        "type": 6,
+        "url": "http://zt.dmzj.com/gamelist/m.html",
+        "obj_id": 0,
+        "status": ""
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/750_480/0321luanru01.jpg",
+        "title": "乱入·连爆机王也无法取胜？",
+        "sub_title": "乱入·连爆机王也无法取胜？",
+        "type": 1,
+        "url": "",
+        "obj_id": 18626,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/750_480/170321chonglongtj2.jpg",
+        "title": "虫笼的卡伽斯特尔·最终话！",
+        "sub_title": "虫笼的卡伽斯特尔·最终话！",
+        "type": 1,
+        "url": "",
+        "obj_id": 35219,
+        "status": "已完结"
+      }
+    ]
+  },
+  {
+    "category_id": 47,
+    "title": "近期必看",
+    "sort": 3,
+    "data": [
+      {
+        "cover": "http://images.dmzj.com/webpic/6/lunhuidehuabanV2.jpg",
+        "title": "轮回的花瓣",
+        "sub_title": "作者：小西干久",
+        "type": 1,
+        "url": "",
+        "obj_id": 14883,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/webpic/1/zhennannzhennvfengmianl.jpg",
+        "title": "症男症女",
+        "sub_title": "作者：西尾维新",
+        "type": 1,
+        "url": "",
+        "obj_id": 27440,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/webpic/3/diyicidegalV3.jpg",
+        "title": "第一次的Gal",
+        "sub_title": "作者：植野メグル",
+        "type": 1,
+        "url": "",
+        "obj_id": 34569,
+        "status": "连载中"
+      }
+    ]
+  },
+  {
+    "category_id": 48,
+    "title": "火热专题",
+    "sort": 4,
+    "data": [
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/170317erciyuanyouxitj3.jpg",
+        "title": "DmzJ二次元游戏安利",
+        "sub_title": "DmzJ二次元游戏安利",
+        "type": 6,
+        "url": "http://zt.dmzj.com/gamelist/manhua.html",
+        "obj_id": 0,
+        "status": ""
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/170221shanganmanhuajia.jpg",
+        "title": "漫画家上岸漫画推荐专题",
+        "sub_title": "漫画家上岸漫画推荐专题",
+        "type": 6,
+        "url": "http://zt.dmzj.com/shanganmanhuajiaapp/index.html",
+        "obj_id": 0,
+        "status": ""
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/170221xinman24.jpg",
+        "title": "新漫周刊第24期",
+        "sub_title": "新漫周刊第24期",
+        "type": 5,
+        "url": "",
+        "obj_id": 159,
+        "status": ""
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/160513chaochangpianmanhua.jpg",
+        "title": "超长篇漫画专题",
+        "sub_title": "超长篇漫画专题",
+        "type": 5,
+        "url": "",
+        "obj_id": 77,
+        "status": ""
+      }
+    ]
+  },
+  {
+    "category_id": 50,
+    "title": "猜你喜欢",
+    "sort": 5,
+    "data": []
+  },
+  {
+    "category_id": 51,
+    "title": "大师级作者怎能不看",
+    "sort": 6,
+    "data": [
+      {
+        "cover": "http://images.dmzj.com/tuijian/150_200/1120laiweigongzhi.jpg",
+        "title": "濑尾公治",
+        "sub_title": "",
+        "type": 8,
+        "url": "",
+        "obj_id": 79,
+        "status": ""
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/150_200/1010yuyanshu.jpg",
+        "title": "于彦舒",
+        "sub_title": "",
+        "type": 9,
+        "url": "",
+        "obj_id": 100085704,
+        "status": ""
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/150_200/170125tengtian.jpg",
+        "title": "藤田和日郎",
+        "sub_title": "",
+        "type": 8,
+        "url": "",
+        "obj_id": 294,
+        "status": ""
+      }
+    ]
+  },
+  {
+    "category_id": 52,
+    "title": "国漫也精彩",
+    "sort": 7,
+    "data": [
+      {
+        "cover": "http://images.dmzj.com/img/webpic/19/1002006191434101639.jpg",
+        "title": "夜影侠SHADOWMAN",
+        "sub_title": "作者：DMG／勇士",
+        "type": 1,
+        "url": "",
+        "obj_id": 19148,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/img/webpic/16/1469195972.jpg",
+        "title": "崩坏3rd",
+        "sub_title": "作者：上海米哈游",
+        "type": 1,
+        "url": "",
+        "obj_id": 27708,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/img/webpic/0/1003188601463287688.jpg",
+        "title": "六人侦探",
+        "sub_title": "作者：便利店的熊",
+        "type": 1,
+        "url": "",
+        "obj_id": 33461,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/img/webpic/17/1018237971470885475.jpg",
+        "title": "人性直播",
+        "sub_title": "作者：shin先生",
+        "type": 1,
+        "url": "",
+        "obj_id": 38470,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/img/webpic/12/1480906343.jpg",
+        "title": "魔卡领域",
+        "sub_title": "作者：白骑士",
+        "type": 1,
+        "url": "",
+        "obj_id": 39344,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/img/webpic/1/1024438211481612800.jpg",
+        "title": "我的男团我的神",
+        "sub_title": "作者：物语谁说文化",
+        "type": 1,
+        "url": "",
+        "obj_id": 39391,
+        "status": "连载中"
+      }
+    ]
+  },
+  {
+    "category_id": 53,
+    "title": "美漫大事件",
+    "sort": 8,
+    "data": [
+      {
+        "cover": "https://images.dmzj.com/tuijian/320_170/0922shanezhouxin.jpg",
+        "title": "善恶轴心",
+        "sub_title": "",
+        "type": 1,
+        "url": "http://m.dmzj.com/info/xezxin.html",
+        "obj_id": 15896,
+        "status": "连载中"
+      },
+      {
+        "cover": "https://images.dmzj.com/tuijian/320_170/0922yuanzui.jpg",
+        "title": "原罪2014",
+        "sub_title": "",
+        "type": 1,
+        "url": "http://m.dmzj.com/info/yuanzui.html",
+        "obj_id": 14504,
+        "status": "已完结"
+      },
+      {
+        "cover": "https://images.dmzj.com/tuijian/320_170/0922mmzz.jpg",
+        "title": "秘密战争2015",
+        "sub_title": "",
+        "type": 1,
+        "url": "http://m.dmzj.com/info/mimizhanzheng2015.html",
+        "obj_id": 16510,
+        "status": "已完结"
+      },
+      {
+        "cover": "https://images.dmzj.com/tuijian/320_170/160802dcchongsheng.jpg",
+        "title": "DC重生",
+        "sub_title": "",
+        "type": 1,
+        "url": "http://m.dmzj.com/info/dcyuzhouchongsheng.html",
+        "obj_id": 34567,
+        "status": "连载中"
+      }
+    ]
+  },
+  {
+    "category_id": 54,
+    "title": "热门连载",
+    "sort": 9,
+    "data": [
+      {
+        "cover": "http://images.dmzj.com/webpic/12/0620yanquan.jpg",
+        "title": "炎拳",
+        "sub_title": "作者：藤本タツキ",
+        "type": 1,
+        "url": "",
+        "obj_id": 32693,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/webpic/10/QQydmhd20161204203531.jpg",
+        "title": "约定的梦幻岛",
+        "sub_title": "作者：白井カイウ",
+        "type": 1,
+        "url": "",
+        "obj_id": 38423,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/webpic/17/culianjs.jpg",
+        "title": "初恋僵尸",
+        "sub_title": "作者：峰浪了",
+        "type": 1,
+        "url": "",
+        "obj_id": 24103,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/webpic/5/zhibumiedeni.jpg",
+        "title": "致不灭的你",
+        "sub_title": "作者：大今良时",
+        "type": 1,
+        "url": "",
+        "obj_id": 39170,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/webpic/16/zuizhongwochengweilni.jpg",
+        "title": "终将成为你",
+        "sub_title": "作者：仲谷鳰",
+        "type": 1,
+        "url": "",
+        "obj_id": 18473,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/webpic/17/QQjsxxzly20170212211124.jpg",
+        "title": "寄宿学校的朱丽叶",
+        "sub_title": "作者：金田阳介",
+        "type": 1,
+        "url": "",
+        "obj_id": 16800,
+        "status": "连载中"
+      }
+    ]
+  },
+  {
+    "category_id": 55,
+    "title": "条漫专区",
+    "sort": 10,
+    "data": [
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/160802qingmeizhuma.jpg",
+        "title": "完全没有恋爱感情的青梅竹马",
+        "sub_title": "",
+        "type": 1,
+        "url": "",
+        "obj_id": 33322,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/160802lianaisige.jpg",
+        "title": "恋爱四格小剧场",
+        "sub_title": "",
+        "type": 1,
+        "url": "",
+        "obj_id": 11046,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/170221renxingzhibo.jpg",
+        "title": "人性直播",
+        "sub_title": "",
+        "type": 1,
+        "url": "",
+        "obj_id": 38470,
+        "status": "连载中"
+      },
+      {
+        "cover": "http://images.dmzj.com/tuijian/320_170/170221sanyuechusan.jpg",
+        "title": "三月初三",
+        "sub_title": "",
+        "type": 1,
+        "url": "",
+        "obj_id": 21062,
+        "status": "连载中"
+      }
+    ]
+  },
+  {
+    "category_id": 56,
+    "title": "最新上架",
+    "sort": 11,
+    "data": [
+      {
+        "id": 40054,
+        "title": "入间同学入魔了",
+        "authors": "西修",
+        "status": "连载中",
+        "cover": "http://images.dmzj.com/webpic/8/170322rujianfml.jpg"
+      },
+      {
+        "id": 40053,
+        "title": "肌肉美食家",
+        "authors": "成田成哲",
+        "status": "连载中",
+        "cover": "http://images.dmzj.com/webpic/15/170322jiroumeishijia.jpg"
+      },
+      {
+        "id": 40052,
+        "title": "红紫",
+        "authors": "狐の嫁入り",
+        "status": "已完结",
+        "cover": "http://images.dmzj.com/webpic/8/hongzi.jpg"
+      },
+      {
+        "id": 40051,
+        "title": "猎奇的她？",
+        "authors": "空屑RED",
+        "status": "已完结",
+        "cover": "http://images.dmzj.com/webpic/15/lieqideta.jpg"
+      },
+      {
+        "id": 40050,
+        "title": "魔术师莲子与女教皇",
+        "authors": "日向いち/Yoshi",
+        "status": "已完结",
+        "cover": "http://images.dmzj.com/webpic/18/moshushilianziyunvjiaohuang.jpg"
+      },
+      {
+        "id": 40049,
+        "title": "Draw Heart",
+        "authors": "rapa",
+        "status": "已完结",
+        "cover": "http://images.dmzj.com/webpic/17/drawheart.jpg"
+      }
+    ]
+  }
+]

@@ -47,7 +47,7 @@ public class RecomBannerViewModel extends BaseViewModel {
         return (banner, itemView, model, position) -> {
             RecommendResponse.DataBean dataBean = mRecommendResponse.getData().get(position);
             if (!TextUtils.isEmpty(dataBean.getUrl())) {
-                BrowserActivity.launch(mActivity, dataBean.getUrl(), "新闻正文");
+                BrowserActivity.launch(mActivity, dataBean.getUrl(), "新闻正文","imageClick");
             } else {
                 ComicDesActivity.launch(mActivity, dataBean.getObj_id() + "");
             }
