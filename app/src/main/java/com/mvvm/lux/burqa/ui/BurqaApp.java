@@ -17,6 +17,7 @@ import com.mvvm.lux.burqa.ui.sub.activity.ErrorStackActivity;
 import com.mvvm.lux.burqa.ui.sub.activity.NotFoundActivity;
 import com.mvvm.lux.framework.BaseApplication;
 import com.mvvm.lux.framework.config.FrameWorkConfig;
+import com.mvvm.lux.framework.config.session.Session;
 import com.mvvm.lux.framework.utils.SnackbarUtil;
 import com.mvvm.lux.widget.emptyview.LoadingLayout;
 
@@ -81,19 +82,11 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
 
     private boolean permissions(Context context, String url) {
         if (url.contains("needLogin")) {   //如果需要登录就跳转到登录页面
-            context.startActivity(new Intent(context, LoginActivity.class));
-            return true;
+            if (!Session.isLogin()) {
+                context.startActivity(new Intent(context, LoginActivity.class));
+            }
         }
         if (url.contains("needBind")) {
-//            context.startActivity(new Intent(context, BindActivity.class));
-            return true;
-        }
-        if (url.contains("needGesture")) {
-//            context.startActivity(new Intent(context, GestureActivity.class));
-            return true;
-        }
-        if (url.contains("needV2")) {
-//            context.startActivity(new Intent(context, V2AuthActivity.class));
             return true;
         }
         //lux://comicDes?isOpen=true

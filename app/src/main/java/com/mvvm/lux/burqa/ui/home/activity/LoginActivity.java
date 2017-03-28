@@ -16,9 +16,7 @@ import android.provider.ContactsContract;
 import android.support.annotation.NonNull;
 import android.support.design.widget.Snackbar;
 import android.text.TextUtils;
-import android.view.KeyEvent;
 import android.view.View;
-import android.view.View.OnClickListener;
 import android.view.inputmethod.EditorInfo;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
@@ -28,6 +26,7 @@ import android.widget.TextView;
 
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.framework.base.BaseActivity;
+import com.mvvm.lux.framework.config.session.Session;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -72,24 +71,16 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
         populateAutoComplete();
 
         mPasswordView = (EditText) findViewById(R.id.password);
-        mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
-            @Override
-            public boolean onEditorAction(TextView textView, int id, KeyEvent keyEvent) {
-                if (id == R.id.login || id == EditorInfo.IME_NULL) {
-                    attemptLogin();
-                    return true;
-                }
-                return false;
+        mPasswordView.setOnEditorActionListener((textView, id, keyEvent) -> {
+            if (id == R.id.login || id == EditorInfo.IME_NULL) {
+                attemptLogin();
+                return true;
             }
+            return false;
         });
 
         Button mEmailSignInButton = (Button) findViewById(R.id.email_sign_in_button);
-        mEmailSignInButton.setOnClickListener(new OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                attemptLogin();
-            }
-        });
+        mEmailSignInButton.setOnClickListener(view -> attemptLogin());
 
         mLoginFormView = findViewById(R.id.login_form);
         mTitle = (TextView) findViewById(R.id.title);
@@ -336,6 +327,11 @@ public class LoginActivity extends BaseActivity implements LoaderCallbacks<Curso
             showProgress(false);
 
             if (success) {
+                Session.User user = Session.getUser();
+                user.email = mEmail;
+                user.password = mPassword;
+                user.isLogin = true;
+                Session.saveUserinfo();
                 finish();
             } else {
                 mPasswordView.setError(getString(R.string.error_incorrect_password));

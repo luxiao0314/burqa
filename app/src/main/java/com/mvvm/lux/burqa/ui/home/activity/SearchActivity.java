@@ -36,6 +36,6 @@ public class SearchActivity extends SwipeBackActivity {
     }
 
     public static void launch(Activity activity) {
-        Routers.open(activity,"lux://search");
+        Routers.open(activity, "lux://search?needLogin");
     }
 }
