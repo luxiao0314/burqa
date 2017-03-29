@@ -1,7 +1,5 @@
 package com.mvvm.lux.burqa.model.response;
 
-import com.google.gson.annotations.SerializedName;
-
 import java.util.List;
 
 /**
@@ -13,7 +11,6 @@ import java.util.List;
  */
 public class SubjectDesResponse {
 
-    @SerializedName("mobile_header_pic")
     private String mobile_header_pic; // FIXME check this code
     private String title;
     private String description;

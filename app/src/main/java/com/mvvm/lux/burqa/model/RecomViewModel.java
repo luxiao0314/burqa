@@ -77,16 +77,16 @@ public class RecomViewModel extends BaseViewModel {
                     @Override
                     public void onNext(List<RecommendResponse> recommendResponse) {
                         mAdapter = new SectionedRecyclerViewAdapter();
-                        mAdapter.addSection(new RecomBannerSection(recommendResponse.get(0), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(1), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(2), mFragment.getActivity()));
-//                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(3), mFragment.getActivity())); 数据为空
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(4), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(5), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(6), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(7), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(8), mFragment.getActivity()));
-                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(9), mFragment.getActivity()));
+                        mAdapter.addSection(new RecomBannerSection(recommendResponse.get(0), mFragment.getActivity())); //大图推荐
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(1), mFragment.getActivity()));   //近期必看  三个条目
+                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(2), mFragment.getActivity()));   //火热专题  两个条目
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(3), mFragment.getActivity()));   //大师
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(4), mFragment.getActivity()));   //国漫
+                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(5), mFragment.getActivity()));   //美漫
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(6), mFragment.getActivity()));   //热门
+                        mAdapter.addSection(new RecomItemListSection(recommendResponse.get(7), mFragment.getActivity()));   //条漫
+                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(8), mFragment.getActivity()));   //最新
+//                        mAdapter.addSection(new RecomItemSection(recommendResponse.get(9), mFragment.getActivity()));
                         mDataBinding.recyclerView.setAdapter(mAdapter); //加载完成之后要设置adapter,一定要记住
                         refreshing.set(false);
                         showEmpty.set(false);

@@ -84,6 +84,7 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         if (url.contains("needLogin")) {   //如果需要登录就跳转到登录页面
             if (!Session.isLogin()) {
                 context.startActivity(new Intent(context, LoginActivity.class));
+                return true;
             }
         }
         if (url.contains("needBind")) {
