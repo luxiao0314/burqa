@@ -97,7 +97,7 @@ public class ClassifyViewModel extends BaseViewModel implements BaseQuickAdapter
         //"classify/3262/0/1.json"
         RetrofitHelper.init()
                 .getClassify("classify/" + tag_id.get() + "/0/" + page + ".json")
-                .compose(RxHelper.io_main())
+                .compose(RxHelper.handleErr())
                 .subscribe(new RxSubscriber<List<ClassifyResponse>>() {
 
                     @Override

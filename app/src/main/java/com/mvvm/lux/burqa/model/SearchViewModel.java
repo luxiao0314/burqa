@@ -83,7 +83,7 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
         //search/hot/0.json
         RetrofitHelper.init()
                 .getHot("search/hot/0.json")
-                .compose(RxHelper.io_main())
+                .compose(RxHelper.handleErr())
                 .subscribe(new RxSubscriber<List<HotResponse>>() {
 
                     @Override
@@ -102,7 +102,7 @@ public class SearchViewModel extends BaseViewModel implements LoadMoreWrapper.On
         //search/show/0/%E4%B8%80%E6%8B%B3%E8%B6%85%E4%BA%BA/0.json :搜索结果
         RetrofitHelper.init()
                 .getSearch(keyword)
-                .compose(RxHelper.io_main())
+                .compose(RxHelper.handleErr())
                 .subscribe(new ProgressSubscriber<List<SearchResponse>>(ServiceTask.create(mSearchActivity)) {
 
                     @Override

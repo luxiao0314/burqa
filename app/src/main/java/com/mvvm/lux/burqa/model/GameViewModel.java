@@ -16,7 +16,6 @@ import com.mvvm.lux.framework.http.RxHelper;
 import com.mvvm.lux.framework.http.RxSubscriber;
 import com.mvvm.lux.framework.utils.DateUtil;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import me.tatarka.bindingcollectionadapter.BaseItemViewSelector;
@@ -33,12 +32,10 @@ import me.tatarka.bindingcollectionadapter.ItemViewSelector;
 public class GameViewModel extends BaseViewModel {
 
     private int page = 0;
-    private List<SubjectResopnse> mSubjectResopnse = new ArrayList<>();
     public final ViewStyle viewStyle = new ViewStyle();
 
     public GameViewModel(Activity activity) {
         super(activity);
-        initData(1);
     }
 
     public class ViewStyle {
@@ -47,7 +44,6 @@ public class GameViewModel extends BaseViewModel {
 
     //刷新数据
     public final ReplyCommand onRefreshCommand = new ReplyCommand<>(() -> {
-
         initData(1);
     });
 
@@ -76,13 +72,16 @@ public class GameViewModel extends BaseViewModel {
         } else {
             page += 1;
         }
+        String params = "subject/0/" + page + ".json";
         RetrofitHelper.init()
-                .getSubject("subject/0/" + page + ".json")
+                .getSubject(params)
+                .compose(RxHelper.cache(params))
                 .compose(RxHelper.handleErr())
                 .subscribe(new RxSubscriber<List<SubjectResopnse>>() {
 
                     @Override
                     public void onNext(List<SubjectResopnse> subjectResopnses) {
+
                         if (type == 1) GameViewModel.this.itemViewModel.clear();
                         viewStyle.isRefreshing.set(false);  //因为双向绑定的原因,所以isRefresh没效果
                         for (SubjectResopnse subjectResopnse : subjectResopnses) {
@@ -93,6 +92,12 @@ public class GameViewModel extends BaseViewModel {
                             viewModel.id.set(subjectResopnse.getId());
                             GameViewModel.this.itemViewModel.add(viewModel);
                         }
+                    }
+
+                    @Override
+                    public void onError(Throwable e) {
+                        super.onError(e);
+                        viewStyle.isRefreshing.set(false);  //因为双向绑定的原因,所以isRefresh没效果
                     }
                 });
     }

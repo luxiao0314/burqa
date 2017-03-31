@@ -71,7 +71,7 @@ public class RecomViewModel extends BaseViewModel {
     public void initData() {
         RetrofitHelper.init()
                 .getRecommend()
-                .compose(RxHelper.io_main())
+                .compose(RxHelper.handleErr())
                 .subscribe(new RxSubscriber<List<RecommendResponse>>() {
 
                     @Override

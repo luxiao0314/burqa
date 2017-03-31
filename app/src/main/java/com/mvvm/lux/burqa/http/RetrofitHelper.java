@@ -2,6 +2,10 @@ package com.mvvm.lux.burqa.http;
 
 
 import com.mvvm.lux.framework.http.RetrofitExcuter;
+import com.mvvm.lux.framework.http.interceptor.CreateInterceptor;
+import com.mvvm.lux.framework.http.interceptor.UserAgentInterceptor;
+
+import okhttp3.OkHttpClient;
 
 /**
  * @Description 网络请求类
@@ -18,7 +22,14 @@ public class RetrofitHelper {
      * @return
      */
     public static ApiService init() {
+        //动态添加拦截器
+        OkHttpClient okHttpClient = RetrofitExcuter.getOkHttpClient()
+                .newBuilder()
+                .addInterceptor(new CreateInterceptor())    //拦截401,403这样的状态码
+                .addInterceptor(new UserAgentInterceptor())
+                .build();
         return RetrofitExcuter.create()
+                .client(okHttpClient)
                 .baseUrl(UrlConfig.DMZJ)
                 .build()
                 .create(ApiService.class);

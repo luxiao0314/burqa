@@ -40,7 +40,7 @@ public class AuthorDesViewModel extends BaseViewModel {
         RetrofitHelper.init()
                 ///UCenter/comics/100085704.json
                 .getAuthorDes("UCenter/comics/" + obj_id.get() + ".json")
-                .compose(RxHelper.io_main())
+                .compose(RxHelper.handleErr())
                 .subscribe(new ProgressSubscriber<AuthorDesResponse>(ServiceTask.create((MarkAble) mActivity)) {
                     @Override
                     public void onNext(AuthorDesResponse response) {

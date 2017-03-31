@@ -68,7 +68,7 @@ public class ComicDesViewModel extends BaseViewModel {
         String url = "comic/" + mObjId + ".json";
         RetrofitHelper.init()
                 .getComic(url)
-                .compose(RxHelper.io_main())
+                .compose(RxHelper.handleErr())
                 .subscribe(new ProgressSubscriber<ComicResponse>(ServiceTask.create(mActivity)) {
                     @Override
                     public void onNext(ComicResponse comicResponse) {

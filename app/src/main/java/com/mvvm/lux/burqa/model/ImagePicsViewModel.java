@@ -76,7 +76,7 @@ public class ImagePicsViewModel extends BaseViewModel implements ViewPager.OnPag
     public void initData() {
         addSubscribe(RetrofitHelper.init()
                 .getChapter("chapter/" + obj_id.get() + "/" + chapter_id.get() + ".json")
-                .compose(RxHelper.io_main())
+                .compose(RxHelper.handleErr())
                 .subscribe(new ProgressSubscriber<ComicPageResponse>(ServiceTask.create(mImagePicsListActivity)) {
                     @Override
                     public void onNext(ComicPageResponse comicPageResponse) {
