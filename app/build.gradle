@@ -82,3 +82,20 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     annotationProcessor 'com.alibaba:arouter-compiler:1.0.3'
 }
+
+greendao {
+    /**
+     * greendao实体类包文件
+     */
+    targetGenDir 'src/main/java'
+
+    /**
+     * 版本号
+     */
+    schemaVersion 1
+
+    /**
+     * greendao输出到数据库操作实体类文件夹
+     */
+    daoPackage 'greendao'
+}

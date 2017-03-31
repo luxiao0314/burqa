@@ -21,7 +21,12 @@ import java.util.List;
 /**
  * 
  * please call {@link #migrate(SQLiteDatabase, Class[])}
- * 
+ * 数据迁移的核心思想：
+ 1 把旧表改为临时表
+ 2 建立新表
+ 3 临时表数据写入新表，删除临时表
+
+
  */
 public final class MigrationHelper {
 
