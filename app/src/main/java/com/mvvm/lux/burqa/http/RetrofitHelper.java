@@ -6,6 +6,7 @@ import com.mvvm.lux.framework.http.interceptor.CreateInterceptor;
 import com.mvvm.lux.framework.http.interceptor.UserAgentInterceptor;
 
 import okhttp3.OkHttpClient;
+import retrofit2.Retrofit;
 
 /**
  * @Description 网络请求类
@@ -28,10 +29,10 @@ public class RetrofitHelper {
                 .addInterceptor(new CreateInterceptor())    //拦截401,403这样的状态码
                 .addInterceptor(new UserAgentInterceptor())
                 .build();
-        return RetrofitExcuter.create()
+        Retrofit retrofit = RetrofitExcuter.create()
                 .client(okHttpClient)
                 .baseUrl(UrlConfig.DMZJ)
-                .build()
-                .create(ApiService.class);
+                .build();
+        return retrofit.create(ApiService.class);
     }
 }
