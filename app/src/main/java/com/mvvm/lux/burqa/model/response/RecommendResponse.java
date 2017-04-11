@@ -15,7 +15,7 @@ public class RecommendResponse {
      * category_id : 46
      * title : 大图推荐
      * sort : 1
-     * data : [{"cover":"http://images.dmzj.com/tuijian/750_480/170103wudongqingchuntj2.jpg","title":"舞动青春·「广播体操」动画化","sub_title":"舞动青春·「广播体操」动画化","type":1,"url":" ","obj_id":11138,"status":"连载中"},{"cover":"http://images.dmzj.com/tuijian/750_480/170105xinwentj2.jpg","title":"充值不如靠BUG？阴阳师\u201c大新闻\u201d让人心寒","sub_title":"充值不如靠BUG？阴阳师\u201c大新闻\u201d让人心寒","type":7,"url":"http://v2.api.dmzj.com/article/show/v2/8467.html","obj_id":8467,"status":""},{"cover":"http://images.dmzj.com/tuijian/750_480/0104heibai01.jpg","title":"黑白无双·新年快乐~！","sub_title":"黑白无双·新年快乐~！","type":1,"url":"","obj_id":16028,"status":"连载中"},{"cover":"http://images.dmzj.com/tuijian/750_480/161230gouliangtj2.jpg","title":"完全没有恋爱感情的青梅竹马·汪！","sub_title":"完全没有恋爱感情的青梅竹马·汪！","type":1,"url":"","obj_id":33322,"status":"连载中"},{"cover":"http://images.dmzj.com/tuijian/750_480/170103shuangxingtj2.jpg","title":"生孩子才是本体的阴阳师漫画·主动入赘","sub_title":"生孩子才是本体的阴阳师漫画·主动入赘","type":1,"url":"","obj_id":13318,"status":"连载中"}]
+     * data : [{"cover":"http://images.dmzj.com/tuijian/750_480/170103wudongqingchuntj2.jpg","title":"舞动青春·「广播体操」动画化","sub_title":"舞动青春·「广播体操」动画化","type":1,"url":" ","obj_id":11138,"type":"连载中"},{"cover":"http://images.dmzj.com/tuijian/750_480/170105xinwentj2.jpg","title":"充值不如靠BUG？阴阳师\u201c大新闻\u201d让人心寒","sub_title":"充值不如靠BUG？阴阳师\u201c大新闻\u201d让人心寒","type":7,"url":"http://v2.api.dmzj.com/article/show/v2/8467.html","obj_id":8467,"type":""},{"cover":"http://images.dmzj.com/tuijian/750_480/0104heibai01.jpg","title":"黑白无双·新年快乐~！","sub_title":"黑白无双·新年快乐~！","type":1,"url":"","obj_id":16028,"type":"连载中"},{"cover":"http://images.dmzj.com/tuijian/750_480/161230gouliangtj2.jpg","title":"完全没有恋爱感情的青梅竹马·汪！","sub_title":"完全没有恋爱感情的青梅竹马·汪！","type":1,"url":"","obj_id":33322,"type":"连载中"},{"cover":"http://images.dmzj.com/tuijian/750_480/170103shuangxingtj2.jpg","title":"生孩子才是本体的阴阳师漫画·主动入赘","sub_title":"生孩子才是本体的阴阳师漫画·主动入赘","type":1,"url":"","obj_id":13318,"type":"连载中"}]
      */
 
     private int category_id;
@@ -63,7 +63,7 @@ public class RecommendResponse {
          * type : 1
          * url :
          * obj_id : 11138
-         * status : 连载中
+         * type : 连载中
          */
 
         private String cover;

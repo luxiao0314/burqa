@@ -52,6 +52,7 @@ ext {
     fragmentation = '0.7.9'
     leakcanary = '1.5'
     multidex = '1.0.1'
+    greendao = '3.2.0'
     flyco = '2.0.8@aar'
     flowlayout = '1.0.1'
     glide = '3.7.0'
@@ -95,7 +96,8 @@ ext {
             flyco               : "com.flyco.tablayout:FlycoTabLayout_Lib:${flyco}",
             flowlayout          : "com.zhy:flowlayout-lib:${flowlayout}",
             leakcanary          : "com.squareup.leakcanary:leakcanary-android:${leakcanary}",
-            multidex          : "com.android.support:multidex:${multidex}"
+            multidex          : "com.android.support:multidex:${multidex}",
+            greendao          : "org.greenrobot:greendao:${greendao}"
     ]
     androidDependencies = [
             recyclerView: "com.android.support:recyclerview-v7:${supportLibraryVersion}",

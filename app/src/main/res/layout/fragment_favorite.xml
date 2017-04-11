@@ -7,17 +7,34 @@
         <variable
             name="viewModel"
             type="com.mvvm.lux.burqa.model.FavoriteViewModel"/>
+
+        <import type="android.view.View"/>
+
     </data>
-    <LinearLayout
+
+    <FrameLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-        <TextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="我的收藏"/>
+        <android.support.v4.widget.SwipeRefreshLayout
+            android:id="@+id/onRefreshListener"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            bind:onRefreshListener="@{viewModel.onRefreshListener}"
+            bind:refreshing="@={viewModel.refreshing}">
 
-    </LinearLayout>
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recyclerView"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                app:layoutManager="@{viewModel.layoutManager}"
+                bind:setAdapter="@{viewModel.mAdapter}"/>
+        </android.support.v4.widget.SwipeRefreshLayout>
+
+        <com.mvvm.lux.widget.emptyview.EmptyView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="@{viewModel.showEmpty ? View.VISIBLE : View.GONE}"
+            bind:reload="@{viewModel.mReloadOnClickListener}"/>
+    </FrameLayout>
 </layout>

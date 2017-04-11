@@ -1,5 +1,7 @@
 package com.mvvm.lux.burqa.model.response;
 
+import com.mvvm.lux.framework.http.base.BaseResponse;
+
 import java.util.List;
 
 /**
@@ -9,7 +11,7 @@ import java.util.List;
  * @Date 2017/1/10 15:44
  * @Version
  */
-public class ComicPageResponse {
+public class ComicPageResponse extends BaseResponse{
 
     /**
      * chapter_id : 61641

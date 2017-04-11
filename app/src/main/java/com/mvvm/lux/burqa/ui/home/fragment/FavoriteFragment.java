@@ -23,7 +23,13 @@ public class FavoriteFragment extends MvvmFragment {
     @Override
     protected void initView(LayoutInflater inflater) {
         mViewModel = new FavoriteViewModel(getActivity());
-        mDataBinding.setVariable(BR.viewModel,mViewModel);
+    }
+
+    @Override
+    protected void lazyFetchData() {
+        super.lazyFetchData();
+        ((FavoriteViewModel) mViewModel).initData();
+        mDataBinding.setVariable(BR.viewModel, mViewModel);
     }
 
     public static FavoriteFragment newIntance(){

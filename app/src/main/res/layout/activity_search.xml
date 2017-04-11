@@ -58,6 +58,8 @@
                         android:layout_toStartOf="@+id/iv_search"
                         android:background="@drawable/search_line"
                         android:hint="输入漫画名或作者名"
+                        android:imeOptions="actionSearch"
+                        android:singleLine="true"
                         android:textColor="@color/white"
                         android:textColorHint="@color/window_background"
                         android:textSize="13sp"/>
@@ -85,10 +87,9 @@
                 android:id="@+id/recyclerView"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:padding="10dp"
                 android:visibility="@{viewModel.showEmpty ? View.GONE : View.VISIBLE}"
                 app:layoutManager="@{viewModel.layoutManager}"
-                bind:addItemDecoration="@{viewModel.itemDecoration}"
+                bind:onScrollListener="@{viewModel.onScrollListener}"
                 bind:setAdapter="@{viewModel.mLoadMoreWrapper}"/>
 
             <LinearLayout
@@ -98,9 +99,32 @@
                 android:padding="10dp"
                 android:visibility="@{viewModel.showSearch ? View.GONE : View.VISIBLE}">
 
+                <RelativeLayout android:layout_width="match_parent"
+                                android:layout_height="wrap_content">
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="搜索历史"
+                        android:visibility="@{viewModel.showSearchHistory ? View.VISIBLE : View.GONE}"/>
+                    <TextView
+                        android:onClick="@{viewModel.onClearClick}"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="清除"
+                        android:visibility="@{viewModel.showSearchHistory ? View.VISIBLE : View.GONE}"/>
+                </RelativeLayout>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_search_history"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:layoutManager="@{viewModel.layoutManager()}"/>
+
                 <TextView
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
                     android:text="热门搜索"/>
 
                 <com.zhy.view.flowlayout.TagFlowLayout

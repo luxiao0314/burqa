@@ -2,20 +2,24 @@ apply from: "dependencies.gradle"
 
 buildscript {
     repositories {
-        jcenter()
-        //EasyImage的jitPack仓库
-        maven { url "https://jitpack.io" }
+        //此maven私服仓库加载依赖包更快
+        maven { url 'http://10.28.100.7:8081/nexus/content/groups/public/' }
     }
     dependencies {
         classpath 'com.android.tools.build:gradle:2.2.3'
         classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
         classpath 'me.tatarka:gradle-retrolambda:3.2.0'
         classpath "io.realm:realm-gradle-plugin:2.1.1"
+        classpath 'com.github.dcendents:android-maven-gradle-plugin:1.4.1'  //activityRouter的plugin
+        classpath 'com.jfrog.bintray.gradle:gradle-bintray-plugin:1.4'
+        classpath 'org.greenrobot:greendao-gradle-plugin:3.2.1'
     }
 }
 
 allprojects {
     repositories {
-        jcenter()
+        maven { url 'http://10.28.100.7:8081/nexus/content/groups/public/' }
+        //EasyImage的jitPack仓库
+        maven { url "https://jitpack.io" }
     }
 }

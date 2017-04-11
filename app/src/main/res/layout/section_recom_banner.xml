@@ -9,11 +9,18 @@
             type="com.mvvm.lux.burqa.model.RecomBannerViewModel"/>
     </data>
 
-    <com.mvvm.lux.widget.banner.BannerView
+    <com.mvvm.lux.widget.bgabanner.BGABanner
         android:id="@+id/recom_banner"
+        style="@style/BannerDefaultStyle"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="220dp"
         android:foreground="?android:attr/selectableItemBackgroundBorderless"
-        bind:initBanner="@{viewModel.bannerList}"/>
+        app:banner_indicatorGravity="bottom|right"
+        app:banner_isNeedShowIndicatorOnOnlyOnePage="true"
+        app:banner_isNumberIndicator="false"
+        app:banner_pointContainerBackground="@android:color/transparent"
+        app:banner_transitionEffect="depth"
+        bind:initBanner="@{viewModel.bannerList}"
+        bind:onItemClick="@{viewModel.onItemListener}"/>
 
 </layout>

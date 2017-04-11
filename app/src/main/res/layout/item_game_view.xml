@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:bind="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools">
+    <data>
+        <variable
+            name="viewModel"
+            type="com.mvvm.lux.burqa.model.GameViewItemViewModel"/>
+    </data>
+    <RelativeLayout
+        android:onClick="@{viewModel.mOnClickListener}"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="5dp"
+        android:background="@color/white"
+        android:padding="5dp">
+
+        <lib.lhh.fiv.library.FrescoImageView
+            android:id="@+id/iv_icon"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:foreground="?android:attr/selectableItemBackgroundBorderless"
+            bind:imageUrl="@{viewModel.img}"
+            bind:roundedCornerRadius="10dp"
+            bind:viewAspectRatio="2.2"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/iv_icon"
+            android:layout_marginTop="5dp"
+            android:text="@{viewModel.title}"/>
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_below="@+id/iv_icon"
+            android:layout_marginTop="5dp"
+            android:text="@{viewModel.create_time}"/>
+
+    </RelativeLayout>
+</layout>

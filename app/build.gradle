@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'android-apt'
 apply plugin: 'me.tatarka.retrolambda'
+apply plugin: 'realm-android'   //一定要在gradle加入这行,不然报错:"Object" is not part of the schema for this Realm
+apply plugin: 'org.greenrobot.greendao'
 
 android {
     def globalConfiguration = rootProject.extensions.getByName("ext")
@@ -14,6 +16,12 @@ android {
         versionCode globalConfiguration.versionCode
         versionName globalConfiguration.versionName
         multiDexEnabled true
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
     }
     buildTypes {
         release {
@@ -32,7 +40,9 @@ android {
 
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
-    compile project(':widget')
+    compile project(':framework')
+    compile project(':activityrouter')
+    apt project(':compiler')
 
     def androidDependencies = rootProject.ext.androidDependencies
     def viewDependencies = rootProject.ext.viewDependencies
@@ -42,9 +52,8 @@ dependencies {
     compile androidDependencies.appcompat_v7
     compile androidDependencies.design
     //rxjava
-    compile viewDependencies.rxjava
-    compile viewDependencies.rxandroid
-    compile viewDependencies.rxbinding
+//    compile viewDependencies.rxjava
+//    compile viewDependencies.rxandroid
     //retrofit
     compile viewDependencies.retrofit
     compile viewDependencies.retrofit2Gson
@@ -55,13 +64,6 @@ dependencies {
     compile viewDependencies.fresco
     compile viewDependencies.frescoGif
     compile viewDependencies.frescoPhoto
-    compile viewDependencies.gpuImage
-    compile viewDependencies.scaleImage
-    //butterknife
-    compile viewDependencies.butterknife
-    apt viewDependencies.butterknifeCompiler
-    //other
-    compile viewDependencies.gson
     //基类
     compile viewDependencies.fragmentation
     //导航栏
@@ -70,4 +72,30 @@ dependencies {
     compile viewDependencies.flowlayout
     compile viewDependencies.leakcanary
     compile viewDependencies.multidex
+    compile viewDependencies.greendao
+
+    //    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
+//    apt 'com.github.mzule.activityrouter:compiler:1.1.7'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.1.0'
+    compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'
+    compile 'com.alibaba:arouter-api:1.0.7'
+    compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.0.3'
+}
+
+greendao {
+    /**
+     * greendao实体类包文件
+     */
+    targetGenDir 'src/main/java'
+
+    /**
+     * 版本号
+     */
+    schemaVersion 1
+
+    /**
+     * greendao输出到数据库操作实体类文件夹
+     */
+    daoPackage 'greendao'
 }

@@ -7,6 +7,7 @@
         <variable
             name="viewModel"
             type="com.mvvm.lux.burqa.model.ImagePicsViewModel"/>
+        <import type="android.view.View"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
@@ -19,9 +20,20 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_centerInParent="true"
+            android:visibility="@{viewModel.showPortraitLayout ? View.VISIBLE : View.GONE}"
             bind:addOnPageChangeListener="@{viewModel.onPageChange}"
             bind:pageAdapter="@{viewModel.getPagerAdapter}"
             bind:setOffscreenPageLimit="@{viewModel.pageLimit}"/>
+
+        <com.mvvm.lux.widget.MultiTouchRecycleView
+            android:id="@+id/recyclerView"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorAccent"
+            android:visibility="@{viewModel.showPortraitLayout ? View.GONE : View.VISIBLE}"
+            app:layoutManager="@{viewModel.linearLayoutManager}"
+            bind:onScrollListener="@{viewModel.onScrollListener}"
+            bind:setAdapter="@{viewModel.getCommonAdapter}"/>
 
         <include
             android:id="@+id/inclide"

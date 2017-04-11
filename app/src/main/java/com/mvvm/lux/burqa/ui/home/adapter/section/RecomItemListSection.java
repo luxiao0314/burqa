@@ -49,6 +49,7 @@ public class RecomItemListSection extends StatelessSection {
         if (mRecommendResponse.getData().size() == 0)
             viewModel.hide_title.set(true);
         viewModel.head_title.set(mRecommendResponse.getTitle());
+        viewModel.obj_id.set(mRecommendResponse.getCategory_id());
         ((HeaderViewHolder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((HeaderViewHolder) holder).mDataBinding.executePendingBindings();
     }
@@ -63,8 +64,9 @@ public class RecomItemListSection extends StatelessSection {
         SectionRecomListBinding dataBinding = ((FooterViewHolder) holder).mDataBinding;
         List<RecommendResponse.DataBean> mRecommendResponseData = mRecommendResponse.getData();
         RecomItemListViewModel viewModel = new RecomItemListViewModel(mActivity);
+        dataBinding.recyclerView.setFocusable(false);   //解决recycleView可见的时候向上滑动一段距离bug
         dataBinding.recyclerView.setAdapter(new RecomItemListAdapter(mActivity, mRecommendResponseData));
-        dataBinding.setVariable(BR.viewModel,viewModel);
+        dataBinding.setVariable(BR.viewModel, viewModel);
         dataBinding.executePendingBindings();
     }
 

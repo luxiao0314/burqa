@@ -1,12 +1,15 @@
 package com.mvvm.lux.burqa.http;
 
-import com.mvvm.lux.burqa.model.response.CategoryResponse;
+import com.mvvm.lux.burqa.model.response.AuthorDesResponse;
+import com.mvvm.lux.burqa.model.response.CategoryResponse1;
 import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicPageResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
 import com.mvvm.lux.burqa.model.response.HotResponse;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
 import com.mvvm.lux.burqa.model.response.SearchResponse;
+import com.mvvm.lux.burqa.model.response.SubjectDesResponse;
+import com.mvvm.lux.burqa.model.response.SubjectResopnse;
 
 import java.util.List;
 
@@ -39,7 +42,7 @@ public interface ApiService {
 
     @Headers("Referer:http://images.dmzj.com/")
     @GET("0/category.json")
-    Observable<List<CategoryResponse>> getCategory();
+    Observable<CategoryResponse1> getCategory();
 
     @Headers("Referer:http://images.dmzj.com/")
     @GET("{url}")
@@ -55,4 +58,17 @@ public interface ApiService {
 
     @GET("/unableape/url/{name}/get")
     Observable getUnableApeName(@Header("Authorization") String authorization, @Path("name") String name);
+
+    //http://v2.api.dmzj.com/UCenter/comics/100085704.json
+    @Headers("Referer:http://images.dmzj.com/")
+    @GET("{url}")
+    Observable<AuthorDesResponse> getAuthorDes(@Path("url") String url);
+
+    @Headers("Referer:http://images.dmzj.com/")
+    @GET("{url}")
+    Observable<List<SubjectResopnse>> getSubject(@Path("url") String ur);
+
+    //http://v2.api.dmzj.com/subject/172.json
+    @GET("{url}")
+    Observable<SubjectDesResponse> getSubjectDes(@Path("url") String url);
 }

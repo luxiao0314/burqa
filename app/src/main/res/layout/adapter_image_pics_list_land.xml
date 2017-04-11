@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:fadeDuration="500"
-    app:failureImage="@drawable/network_error"
+    app:failureImage="@drawable/define_nonetwork"
     app:failureImageScaleType="center"
     app:placeholderImage="@color/gray_trans"
     app:roundingBorderColor="@color/gray_80"

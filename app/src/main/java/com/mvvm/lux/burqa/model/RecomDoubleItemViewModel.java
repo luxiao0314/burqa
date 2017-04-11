@@ -5,7 +5,9 @@ import android.databinding.ObservableField;
 import android.view.View;
 
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
+import com.mvvm.lux.burqa.ui.sub.activity.SubjectDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
+import com.mvvm.lux.framework.manager.hybrid.BrowserActivity;
 
 /**
  * @Description
@@ -24,7 +26,21 @@ public class RecomDoubleItemViewModel extends BaseViewModel {
 
     public ObservableField<Integer> obj_id = new ObservableField<>();
 
+    public ObservableField<Integer> type = new ObservableField<>();
+
+    public ObservableField<String> url = new ObservableField<>();
+
     public View.OnClickListener mOnClickListener = view -> {
-        ComicDesActivity.launch(mActivity, obj_id.get()+"");
+        switch (type.get()) {
+            case 6:
+                BrowserActivity.launch(mActivity, url.get(), title.get());
+                break;
+            case 5:
+                SubjectDesActivity.launch(mActivity,obj_id.get());
+                break;
+            case 1:
+                ComicDesActivity.launch(mActivity, obj_id.get() + "");
+                break;
+        }
     };
 }

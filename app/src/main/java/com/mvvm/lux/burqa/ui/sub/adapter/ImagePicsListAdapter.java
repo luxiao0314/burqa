@@ -1,13 +1,17 @@
 package com.mvvm.lux.burqa.ui.sub.adapter;
 
 import android.graphics.drawable.Animatable;
+import android.net.Uri;
 import android.support.v4.app.FragmentActivity;
 
 import com.facebook.drawee.backends.pipeline.Fresco;
 import com.facebook.drawee.controller.AbstractDraweeController;
 import com.facebook.drawee.controller.BaseControllerListener;
 import com.facebook.drawee.controller.ControllerListener;
+import com.facebook.imagepipeline.common.ResizeOptions;
 import com.facebook.imagepipeline.image.ImageInfo;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.framework.manager.recycler.recyclerview.CommonAdapter;
@@ -32,7 +36,8 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     private FragmentActivity content;
     private PhotoDraweeView mPhotoView;
-    private int mPosition;
+    public int currentPosition;
+    public String chapter_title;
 
     public ImagePicsListAdapter(FragmentActivity context, int layoutId, List<String> urls) {
         super(context, layoutId, urls);
@@ -41,23 +46,29 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
 
     @Override
     protected void convert(ViewHolder holder, String url, int position) {
-        mPosition = position;
         mPhotoView = holder.getView(R.id.image_land);
         new CircleProgress  //加载圆形进度条
                 .Builder()
                 .setStyle(CircleStyle.FAN)
                 .setProgressColor(mContext.getResources().getColor(R.color.white_trans))
                 .setCustomText((position + 1) + "")
-                .setTextSize(DisplayUtil.dp2px(18))
-                .setCircleRadius(DisplayUtil.dp2px(30))
+                .setTextSize(DisplayUtil.dp2px(mContext, 18))
+                .setCircleRadius(DisplayUtil.dp2px(mContext, 30))
                 .build()
                 .injectFresco(mPhotoView);
 
+        ResizeOptions resizeOptions = new ResizeOptions(DisplayUtil.getScreenWidth(mContext), DisplayUtil.getScreenHeight(mContext));
+        ImageRequest request = ImageRequestBuilder
+                .newBuilderWithSource(Uri.parse(url))   //本地和网络都会加载
+                .setResizeOptions(resizeOptions)   //设置采样率
+                .build();
+
         AbstractDraweeController controller = Fresco.newDraweeControllerBuilder()
-                .setUri(url)
+                .setImageRequest(request)
                 .setOldController(mPhotoView.getController())
                 .setControllerListener(mControllerListener)
                 .build();
+
         mPhotoView.setOnViewTapListener(mOnPhotoTapListener);
         mPhotoView.setController(controller);
         mPhotoView.setEnableDraweeMatrix(false);    //因为和recycleView事件冲突暂时禁掉缩放效果
@@ -78,7 +89,11 @@ public class ImagePicsListAdapter extends CommonAdapter<String> {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(content, mDatas.size(), mPosition);
+                ImagePicDialogFragment.createBuilder(content)
+                        .setChapterTitle(chapter_title)
+                        .setCurrentPosition(currentPosition)
+                        .setUrlistsize(mDatas.size())
+                        .showAllowingStateLoss();
             }
         }
     };

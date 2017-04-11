@@ -9,42 +9,97 @@
     <uses-permission android:name="android.permission.SYSTEM_ALERT_WINDOW"/>
     <uses-permission android:name="android.permission.WAKE_LOCK"/>
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS"/>
+    <uses-permission android:name="android.permission.READ_PROFILE"/>
+    <uses-permission android:name="android.permission.READ_CONTACTS"/>
+
+    <uses-permission android:name="android.permission.CHANGE_NETWORK_STATE"/>
+    <uses-permission android:name="android.permission.CHANGE_WIFI_STATE"/>
+    <uses-permission android:name="android.permission.ACCESS_WIFI_STATE"/>
+
     <application
-        android:name="com.mvvm.lux.framework.BaseApplication"
+        android:name=".ui.BurqaApp"
         android:allowBackup="true"
         android:icon="@drawable/icon"
         android:label="@string/app_name"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-
         <activity
             android:name=".ui.home.activity.SplashActivity"
             android:theme="@style/ThemeAppLaucher">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
+
                 <category android:name="android.intent.category.LAUNCHER"/>
             </intent-filter>
         </activity>
+        <activity
+            android:name="com.github.mzule.activityrouter.router.RouterActivity"
+            android:theme="@android:style/Theme.NoDisplay">
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
 
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data android:scheme="lux"/> <!-- 改成自己的scheme -->
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="mzule.com"
+                    android:scheme="http"/>
+            </intent-filter>
+            <intent-filter>
+                <action android:name="android.intent.action.VIEW"/>
+
+                <category android:name="android.intent.category.DEFAULT"/>
+                <category android:name="android.intent.category.BROWSABLE"/>
+
+                <data
+                    android:host="www.mzule.com"
+                    android:scheme="mzule"/>
+            </intent-filter>
+        </activity>
         <activity
             android:name=".ui.home.activity.MainActivity"
-
             android:configChanges="orientation|keyboardHidden|screenSize"
-            android:label="@string/app_name">
-        </activity>
-        <activity android:name=".ui.home.activity.ComicPageActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"/>
-        <activity android:name=".ui.home.activity.ImagePicsListActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"/>   <!--保证横竖屏切换的时候生命周期只调用onConfigurationChanged()-->
-        <activity android:name=".ui.home.activity.ComicDesActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:theme="@style/swipeback_activity_style"/>
-        <activity android:name=".ui.home.activity.ComicClassifyActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:theme="@style/swipeback_activity_style"/>
-        <activity android:name=".ui.home.activity.SearchActivity"
-                  android:configChanges="orientation|keyboardHidden|screenSize"
-                  android:theme="@style/swipeback_activity_style"/>
+            android:label="@string/app_name"/>
+        <!-- 保证横竖屏切换的时候生命周期只调用onConfigurationChanged() -->
+        <activity
+            android:name=".ui.home.activity.ImagePicsListActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.home.activity.ComicDesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.home.activity.ComicClassifyActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <!-- 防止软键盘会把原来的界面挤上去 -->
+        <activity
+            android:name=".ui.home.activity.SearchActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"
+            android:windowSoftInputMode="adjustPan"/>
+        <activity
+            android:name=".ui.sub.activity.AuthorDesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.sub.activity.NotFoundActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.sub.activity.ErrorStackActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.home.activity.LoginActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.sub.activity.SubjectDesActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 
 </manifest>

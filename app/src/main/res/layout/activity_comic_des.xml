@@ -12,7 +12,6 @@
         android:id="@+id/coordinatorLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/window_background"
         android:fitsSystemWindows="true"
         tools:context="com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity">
 
@@ -26,7 +25,8 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:layoutManager="@{viewModel.layoutManager}"
-            app:layout_behavior="@string/appbar_scrolling_view_behavior"/>
+            app:layout_behavior="@string/appbar_scrolling_view_behavior"
+            bind:onScrollListener="@{viewModel.onScrollListener}"/>
 
     </android.support.design.widget.CoordinatorLayout>
 </layout>

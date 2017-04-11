@@ -7,6 +7,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.facebook.drawee.backends.pipeline.Fresco;
+import com.facebook.imagepipeline.common.ResizeOptions;
+import com.facebook.imagepipeline.request.ImageRequest;
+import com.facebook.imagepipeline.request.ImageRequestBuilder;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.ui.sub.ImagePicDialogFragment;
 import com.mvvm.lux.widget.utils.DisplayUtil;
@@ -21,8 +25,9 @@ import progress.enums.CircleStyle;
 public class ImagePicsPagerAdapter extends PagerAdapter {
     private FragmentActivity mContext = null;
     private ArrayList<String> mUrls;
-    private int mPosition;
     private PhotoDraweeView mPhotoView;
+    public int currentPosition;
+    public String chapter_title;
 
     public ImagePicsPagerAdapter(FragmentActivity context, ArrayList<String> urls) {
         this.mContext = context;
@@ -35,7 +40,6 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
 
     @Override
     public Object instantiateItem(ViewGroup container, int position) {
-        mPosition = position;
         String url = mUrls.get(position);
         View contentview = LayoutInflater.from(mContext).inflate(R.layout.gallery_item, container, false);
         mPhotoView = (PhotoDraweeView) contentview.findViewById(R.id.photoview);
@@ -46,10 +50,18 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
                 .setStyle(CircleStyle.FAN)
                 .setProgressColor(mContext.getResources().getColor(R.color.white_trans))
                 .setCustomText((position + 1) + "")
-                .setCircleRadius(DisplayUtil.dp2px(15))
+                .setTextSize(DisplayUtil.dp2px(mContext,14))
+                .setCircleRadius(DisplayUtil.dp2px(mContext,20))
                 .build()
                 .injectFresco(mPhotoView);
 
+        ImageRequest request = ImageRequestBuilder
+                .newBuilderWithSource(Uri.parse(url))
+                .setResizeOptions(new ResizeOptions(DisplayUtil.getScreenWidth(mContext),DisplayUtil.getScreenHeight(mContext)))
+                .build();
+
+        mPhotoView.setController(Fresco.newDraweeControllerBuilder()
+                .setImageRequest(request).build());
         mPhotoView.setPhotoUri(Uri.parse(url));
         container.addView(contentview);
         return contentview;
@@ -61,7 +73,11 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
             if (photoView.getScale() > photoView.getMinimumScale()) {
                 photoView.setScale(photoView.getMinimumScale(), true);
             } else {
-                ImagePicDialogFragment.show(mContext, mUrls.size(), mPosition);
+                ImagePicDialogFragment.createBuilder(mContext)
+                        .setChapterTitle(chapter_title)
+                        .setCurrentPosition(currentPosition)
+                        .setUrlistsize(mUrls.size())
+                        .showAllowingStateLoss();
             }
         }
     };
@@ -73,5 +89,9 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
 
     public boolean isViewFromObject(View arg0, Object arg1) {
         return arg0 == arg1;
+    }
+
+    public void setChapterTitle(String s) {
+
     }
 }

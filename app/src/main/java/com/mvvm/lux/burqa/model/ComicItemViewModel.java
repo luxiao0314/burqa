@@ -2,23 +2,24 @@ package com.mvvm.lux.burqa.model;
 
 import android.app.Activity;
 import android.databinding.DataBindingUtil;
-import android.databinding.ObservableArrayList;
 import android.databinding.ObservableBoolean;
 import android.databinding.ObservableField;
-import android.databinding.ObservableList;
-import android.databinding.ViewDataBinding;
 import android.view.LayoutInflater;
 import android.view.View;
 
-import com.mvvm.lux.burqa.BR;
 import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.databinding.ComicChapterLayoutBinding;
 import com.mvvm.lux.burqa.databinding.SectionComicItemBinding;
+import com.mvvm.lux.burqa.model.event.ChaptersEvent;
+import com.mvvm.lux.burqa.model.event.TagSelectEvent;
+import com.mvvm.lux.burqa.model.response.ClassifyResponse;
 import com.mvvm.lux.burqa.model.response.ComicResponse;
-import com.mvvm.lux.burqa.ui.home.activity.ImagePicsListActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
-import com.zhy.view.flowlayout.FlowLayout;
-import com.zhy.view.flowlayout.TagAdapter;
-import com.zhy.view.flowlayout.TagFlowLayout;
+import com.mvvm.lux.framework.http.RxHelper;
+import com.mvvm.lux.framework.rx.RxBus;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @Description
@@ -29,99 +30,97 @@ import com.zhy.view.flowlayout.TagFlowLayout;
  */
 public class ComicItemViewModel extends BaseViewModel {
 
-    public ObservableField<String> chapters_title = new ObservableField<>();
 
     public ObservableField<String> last_updatetime = new ObservableField<>();
 
-    public ObservableField<String> obj_id = new ObservableField<>();
-
     public ObservableField<String> show_more = new ObservableField<>("查看全部章节");
 
-    public ObservableList<ComicResponse.ChaptersBean.DataBean> chaptersList = new ObservableArrayList<>();  //原始全部集合
+    public ObservableField<Integer> obj_id = new ObservableField<>();
 
-    public ObservableList<ComicResponse.ChaptersBean.DataBean> chaptersListLess = new ObservableArrayList<>();  //显示部分集合
+    public ObservableBoolean showAll = new ObservableBoolean(false);
 
-    public ObservableList<ComicResponse.ChaptersBean.DataBean> tempList = new ObservableArrayList<>();  //临时集合
-
-    public ObservableList<ComicResponse.ChaptersBean.DataBean> chaptersOther = new ObservableArrayList<>();
-
-    public ObservableField<String> chapters_other_title = new ObservableField<>();
-
-    public ObservableBoolean showAll = new ObservableBoolean(true);
+    private List<ComicResponse.ChaptersBean.DataBean> chaptersListLess = new ArrayList<>();
 
     private SectionComicItemBinding mDataBinding;
 
-    public ComicItemViewModel(Activity activity, SectionComicItemBinding dataBinding) {
+    private ComicResponse mResponse;
+
+    public ComicItemViewModel(Activity activity, SectionComicItemBinding dataBinding, ComicResponse comicResponse) {
         super(activity);
         mDataBinding = dataBinding;
+        mResponse = comicResponse;
     }
 
-    /**
-     * 连载
-     */
-    public TagAdapter chaptersAdapter = new TagAdapter<ComicResponse.ChaptersBean.DataBean>(tempList) {
-
-        @Override
-        public View getView(FlowLayout parent, int position, ComicResponse.ChaptersBean.DataBean dataBean) {
-            ViewDataBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.layout_tags_item, parent, false);
-            TagAdapterViewModel viewModel = new TagAdapterViewModel(mActivity);
-            viewModel.keyword.set(dataBean.getChapter_title());
-            dataBinding.setVariable(BR.viewModel, viewModel);
-            return dataBinding.getRoot();
-        }
-    };
-
-    /**
-     * 番外篇
-     */
-    public TagAdapter chaptersOtherAdapter = new TagAdapter<ComicResponse.ChaptersBean.DataBean>(chaptersOther) {
-
-        @Override
-        public View getView(FlowLayout parent, int position, ComicResponse.ChaptersBean.DataBean dataBean) {
-            ViewDataBinding dataBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.layout_tags_item, parent, false);
-            TagAdapterViewModel viewModel = new TagAdapterViewModel(mActivity);
-            viewModel.keyword.set(dataBean.getChapter_title());
-            dataBinding.setVariable(BR.viewModel, viewModel);
-            return dataBinding.getRoot();
-        }
-    };
-
-    /**
-     * 流式布局item点击事件
-     */
-    public TagFlowLayout.OnTagClickListener mOnChaptersClickListener = (view, position, parent) -> {
-        ImagePicsListActivity.launch(mActivity,
-                obj_id.get(),
-                chaptersList.get(position).getChapter_id(),
-                chaptersList.get(position).getChapter_title(),
-                0);
-        return true;
-    };
-
-    public TagFlowLayout.OnTagClickListener mOnOtherChaptersClickListener = (view, position, parent) -> {
-        ImagePicsListActivity.launch(mActivity,
-                obj_id.get(),
-                chaptersOther.get(position).getChapter_id(),
-                chaptersOther.get(position).getChapter_title(),
-                0);
-        return true;
-    };
+    public void initChapters() {
+        getSimpleChapter(mResponse);
+    }
 
     public View.OnClickListener mOnClickListener = view -> {
-        tempList.clear();
         if (showAll.get()) {
-            tempList.addAll(chaptersList);
-            mDataBinding.otherChaptersFlow.setVisibility(View.VISIBLE);
-            mDataBinding.titleOther.setVisibility(View.VISIBLE);
+            getSimpleChapter(mResponse);
             showAll.set(false);
-            show_more.set("收起章节");
-        } else {
-            tempList.addAll(chaptersListLess);
-            mDataBinding.otherChaptersFlow.setVisibility(View.GONE);
-            mDataBinding.titleOther.setVisibility(View.GONE);
-            showAll.set(true);
             show_more.set("查看全部章节");
+        } else {
+            getMoreChapters(mResponse);
+            showAll.set(true);
+            show_more.set("收起章节");
         }
-        chaptersAdapter.notifyDataChanged();
     };
+
+    private void getMoreChapters(ComicResponse response) {
+        mDataBinding.llFlowlayout.removeAllViews();
+        for (int i = 0; i < response.getChapters().size(); i++) {
+            ComicResponse.ChaptersBean chaptersBean = response.getChapters().get(i);
+            List<ComicResponse.ChaptersBean.DataBean> data = chaptersBean.getData();
+            ComicChapterLayoutBinding comicChapterBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.comic_chapter_layout, null, false);
+            ComicChapterViewModel viewModel = new ComicChapterViewModel(mActivity);
+            viewModel.objId.set(response.getId());
+            viewModel.cover.set(response.getCover());
+            viewModel.title.set(response.getTitle());
+            if (i == 0)
+                viewModel.last_updatetime.set(last_updatetime.get());
+            viewModel.data.addAll(data);
+            viewModel.chapters_title.set(chaptersBean.getTitle() + "(话)");
+            comicChapterBinding.setViewModel(viewModel);
+            mDataBinding.llFlowlayout.addView(comicChapterBinding.getRoot());
+        }
+    }
+
+    private void getSimpleChapter(ComicResponse response) {
+        chaptersListLess.clear();
+        mDataBinding.llFlowlayout.removeAllViews();
+        ComicResponse.ChaptersBean chaptersBean = response.getChapters().get(0);
+        List<ComicResponse.ChaptersBean.DataBean> data = chaptersBean.getData();
+        int count = data.size() < 12 ? chaptersBean.getData().size() : 12;
+        for (int i = 0; i < count; i++) {
+            chaptersListLess.add(data.get(i));
+        }
+        ComicChapterLayoutBinding comicChapterBinding = DataBindingUtil.inflate(LayoutInflater.from(mActivity), R.layout.comic_chapter_layout, null, false);
+        ComicChapterViewModel viewModel = new ComicChapterViewModel(mActivity);
+        viewModel.objId.set(response.getId());
+        viewModel.cover.set(response.getCover());
+        viewModel.title.set(response.getTitle());
+        viewModel.last_updatetime.set(last_updatetime.get());
+        viewModel.data.addAll(chaptersListLess);
+        viewModel.chapters_title.set(chaptersBean.getTitle() + "(话)");
+        comicChapterBinding.setViewModel(viewModel);
+        mDataBinding.llFlowlayout.addView(comicChapterBinding.getRoot());
+    }
+
+    //这里还有一步操作是记录点击item的背景
+    public void getLocalData(ClassifyResponse classifyResponse) {
+        if (classifyResponse != null)
+            RxBus.init().postSticky(new ChaptersEvent(classifyResponse.getChapter_title(), obj_id.get() + ""));   //续看按钮事件
+    }
+
+    public void initEvent() {
+        addSubscribe(RxBus.init()
+                .toObservableSticky(TagSelectEvent.class)
+                .compose(RxHelper.io_main())
+                .subscribe(tagSelectEvent -> {
+                    if (tagSelectEvent.mId == obj_id.get()) {   //用于记录点击的item的背景
+
+                    }
+                }));
+    }
 }

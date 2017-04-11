@@ -5,17 +5,19 @@
     <data>
         <variable
             name="viewModel"
-            type="com.mvvm.lux.burqa.model.TagAdapterViewModel"/>
+            type="com.mvvm.lux.burqa.model.TagChapterAdapterViewModel"/>
     </data>
     <TextView
         android:id="@+id/tv_tags"
-        android:layout_width="72dp"
+        android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:layout_marginBottom="10dp"
-        android:layout_marginEnd="10dp"
+        android:layout_margin="10dp"
         android:background="@drawable/tag_bg"
+        android:clickable="true"
+        android:ellipsize="end"
         android:gravity="center"
-        android:maxLength="4"
+        android:maxLines="1"
+        android:onClick="@{viewModel.mOnClickListener}"
         android:text="@{viewModel.keyword}"
         android:textColor="@color/black_alpha_45"
         android:textSize="12sp"/>

@@ -1,1 +1,8 @@
-include ':app',":framework",":frescoUtil",":widget"
+include ':app'
+include ":framework"
+include ":frescoUtil"
+include ":widget"
+include ":activityrouter"
+include ":compiler"
+include ":stub"
+include ":mvvmlight"

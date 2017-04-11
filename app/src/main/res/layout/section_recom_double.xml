@@ -14,7 +14,7 @@
         android:background="@color/white"
         android:onClick="@{viewModel.mOnClickListener}"
         android:orientation="vertical"
-        android:padding="10dp">
+        android:padding="5dp">
 
         <lib.lhh.fiv.library.FrescoImageView
             android:layout_width="match_parent"
@@ -29,6 +29,7 @@
             android:ellipsize="end"
             android:maxLines="1"
             android:paddingTop="5dp"
-            android:text="@{viewModel.title}"/>
+            android:text="@{viewModel.title}"
+            android:textSize="12sp"/>
     </LinearLayout>
 </layout>

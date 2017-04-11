@@ -43,6 +43,9 @@ public class RecomItemListAdapter extends RecyclerView.Adapter<RecomItemListAdap
         RecomDoubleItemViewModel viewModel = new RecomDoubleItemViewModel(mActivity);
         viewModel.img.set(dataBean.getCover());
         viewModel.title.set(dataBean.getTitle());
+        viewModel.obj_id.set(dataBean.getObj_id());
+        viewModel.type.set(dataBean.getType());
+        viewModel.url.set(dataBean.getUrl());
         holder.getParentView().setVariable(BR.viewModel,viewModel);
         holder.getParentView().executePendingBindings();
     }

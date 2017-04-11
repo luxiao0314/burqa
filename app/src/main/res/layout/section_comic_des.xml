@@ -7,35 +7,36 @@
         <variable
             name="viewModel"
             type="com.mvvm.lux.burqa.model.ComicHeaderViewModel"/>
+        <import type="android.text.TextUtils"/>
+        <import type="android.view.View"/>
     </data>
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@color/white">
+        android:background="@color/white"
+        android:tag="ComicHeaderViewModel">
 
-        <com.mvvm.lux.widget.waveview.WaveView
-            android:id="@+id/wave_view"
+        <com.mvvm.lux.widget.PathmMultiView
             android:layout_width="match_parent"
-            android:layout_height="200dp"
-            android:background="@color/colorPrimary"
-            app:above_wave_color="@android:color/white"
-            app:blow_wave_color="@android:color/white"
-            app:progress="10"
-            app:wave_height="large"
-            app:wave_hz="slow"
-            app:wave_length="large"/>
+            android:layout_height="wrap_content"/>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
             android:padding="10dp">
-            <lib.lhh.fiv.library.FrescoImageView
-                android:layout_width="@dimen/fresco_width"
-                android:layout_height="@dimen/fresco_height"
+            <android.support.v7.widget.CardView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                bind:imageUrl="@{viewModel.cover}"
-                bind:viewAspectRatio="0.75"/>
+                app:cardCornerRadius="2dp"
+                app:cardElevation="4dp">
+                <lib.lhh.fiv.library.FrescoImageView
+                    android:layout_width="@dimen/fresco_width"
+                    android:layout_height="@dimen/fresco_height"
+                    bind:imageUrl="@{viewModel.cover}"
+                    bind:viewAspectRatio="0.75"/>
+            </android.support.v7.widget.CardView>
 
             <TextView
                 android:layout_width="wrap_content"
@@ -84,27 +85,37 @@
                 android:orientation="horizontal"
                 android:weightSum="2">
                 <TextView
-                    android:id="@+id/textView2"
+                    android:id="@+id/collect"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/tag_bg"
+                    android:background="@drawable/selector_button_nor_bg"
+                    android:clickable="true"
+                    android:focusable="true"
+                    android:focusableInTouchMode="true"
                     android:gravity="center"
+                    android:lines="1"
+                    android:onClick="@{viewModel.onCollectClickListener}"
                     android:padding="10dp"
-                    android:text="已收藏" android:textSize="12sp"/>
+                    android:text="添加收藏"
+                    android:textSize="12sp"/>
 
                 <TextView
+                    android:id="@+id/chapters"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_margin="10dp"
                     android:layout_weight="1"
-                    android:background="@drawable/tag_bg"
+                    android:background="@drawable/selector_button_bg"
+                    android:clickable="true"
                     android:gravity="center"
+                    android:lines="1"
+                    android:onClick="@{viewModel.onChapterClickListener}"
                     android:padding="10dp"
-                    android:text="续看 13话"
+                    android:text="@{viewModel.chapter_title}"
                     android:textSize="12sp"/>
             </LinearLayout>
 
@@ -113,7 +124,7 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_margin="5dp"
-                android:maxLines="2"
+                android:maxLines="@{viewModel.maxLines}"
                 android:text="@{viewModel.description}"
                 android:textSize="12sp"/>
 
@@ -121,7 +132,9 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="end"
-                android:src="@drawable/detail_intr_expand"/>
+                android:onClick="@{viewModel.loadMoreDes}"
+                android:padding="5dp"
+                bind:setSrc="@{viewModel.src}"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
