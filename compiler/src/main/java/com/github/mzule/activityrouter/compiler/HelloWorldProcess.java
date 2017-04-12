@@ -18,6 +18,8 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Modifier;
 import javax.lang.model.element.TypeElement;
+import javax.tools.Diagnostic;
+
 
 /**
  * @Description
@@ -28,7 +30,7 @@ import javax.lang.model.element.TypeElement;
  */
 @AutoService(Process.class)
 public class HelloWorldProcess extends AbstractProcessor{
-
+    private static final boolean DEBUG = true;
     private Messager messager;
     private Filer filer;
 
@@ -53,6 +55,7 @@ public class HelloWorldProcess extends AbstractProcessor{
 
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
+        debug("process apt with " + annotations.toString());
         for (TypeElement element : annotations) {
             if (element.getQualifiedName().toString().equals(ClassHello.class.getCanonicalName())) {
                 MethodSpec main = MethodSpec.methodBuilder("main")
@@ -67,7 +70,7 @@ public class HelloWorldProcess extends AbstractProcessor{
                         .build();
 
                 try {
-                    JavaFile javaFile = JavaFile.builder("com.xsf", helloWorld)
+                    JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
                             .addFileComment(" This codes are generated automatically. Do not modify!")
                             .build();
                     javaFile.writeTo(filer);
@@ -77,5 +80,11 @@ public class HelloWorldProcess extends AbstractProcessor{
             }
         }
         return true;
+    }
+
+    private void debug(String msg) {
+        if (DEBUG) {
+            messager.printMessage(Diagnostic.Kind.NOTE, msg);
+        }
     }
 }
