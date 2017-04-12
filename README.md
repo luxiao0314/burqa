@@ -29,14 +29,25 @@
 * 搜索界面的实现。
 
 ## Screenshots
-![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/picture1.png)
-
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233635.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233644.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233653.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233702.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233706.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233751.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233819.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233830.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-233926.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-234005.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-234041.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/Screenshot_20170412-234136.png)
 
 ## Compilation
 
-
 ## Download link
 https://fir.im/may4
+
+## UpdateLog
 
 ## API
 

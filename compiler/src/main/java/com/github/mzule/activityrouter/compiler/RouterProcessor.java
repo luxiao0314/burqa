@@ -1,7 +1,17 @@
 package com.github.mzule.activityrouter.compiler;
 
+import com.github.mzule.activityrouter.annotation.Module;
+import com.github.mzule.activityrouter.annotation.Modules;
+import com.github.mzule.activityrouter.annotation.Router;
+import com.google.auto.service.AutoService;
+import com.squareup.javapoet.ClassName;
+import com.squareup.javapoet.JavaFile;
+import com.squareup.javapoet.MethodSpec;
+import com.squareup.javapoet.TypeSpec;
+
 import java.util.HashSet;
 import java.util.Set;
+
 import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
@@ -15,14 +25,6 @@ import javax.lang.model.element.Modifier;
 import javax.lang.model.element.Name;
 import javax.lang.model.element.TypeElement;
 import javax.tools.Diagnostic;
-import com.github.mzule.activityrouter.annotation.Module;
-import com.github.mzule.activityrouter.annotation.Modules;
-import com.github.mzule.activityrouter.annotation.Router;
-import com.google.auto.service.AutoService;
-import com.squareup.javapoet.ClassName;
-import com.squareup.javapoet.JavaFile;
-import com.squareup.javapoet.MethodSpec;
-import com.squareup.javapoet.TypeSpec;
 
 @AutoService(Processor.class)
 public class RouterProcessor extends AbstractProcessor {
@@ -88,15 +90,15 @@ public class RouterProcessor extends AbstractProcessor {
     }
 
     private void generateDefaultRouterInit() {
-        MethodSpec.Builder initMethod = MethodSpec.methodBuilder("init")
-                .addModifiers(Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC);
-        initMethod.addStatement("RouterMapping.map()");
-        TypeSpec routerInit = TypeSpec.classBuilder("RouterInit")
-                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)
-                .addMethod(initMethod.build())
+        MethodSpec.Builder initMethod = MethodSpec.methodBuilder("init")    //方法名
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL, Modifier.STATIC);    //方法修饰符
+        initMethod.addStatement("RouterMapping.map()"); //方法内逻辑代码
+        TypeSpec routerInit = TypeSpec.classBuilder("RouterInit")   //类名
+                .addModifiers(Modifier.PUBLIC, Modifier.FINAL)  //类名修饰符
+                .addMethod(initMethod.build())  //将方法设置到类中
                 .build();
         try {
-            JavaFile.builder("com.github.mzule.activityrouter.router", routerInit)
+            JavaFile.builder("com.github.mzule.activityrouter.router", routerInit)  //写入本地
                     .build()
                     .writeTo(filer);
         } catch (Exception e) {

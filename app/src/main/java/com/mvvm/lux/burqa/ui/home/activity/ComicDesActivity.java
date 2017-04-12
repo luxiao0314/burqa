@@ -5,6 +5,7 @@ import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 
+import com.github.mzule.activityrouter.annotation.ClassHello;
 import com.github.mzule.activityrouter.annotation.Router;
 import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.R;
@@ -21,6 +22,7 @@ import com.mvvm.lux.widget.swipeback.SwipeBackLayout;
  * @Version 1.0.0
  */
 @Router("comicDes")
+@ClassHello("hello")
 public class ComicDesActivity extends SwipeBackActivity {
 
     private ActivityComicDesBinding mDataBinding;
