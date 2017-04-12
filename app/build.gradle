@@ -41,6 +41,7 @@ android {
 dependencies {
     compile fileTree(include: ['*.jar'], dir: 'libs')
     compile project(':framework')
+    compile project(':widget')
     compile project(':activityrouter')
     apt project(':compiler')
 
