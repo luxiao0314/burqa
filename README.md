@@ -29,7 +29,7 @@
 * 搜索界面的实现。
 
 ## Screenshots
-![image](https://github.com/luxiao0314/burqa/raw/master/captures/picture1.png)
+![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/picture1.png)
 
 
 ## Compilation
