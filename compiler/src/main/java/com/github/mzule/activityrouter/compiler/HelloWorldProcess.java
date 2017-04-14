@@ -14,6 +14,7 @@ import javax.annotation.processing.AbstractProcessor;
 import javax.annotation.processing.Filer;
 import javax.annotation.processing.Messager;
 import javax.annotation.processing.ProcessingEnvironment;
+import javax.annotation.processing.Processor;
 import javax.annotation.processing.RoundEnvironment;
 import javax.lang.model.SourceVersion;
 import javax.lang.model.element.Modifier;
@@ -28,7 +29,7 @@ import javax.tools.Diagnostic;
  * @Date 2017/4/12 16:05
  * @Version
  */
-@AutoService(Process.class)
+@AutoService(Processor.class)
 public class HelloWorldProcess extends AbstractProcessor{
     private static final boolean DEBUG = true;
     private Messager messager;
@@ -70,10 +71,9 @@ public class HelloWorldProcess extends AbstractProcessor{
                         .build();
 
                 try {
-                    JavaFile javaFile = JavaFile.builder("com.example.helloworld", helloWorld)
-                            .addFileComment(" This codes are generated automatically. Do not modify!")
-                            .build();
-                    javaFile.writeTo(filer);
+                    JavaFile.builder("com.github.mzule.activityrouter.helloworld", helloWorld)
+                            .build()
+                            .writeTo(filer);
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
