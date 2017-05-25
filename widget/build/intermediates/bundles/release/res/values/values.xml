@@ -1,0 +1,92 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <attr format="reference" name="SwipeBackLayoutStyle"/>
+    <color name="base_loading_background">#f7f7f7</color>
+    <color name="base_text_color_light">#909090</color>
+    <color name="black_alpha_45">#71000000</color>
+    <color name="colorPrimary">@color/orange</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="gray_light">#dcdcdc</color>
+    <color name="orange">#FF9800</color>
+    <color name="white">#FFFFFF</color>
+    <declare-styleable name="BGABanner"><attr format="reference|color" name="banner_pointContainerBackground"/><attr format="reference" name="banner_pointDrawable"/><attr format="dimension" name="banner_pointContainerLeftRightPadding"/><attr format="dimension" name="banner_pointTopBottomMargin"/><attr format="dimension" name="banner_pointLeftRightMargin"/><attr name="banner_indicatorGravity">
+            <flag name="top" value="0x30"/>
+            <flag name="bottom" value="0x50"/>
+            <flag name="left" value="0x03"/>
+            <flag name="right" value="0x05"/>
+            <flag name="center_horizontal" value="0x01"/>
+        </attr><attr format="boolean" name="banner_pointAutoPlayAble"/><attr format="integer" name="banner_pointAutoPlayInterval"/><attr format="integer" name="banner_pageChangeDuration"/><attr format="enum" name="banner_transitionEffect">
+            <enum name="defaultEffect" value="0"/>
+            <enum name="alpha" value="1"/>
+            <enum name="rotate" value="2"/>
+            <enum name="cube" value="3"/>
+            <enum name="flip" value="4"/>
+            <enum name="accordion" value="5"/>
+            <enum name="zoomFade" value="6"/>
+            <enum name="fade" value="7"/>
+            <enum name="zoomCenter" value="8"/>
+            <enum name="zoomStack" value="9"/>
+            <enum name="stack" value="10"/>
+            <enum name="depth" value="11"/>
+            <enum name="zoom" value="12"/>
+        </attr><attr format="reference|color" name="banner_tipTextColor"/><attr format="dimension" name="banner_tipTextSize"/><attr format="reference" name="banner_placeholderDrawable"/><attr format="boolean" name="banner_isNumberIndicator"/><attr format="reference|color" name="banner_numberIndicatorTextColor"/><attr format="dimension" name="banner_numberIndicatorTextSize"/><attr format="reference" name="banner_numberIndicatorBackground"/><attr format="boolean" name="banner_isNeedShowIndicatorOnOnlyOnePage"/><attr format="dimension" name="banner_contentBottomMargin"/><attr name="android:scaleType"/></declare-styleable>
+    <declare-styleable name="CircleProgressView"><attr format="boolean" name="matProg_progressIndeterminate"/><attr format="color" name="matProg_barColor"/><attr format="color" name="matProg_rimColor"/><attr format="dimension" name="matProg_rimWidth"/><attr format="float" name="matProg_spinSpeed"/><attr format="integer" name="matProg_barSpinCycleTime"/><attr format="dimension" name="matProg_circleRadius"/><attr format="boolean" name="matProg_fillRadius"/><attr format="dimension" name="matProg_barWidth"/><attr format="boolean" name="matProg_linearProgress"/></declare-styleable>
+    <declare-styleable name="LoadingLayout"><attr format="boolean" name="isFirstVisible"/></declare-styleable>
+    <declare-styleable name="PathmMultiView"><attr format="color" name="path_backgroundColor"/><attr format="dimension" name="path_height"/></declare-styleable>
+    <declare-styleable name="SwipeBackLayout"><attr format="dimension" name="edge_size"/><attr name="edge_flag">
+            <enum name="left" value="0"/>
+            <enum name="right" value="1"/>
+            <enum name="bottom" value="2"/>
+            <enum name="all" value="3"/>
+        </attr><attr format="reference" name="shadow_left"/><attr format="reference" name="shadow_right"/><attr format="reference" name="shadow_bottom"/></declare-styleable>
+    <declare-styleable name="Themes"><attr format="reference" name="waveViewStyle"/></declare-styleable>
+    <declare-styleable name="WaveView"><attr format="color" name="above_wave_color"/><attr format="color" name="blow_wave_color"/><attr format="integer" name="progress"/><attr format="enum" name="wave_length">
+            <enum name="large" value="1"/>
+            <enum name="middle" value="2"/>
+            <enum name="little" value="3"/>
+        </attr><attr format="enum" name="wave_height">
+            <enum name="large" value="1"/>
+            <enum name="middle" value="2"/>
+            <enum name="little" value="3"/>
+        </attr><attr format="enum" name="wave_hz">
+            <enum name="fast" value="1"/>
+            <enum name="normal" value="2"/>
+            <enum name="slow" value="3"/>
+        </attr></declare-styleable>
+    <item name="banner_indicatorId" type="id"/>
+    <string name="app_name">widget</string>
+    <string name="reload">重新加载</string>
+    <style name="BannerDefaultStyle">
+        <!-- 自定义属性在styles.xml中不需要命名空间,直接用属性名就可以了 -->
+        <!-- 开启自动轮播 -->
+        <item name="banner_pointAutoPlayAble">true</item>
+        <!-- 自动轮播的时间间隔 -->
+        <item name="banner_pointAutoPlayInterval">3000</item>
+        <!-- 指示点容器背景 -->
+        <item name="banner_pointContainerBackground">#44aaaaaa</item>
+        <!-- 指示点背景 -->
+        <item name="banner_pointDrawable">@drawable/selector_banner_point</item>
+        <!-- 指示点容器左右内间距 -->
+        <item name="banner_pointContainerLeftRightPadding">10dp</item>
+        <!-- 指示点上下外间距 -->
+        <item name="banner_pointTopBottomMargin">6dp</item>
+        <!-- 指示点左右外间距 -->
+        <item name="banner_pointLeftRightMargin">3dp</item>
+        <!-- 指示器的位置 -->
+        <item name="banner_indicatorGravity">bottom|center_horizontal</item>
+        <!-- 页码切换过程的时间长度 -->
+        <item name="banner_pageChangeDuration">800</item>
+        <!-- 提示文案的文字大小 -->
+        <item name="banner_tipTextSize">10sp</item>
+        <!-- 提示文案的文字颜色 -->
+        <item name="banner_tipTextColor">@android:color/white</item>
+        <!-- 加载网络数据时覆盖在BGABanner最上层的占位图 -->
+        <item name="banner_placeholderDrawable">@drawable/default_bg</item>
+    </style>
+    <style name="SwipeBackLayout">
+        <item name="edge_size">50dip</item>
+        <item name="shadow_left">@drawable/shadow_left</item>
+        <item name="shadow_right">@drawable/shadow_right</item>
+        <item name="shadow_bottom">@drawable/shadow_bottom</item>
+    </style>
+</resources>

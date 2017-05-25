@@ -1,0 +1,33 @@
+apply plugin: 'com.android.library'
+android {
+
+    def globalConfiguration = rootProject.extensions.getByName("ext")
+    compileSdkVersion globalConfiguration.androidCompileSdkVersion
+    buildToolsVersion globalConfiguration.androidBuildToolsVersion
+
+    defaultConfig {
+
+        minSdkVersion globalConfiguration.androidMinSdkVersion
+        targetSdkVersion globalConfiguration.androidTargetSdkVersion
+        versionCode globalConfiguration.versionCode
+        versionName globalConfiguration.versionName
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+}
+
+dependencies {
+    def androidDependencies = rootProject.ext.androidDependencies
+    def viewDependencies = rootProject.ext.viewDependencies
+    compile androidDependencies.appcompat_v7
+    compile androidDependencies.support_v4
+    compile viewDependencies.fresco
+    compile viewDependencies.frescoGif
+    compile viewDependencies.frescoPhoto
+    compile viewDependencies.gpuImage
+}

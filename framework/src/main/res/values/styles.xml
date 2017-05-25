@@ -1,0 +1,64 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="AppExcuteDialogTheme" parent="AppDialogTheme">
+        <item name="android:windowBackground">@color/excute_dialog_bg</item>
+    </style>
+
+    <style name="AppProgressDialogTheme" parent="AppDialogTheme">
+        <item name="android:windowBackground">@color/progress_dialog_bg</item>
+    </style>
+
+    <style name="AppDialogTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <item name="android:windowFrame">@null</item>
+        <item name="android:windowContentOverlay">@null</item>
+        <item name="android:backgroundDimEnabled">false</item>
+        <item name="android:windowIsTranslucent">true</item>
+        <item name="android:windowTranslucentStatus">true</item>
+        <item name="android:windowNoTitle">true</item>
+    </style>
+
+    <style name="text_12_333333">
+        <item name="android:textSize">12dp</item>
+        <item name="android:textColor">#ff333333</item>
+    </style>
+
+    <style name="text_14_333333">
+        <item name="android:textSize">14dp</item>
+        <item name="android:textColor">#ff333333</item>
+    </style>
+
+    <style name="text_15_333333">
+        <item name="android:textSize">15dip</item>
+        <item name="android:textColor">#333333</item>
+    </style>
+
+    <style name="JayneHatDialogTheme" parent="SDL.Dialog">
+        <item name="sdlTextPrimaryColor">@color/jayne_text_primary_light</item>
+        <item name="sdlTextSecondaryColor">@color/jayne_text_secondary_light</item>
+        <item name="sdlDividerColor">@color/jayne_divider_light</item>
+        <item name="sdlPressedColor">@color/jayne_pressed_light</item>
+        <item name="colorAccent">@color/jayne_accent</item>
+    </style>
+
+    <!--titleBar样式-->
+    <style name="ToolbarStyle" parent="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        <item name="actionBarItemBackground">@drawable/toolbarItemBackground</item>
+        <item name="selectableItemBackground">@drawable/toolbarItemBackground</item>
+        <item name="titleTextAppearance">@style/ToolBar.Title</item>
+        <item name="subtitleTextAppearance">@style/Toolbar.SubTitle</item>
+        <item name="android:windowNoTitle">true</item>
+        <!--<item name="android:textSize">18sp</item> &lt;!&ndash;  搞掂字体大小&ndash;&gt;-->
+    </style>
+
+    <!--titlebar 标题-->
+    <style name="ToolBar.Title" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Title">
+        <item name="android:textSize">18.0sp</item>
+        <item name="android:textColor">@color/white</item>
+    </style>
+
+    <!--titlebar 副标题-->
+    <style name="Toolbar.SubTitle" parent="@style/TextAppearance.Widget.AppCompat.Toolbar.Subtitle">
+        <item name="android:textSize">9.0sp</item>
+        <item name="android:textColor">#99ffffff</item>
+    </style>
+</resources>

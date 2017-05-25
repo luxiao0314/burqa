@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">widget</string>
+    <string name="reload">重新加载</string>
+</resources>

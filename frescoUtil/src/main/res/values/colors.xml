@@ -1,0 +1,6 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="gray_trans">#44999999</color>
+    <color name="colorPrimary">@color/orange</color>
+    <color name="orange">#FF9800</color>
+</resources>

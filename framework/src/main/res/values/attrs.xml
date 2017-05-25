@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="LoadingLayout">
+        <attr name="loading_layout" format="reference" />
+        <attr name="error_layout_net_fail" format="reference" />
+        <attr name="error_layout_no_data_fail" format="reference" />
+    </declare-styleable>
+</resources>
