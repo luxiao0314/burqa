@@ -21,7 +21,7 @@ import java.util.Date;
 import java.util.Locale;
 import java.util.TimeZone;
 
-import okhttp3.internal.http.OkHeaders;
+import okhttp3.internal.http.HttpHeaders;
 import retrofit2.Response;
 import rx.Subscription;
 
@@ -81,7 +81,7 @@ public class Utils {
     }
 
     public static long contentLength(Response<?> response) {
-        return OkHeaders.contentLength(response.headers());
+        return HttpHeaders.contentLength(response.headers());
     }
 
     public static boolean isChunked(Response<?> response) {
