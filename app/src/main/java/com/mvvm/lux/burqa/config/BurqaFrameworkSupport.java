@@ -62,7 +62,7 @@ public class BurqaFrameworkSupport implements FrameworkSupport {
     }
 
     @Override
-    public void goToActivity(FragmentActivity activity, int id, String params) {
+    public void goToActivity(FragmentActivity activity, int id,String url, String params) {
 
     }
 
@@ -74,5 +74,10 @@ public class BurqaFrameworkSupport implements FrameworkSupport {
     @Override
     public DialogFragment showNetworkProcessDialog(BaseTask taskExchangeModel) {
         return DialogManager.showProgressDialog(taskExchangeModel);
+    }
+
+    @Override
+    public void onTokenInvalid() {
+
     }
 }
