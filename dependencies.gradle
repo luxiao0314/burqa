@@ -46,7 +46,7 @@ ext {
     rxbinding = '0.4.0'
     gson = '2.7'
     retrofit = '2.0.2'
-    okhttp3 = '3.2.0'
+    okhttp3 = '3.4.1'
     okhttp3Loging = '3.0.1'
     butterknife = '8.4.0'
     fragmentation = '0.7.9'

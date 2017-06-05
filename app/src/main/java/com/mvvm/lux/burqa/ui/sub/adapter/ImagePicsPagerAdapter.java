@@ -57,11 +57,14 @@ public class ImagePicsPagerAdapter extends PagerAdapter {
 
         ImageRequest request = ImageRequestBuilder
                 .newBuilderWithSource(Uri.parse(url))
+                .setLocalThumbnailPreviewsEnabled(true) //设置加载本地缩略图
                 .setResizeOptions(new ResizeOptions(DisplayUtil.getScreenWidth(mContext),DisplayUtil.getScreenHeight(mContext)))
                 .build();
 
         mPhotoView.setController(Fresco.newDraweeControllerBuilder()
-                .setImageRequest(request).build());
+                .setImageRequest(request)
+                .setLowResImageRequest(ImageRequest.fromUri(url))   //低分辨率图
+                .build());
         mPhotoView.setPhotoUri(Uri.parse(url));
         container.addView(contentview);
         return contentview;
