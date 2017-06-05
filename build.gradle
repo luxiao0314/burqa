@@ -21,5 +21,10 @@ allprojects {
         maven { url 'http://10.28.100.7:8081/nexus/content/groups/public/' }
         //EasyImage的jitPack仓库
         maven { url "https://jitpack.io" }
+        maven {
+            // All of React Native (JS, Android binaries) is installed from npm
+//            url "$rootDir/../node_modules/react-native/android"
+            url "$rootDir/node_modules/react-native/android"
+        }
     }
 }

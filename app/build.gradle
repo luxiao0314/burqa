@@ -22,6 +22,12 @@ android {
                 arguments = [moduleName: project.getName()]
             }
         }
+        ndk {
+            abiFilters "armeabi-v7a", "x86"
+        }
+        packagingOptions {
+            exclude "lib/arm64-v8a/librealm-jni.so"
+        }
     }
     buildTypes {
         release {
@@ -77,11 +83,13 @@ dependencies {
 
     //    compile 'com.github.mzule.activityrouter:activityrouter:1.2.2'
 //    apt 'com.github.mzule.activityrouter:compiler:1.1.7'
+    // From node_modules.
     compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter:1.1.0'
     compile 'me.tatarka.bindingcollectionadapter:bindingcollectionadapter-recyclerview:1.1.0'
     compile 'com.alibaba:arouter-api:1.0.7'
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     annotationProcessor 'com.alibaba:arouter-compiler:1.0.3'
+    compile 'com.facebook.react:react-native:+'
 }
 
 greendao {

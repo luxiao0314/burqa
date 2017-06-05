@@ -1,0 +1,14 @@
+{
+  "name": "burqa",
+  "version": "1.0.0",
+  "description": "rn配置",
+  "main": "index.js",
+  "private": true,
+  "scripts": {
+    "start": "node node_modules/react-native/local-cli/cli.js start"
+  },
+  "dependencies": {
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.0"
+  }
+}
