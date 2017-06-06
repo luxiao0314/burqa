@@ -1,32 +1,25 @@
-'use strict';
-
-import React from 'react';
+//LiuZh 2017-05-16
+import React, { Component } from 'react';
 import {
   AppRegistry,
-  StyleSheet,
-  Text,
-  View
 } from 'react-native';
 
-class HelloWorld extends React.Component {
-  render() {
-    return (
-      <View style={styles.container}>
-        <Text style={styles.hello}>Hello, World</Text>
-      </View>
-    )
-  }
-}
-var styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    justifyContent: 'center',
-  },
-  hello: {
-    fontSize: 20,
-    textAlign: 'center',
-    margin: 10,
-  },
-});
+import AppNav from './src/navigator/AppNav';
 
-AppRegistry.registerComponent('HelloWorld', () => HelloWorld);
+class App extends Component{
+
+	constructor(props){
+		super(props);
+		console.ignoredYellowBox = ['Warning: BackAndroid','Warning: View.propTypes'];
+	}
+
+	render() {
+		return(
+			<AppNav
+				screenProps={{navigation: this.props.navigation}}
+				style={{flex: 1,}} />
+		);
+	}
+}
+
+AppRegistry.registerComponent('ONE', () => App);

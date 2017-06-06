@@ -34,7 +34,7 @@ public class MyReactActivity extends AppCompatActivity implements DefaultHardwar
 
         // 注意这里的HelloWorld必须对应“index.android.js”中的
         // “AppRegistry.registerComponent()”的第一个参数
-        mReactRootView.startReactApplication(mReactInstanceManager, "HelloWorld", null);
+        mReactRootView.startReactApplication(mReactInstanceManager, "ONE", null);
 
         setContentView(mReactRootView);
     }
