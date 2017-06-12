@@ -20,6 +20,6 @@ public class MyReactActivity extends ReactActivity {
 
     public static void launch(Context context) {
         Intent intent = new Intent(context, MyReactActivity.class);
-        context.startActivity(intent);
+        context.startActivity(intent); 
     }
 }
