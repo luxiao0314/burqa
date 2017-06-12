@@ -7,9 +7,16 @@ import android.support.annotation.NonNull;
 import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
+import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactNativeHost;
+import com.facebook.react.ReactPackage;
+import com.facebook.react.shell.MainPackageConfig;
+import com.facebook.react.shell.MainReactPackage;
+import com.facebook.soloader.SoLoader;
 import com.github.mzule.activityrouter.router.RouterCallback;
 import com.github.mzule.activityrouter.router.RouterCallbackProvider;
 import com.github.mzule.activityrouter.router.SimpleRouterCallback;
+import com.mvvm.lux.burqa.BuildConfig;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.config.BurqaFrameworkSupport;
 import com.mvvm.lux.burqa.ui.home.activity.LoginActivity;
@@ -18,10 +25,13 @@ import com.mvvm.lux.burqa.ui.sub.activity.NotFoundActivity;
 import com.mvvm.lux.framework.BaseApplication;
 import com.mvvm.lux.framework.config.FrameWorkConfig;
 import com.mvvm.lux.framework.config.session.Session;
+import com.mvvm.lux.framework.http.fresco.ImageLoaderConfig;
 import com.mvvm.lux.framework.utils.SnackbarUtil;
 import com.mvvm.lux.widget.emptyview.LoadingLayout;
 
+import java.util.Arrays;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -31,7 +41,7 @@ import java.util.Map;
  * @Date 2017/3/3 14:49
  * @Version
  */
-public class BurqaApp extends BaseApplication implements RouterCallbackProvider {
+public class BurqaApp extends BaseApplication implements RouterCallbackProvider, ReactApplication {
 
     @Override
     public void onCreate() {
@@ -40,6 +50,7 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         ARouter.openDebug();
         ARouter.init(this); // 尽可能早，推荐在Application中初始化
         FrameWorkConfig.frameworkSupport = new BurqaFrameworkSupport();
+        SoLoader.init(this, /* native exopackage */ false);
     }
 
     private void initEmptyView() {
@@ -127,4 +138,28 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider 
         super.attachBaseContext(base);
         MultiDex.install(this);
     }
+
+    /**
+     * react native相关
+     */
+    private final ReactNativeHost mReactNativeHost = new ReactNativeHost(this) {
+        @Override
+        public boolean getUseDeveloperSupport() {
+            return BuildConfig.DEBUG;
+        }
+
+        @Override
+        protected List<ReactPackage> getPackages() {
+            //设置rn的图片加载采用android中fresco的,图片采用防盗链处理
+            MainPackageConfig.Builder configBuilder = new MainPackageConfig.Builder();
+            configBuilder.setFrescoConfig(ImageLoaderConfig.getImagePipelineConfig(getAppContext()));
+            return Arrays.<ReactPackage>asList(new MainReactPackage(configBuilder.build()));
+        }
+    };
+
+    @Override
+    public ReactNativeHost getReactNativeHost() {
+        return mReactNativeHost;
+    }
+
 }
