@@ -8,6 +8,3 @@
 [submodule "framework"]
 	path = framework
 	keyword = https://github.com/luxiao0314/framework.git
-[submodule "react_native"]
-	path = react_native
-	url = https://github.com/luxiao0314/react_native.git
