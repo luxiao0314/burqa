@@ -15,7 +15,7 @@ import com.facebook.react.shell.MainReactPackage;
 
 public class MyReactActivity extends AppCompatActivity implements DefaultHardwareBackBtnHandler {
 
-    private ReactRootView mReactRootView;
+    private ReactRootView mReactRootView; 
     private ReactInstanceManager mReactInstanceManager;
 
     @Override
