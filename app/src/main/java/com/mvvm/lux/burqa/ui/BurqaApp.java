@@ -26,7 +26,7 @@ import com.mvvm.lux.widget.emptyview.LoadingLayout;
  */
 public class BurqaApp extends BaseApplication implements RouterCallbackProvider, ReactApplication {
 
-    private ReactNativeHost reactNativeHost;
+    public static ReactNativeHost reactNativeHost;
 
     @Override
     public void onCreate() {
