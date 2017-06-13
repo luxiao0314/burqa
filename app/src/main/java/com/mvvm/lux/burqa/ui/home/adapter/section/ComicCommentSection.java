@@ -22,10 +22,12 @@ import com.mvvm.lux.framework.utils.DateUtil;
 public class ComicCommentSection extends StatelessSection {
 
     private final ComicDesActivity mActivity;
+    private ComicResponse comicResponse;
     private final ComicResponse.CommentBean mComment;
 
     public ComicCommentSection(ComicDesActivity activity, ComicResponse comicResponse) {
         super(R.layout.section_comic_header, R.layout.section_comic_footer, R.layout.section_comic_comment);
+        this.comicResponse = comicResponse;
         mComment = comicResponse.getComment();
         mActivity = activity;
     }
@@ -56,6 +58,7 @@ public class ComicCommentSection extends StatelessSection {
     @Override
     public void onBindFooterViewHolder(RecyclerView.ViewHolder holder) {
         ComicCommentHeaderViewModel viewModel = new ComicCommentHeaderViewModel(mActivity);
+        viewModel.id.set(comicResponse.getId()+"");
         viewModel.comment_counts.set("更多评论(" + mComment.getComment_count() + ")");
         ((HeaderViewholder) holder).mDataBinding.setVariable(BR.viewModel, viewModel);
         ((HeaderViewholder) holder).mDataBinding.executePendingBindings();

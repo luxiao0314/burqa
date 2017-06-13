@@ -103,7 +103,7 @@
             android:name="com.facebook.react.devsupport.DevSettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
-            android:name=".ui.sub.activity.MyReactActivity"
+            android:name=".manager.hybrid_rn.MyReactActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"
             android:theme="@style/Theme.AppCompat.Light.NoActionBar"/>
     </application>
