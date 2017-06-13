@@ -4,10 +4,7 @@ import android.app.Activity;
 import android.databinding.ObservableField;
 import android.view.View;
 
-import com.facebook.react.bridge.Arguments;
-import com.facebook.react.bridge.WritableMap;
 import com.mvvm.lux.burqa.manager.hybrid_rn.MyReactActivity;
-import com.mvvm.lux.burqa.manager.hybrid_rn.RnEvent;
 import com.mvvm.lux.framework.base.BaseViewModel;
 
 /**
@@ -31,10 +28,7 @@ public class ComicCommentHeaderViewModel extends BaseViewModel {
      * 点击跳转到rn的评论列表
      */
     public View.OnClickListener commnetClick = view -> {
+//        new RnEvent().sendEvent(id.get());
         MyReactActivity.launch(mActivity,id.get());
-
-        WritableMap params = Arguments.createMap();
-        params.putInt("unread", 1);
-        new RnEvent().sendEvent("onRefreshMessage", params);
     };
 }

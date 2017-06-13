@@ -1,7 +1,6 @@
 package com.mvvm.lux.burqa.manager.hybrid_rn;
 
-import android.support.annotation.Nullable;
-
+import com.facebook.react.bridge.Arguments;
 import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.mvvm.lux.burqa.ui.BurqaApp;
@@ -15,11 +14,13 @@ import com.mvvm.lux.burqa.ui.BurqaApp;
  */
 public class RnEvent {
 
-    public void sendEvent(String eventName, @Nullable WritableMap params) {
+    public void sendEvent(String id) {
+        WritableMap params = Arguments.createMap();
+        params.putString("unread", id);
         BurqaApp.reactNativeHost
                 .getReactInstanceManager()
                 .getCurrentReactContext()
                 .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                .emit(eventName, params);
+                .emit("onRefreshMessage", params);
     }
 }
