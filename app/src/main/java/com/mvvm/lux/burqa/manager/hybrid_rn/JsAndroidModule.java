@@ -4,9 +4,11 @@ import android.app.Activity;
 import android.text.TextUtils;
 
 import com.facebook.react.bridge.Callback;
+import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.mvvm.lux.framework.manager.router.Router;
 
 /**
  * @Description 用于处理和rn的js传值
@@ -16,7 +18,7 @@ import com.facebook.react.bridge.ReactMethod;
  * @Version
  */
 public class JsAndroidModule extends ReactContextBaseJavaModule {
-    private static final String MODULE_NAME = "JsAndroidModule";
+    private static final String MODULE_NAME = "JsAndroid";
 
     public JsAndroidModule(ReactApplicationContext reactContext) {
         super(reactContext);
@@ -34,14 +36,43 @@ public class JsAndroidModule extends ReactContextBaseJavaModule {
      * @param erroBack
      */
     @ReactMethod
-    public void jsActivity(Callback successBack, Callback erroBack) {
+    public void jumpToJs(Callback successBack, Callback erroBack) {
         try {
             Activity currentActivity = getCurrentActivity();
-            String result = currentActivity.getIntent().getStringExtra("comment_id");//会有对应数据放入
-            if (TextUtils.isEmpty(result)) result = "No Data";
-            successBack.invoke(result);
+            if (currentActivity != null) {
+                String result = currentActivity.getIntent().getStringExtra("comment_id");//会有对应数据放入
+                if (TextUtils.isEmpty(result)) result = "No Data";
+                successBack.invoke(result);
+            }
         } catch (Exception e) {
             erroBack.invoke(e.getMessage());
         }
+    }
+
+    /**
+     * rn跳转到native页面方法
+     */
+    @ReactMethod
+    public void jumpToActivity(String name, String params) {
+        try {
+            Activity currentActivity = getCurrentActivity();
+            if (null != currentActivity) {
+                Router.from(currentActivity)
+                        .to(Class.forName(name))
+                        .putString("params", params)
+                        .launch();
+            }
+        } catch (Exception e) {
+            throw new JSApplicationIllegalArgumentException(
+                    "不能打开Activity : " + e.getMessage());
+        }
+    }
+
+    /**
+     * 返回到native页面
+     */
+    @ReactMethod
+    public void backToNative(){
+        Router.pop(getCurrentActivity());
     }
 }

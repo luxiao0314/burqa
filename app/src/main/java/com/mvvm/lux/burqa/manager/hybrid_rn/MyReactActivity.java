@@ -1,9 +1,8 @@
 package com.mvvm.lux.burqa.manager.hybrid_rn;
 
-import android.content.Context;
-import android.content.Intent;
+import android.app.Activity;
 
-import com.facebook.react.ReactActivity;
+import com.mvvm.lux.framework.manager.router.Router;
 
 /**
  * @Description rn处理activity
@@ -12,16 +11,17 @@ import com.facebook.react.ReactActivity;
  * @Date 12/06/2017 11:21 PM
  * @Version 1.0.0
  */
-public class MyReactActivity extends ReactActivity {
+public class MyReactActivity extends BaseReactActivity {
 
     @Override
     protected String getMainComponentName() {
         return "iShiWuPai";
     }
 
-    public static void launch(Context context, String id) {
-        Intent intent = new Intent(context, MyReactActivity.class);
-        intent.putExtra("comment_id", id);
-        context.startActivity(intent);
+    public static void launch(Activity context, String id) {
+        Router.from(context)
+                .to(MyReactActivity.class)
+                .putString("comment_id", id)
+                .launch();
     }
 }

@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.databinding.DataBindingUtil;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 
 import com.github.mzule.activityrouter.annotation.ClassHello;
 import com.github.mzule.activityrouter.annotation.Router;
@@ -37,7 +38,12 @@ public class ComicDesActivity extends SwipeBackActivity {
 
     private void initData() {
         String obj_id = getIntent().getStringExtra("obj_id");
-        mViewModel = new ComicDesViewModel(this, mDataBinding, obj_id);
+        String params = getIntent().getStringExtra("params");
+        if (TextUtils.isEmpty(obj_id)) {
+            mViewModel = new ComicDesViewModel(this, mDataBinding, params);
+        } else {
+            mViewModel = new ComicDesViewModel(this, mDataBinding, obj_id);
+        }
         mDataBinding.setViewModel((ComicDesViewModel) mViewModel);
     }
 
