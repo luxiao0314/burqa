@@ -5,7 +5,9 @@ import android.support.multidex.MultiDex;
 
 import com.alibaba.android.arouter.launcher.ARouter;
 import com.facebook.react.ReactApplication;
+import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactNativeHost;
+import com.facebook.react.bridge.ReactContext;
 import com.facebook.soloader.SoLoader;
 import com.github.mzule.activityrouter.router.RouterCallback;
 import com.github.mzule.activityrouter.router.RouterCallbackProvider;
@@ -26,7 +28,8 @@ import com.mvvm.lux.widget.emptyview.LoadingLayout;
  */
 public class BurqaApp extends BaseApplication implements RouterCallbackProvider, ReactApplication {
 
-    public static ReactNativeHost reactNativeHost;
+    private ReactNativeHost reactNativeHost;
+    private ReactContext mReactContext;
 
     @Override
     public void onCreate() {
@@ -37,6 +40,7 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider,
         FrameWorkConfig.frameworkSupport = new BurqaFrameworkSupport();
         SoLoader.init(this, /* native exopackage */ false);
         reactNativeHost = new MyReactNativeHost(this);
+        registerReactInstanceEventListener();
     }
 
     private void initEmptyView() {
@@ -73,4 +77,22 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider,
         return reactNativeHost;
     }
 
+    private void registerReactInstanceEventListener() {
+        reactNativeHost.getReactInstanceManager().addReactInstanceEventListener(mReactInstanceEventListener);
+    }
+
+    private void unRegisterReactInstanceEventListener() {
+        reactNativeHost.getReactInstanceManager().removeReactInstanceEventListener(mReactInstanceEventListener);
+    }
+
+    private final ReactInstanceManager.ReactInstanceEventListener mReactInstanceEventListener = new ReactInstanceManager.ReactInstanceEventListener() {
+        @Override
+        public void onReactContextInitialized(ReactContext context) {
+            mReactContext = context;
+        }
+    };
+
+    public ReactContext getReactContext() {
+        return mReactContext;
+    }
 }

@@ -18,6 +18,7 @@ import java.util.List;
  * @Version 1.0.0
  */
 public class JsReactPackage implements ReactPackage {
+
     @Override
     public List<NativeModule> createNativeModules(ReactApplicationContext reactContext) {
         List<NativeModule> modules = new ArrayList<>();

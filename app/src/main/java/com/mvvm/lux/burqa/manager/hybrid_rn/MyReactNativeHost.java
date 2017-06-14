@@ -33,6 +33,16 @@ public class MyReactNativeHost extends ReactNativeHost {
     }
 
     @Override
+    protected String getBundleAssetName() {
+        return super.getBundleAssetName();
+    }
+
+    @Override
+    protected String getJSBundleFile() {
+        return super.getJSBundleFile();
+    }
+
+    @Override
     protected List<ReactPackage> getPackages() {
         //设置rn的图片加载采用android中fresco的,图片采用防盗链处理
         MainPackageConfig.Builder configBuilder = new MainPackageConfig.Builder();
