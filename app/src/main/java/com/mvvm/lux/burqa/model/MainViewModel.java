@@ -27,7 +27,7 @@ public class MainViewModel extends BaseViewModel {
     public ObservableList<Integer> resIcon = new ObservableArrayList<>();
 
     private int[] icons = {R.drawable.selector_tab_favorite, R.drawable.selector_tab_recom,
-            R.drawable.selector_tab_category, R.drawable.selector_tab_game};
+            R.drawable.selector_tab_category, R.drawable.selector_tab_game,R.drawable.ic_drawer_history};
 
     public HomePagerAdapter mHomePagerAdapter;
 

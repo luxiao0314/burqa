@@ -14,6 +14,7 @@ import com.mvvm.lux.burqa.ui.home.fragment.CategoryFragment;
 import com.mvvm.lux.burqa.ui.home.fragment.FavoriteFragment;
 import com.mvvm.lux.burqa.ui.home.fragment.GameFragment;
 import com.mvvm.lux.burqa.ui.home.fragment.RecomFragment;
+import com.mvvm.lux.burqa.ui.home.fragment.UpdateFragment;
 
 /**
  * Created by WangChao on 2016/10/20.
@@ -46,6 +47,9 @@ public class HomePagerAdapter extends FragmentPagerAdapter {
                     break;
                 case 3:
                     mFragments[position] = GameFragment.newInstance();
+                    break;
+                case 4:
+                    mFragments[position] = UpdateFragment.newInstance();
                     break;
                 default:
                     break;
