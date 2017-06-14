@@ -103,7 +103,10 @@
             android:name="com.facebook.react.devsupport.DevSettingsActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
-            android:name=".manager.hybrid_rn.MyReactActivity"
+            android:name=".ui.react_native.CommentReactActivity"
+            android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity
+            android:name=".ui.react_native.AnimeNewsReactActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 

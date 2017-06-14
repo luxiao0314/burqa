@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.databinding.ObservableField;
 import android.view.View;
 
-import com.mvvm.lux.burqa.manager.hybrid_rn.MyReactActivity;
+import com.mvvm.lux.burqa.ui.react_native.CommentReactActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
 
 /**
@@ -29,6 +29,6 @@ public class ComicCommentHeaderViewModel extends BaseViewModel {
      */
     public View.OnClickListener commnetClick = view -> {
 //        new RnEvent().sendEvent(id.get());
-        MyReactActivity.launch(mActivity,id.get());
+        CommentReactActivity.launch(mActivity,"lux://ReactActivity?obj_id=" + id.get());
     };
 }
