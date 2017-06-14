@@ -12,8 +12,8 @@ import com.mvvm.lux.burqa.manager.hybrid_rn.ReactFragment;
 public class FavoriteFragment extends ReactFragment {
     @Override
     public String getMainComponentName() {
-//        return "AnimeNewsPages";
-        return "";
+//        return "";
+        return "AnimeNewsPages";
     }
 //    @Override
 //    protected int getLayout() {
