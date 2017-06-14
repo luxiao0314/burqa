@@ -8,6 +8,7 @@ import com.facebook.react.bridge.JSApplicationIllegalArgumentException;
 import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
+import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.framework.manager.router.Router;
 
 /**
@@ -53,15 +54,9 @@ public class JsAndroidModule extends ReactContextBaseJavaModule {
      * rn跳转到native页面方法
      */
     @ReactMethod
-    public void jumpToActivity(String name, String params) {
+    public void jumpToActivity(String message) {
         try {
-            Activity currentActivity = getCurrentActivity();
-            if (null != currentActivity) {
-                Router.from(currentActivity)
-                        .to(Class.forName(name))
-                        .putString("params", params)
-                        .launch();
-            }
+            Routers.open(getCurrentActivity(), message);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException(
                     "不能打开Activity : " + e.getMessage());
@@ -72,7 +67,7 @@ public class JsAndroidModule extends ReactContextBaseJavaModule {
      * 返回到native页面
      */
     @ReactMethod
-    public void backToNative(){
+    public void backToNative() {
         Router.pop(getCurrentActivity());
     }
 }
