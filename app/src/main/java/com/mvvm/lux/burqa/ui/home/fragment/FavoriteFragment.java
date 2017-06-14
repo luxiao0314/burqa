@@ -10,11 +10,16 @@ import com.mvvm.lux.burqa.manager.hybrid_rn.ReactFragment;
  * @Version 1.0.0
  */
 public class FavoriteFragment extends ReactFragment {
+
     @Override
     public String getMainComponentName() {
-//        return "";
         return "AnimeNewsPages";
     }
+
+    public static FavoriteFragment newIntance(){
+        return new FavoriteFragment();
+    }
+
 //    @Override
 //    protected int getLayout() {
 //        return R.layout.fragment_favorite;
@@ -31,8 +36,4 @@ public class FavoriteFragment extends ReactFragment {
 //        ((FavoriteViewModel) mViewModel).initData();
 //        mDataBinding.setVariable(BR.viewModel, mViewModel);
 //    }
-//
-    public static FavoriteFragment newIntance(){
-        return new FavoriteFragment();
-    }
 }

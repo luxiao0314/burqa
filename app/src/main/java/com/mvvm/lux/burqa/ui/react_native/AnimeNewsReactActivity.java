@@ -21,7 +21,7 @@ public class AnimeNewsReactActivity extends BaseReactActivity {
 
     public static void launch(Activity context) {
         Router.from(context)
-                .to(CommentReactActivity.class)
+                .to(AnimeNewsReactActivity.class)
                 .launch();
     }
 }

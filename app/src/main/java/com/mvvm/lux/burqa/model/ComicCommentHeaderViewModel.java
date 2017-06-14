@@ -29,6 +29,6 @@ public class ComicCommentHeaderViewModel extends BaseViewModel {
      */
     public View.OnClickListener commnetClick = view -> {
 //        new RnEvent().sendEvent(id.get());
-        CommentReactActivity.launch(mActivity,"lux://ReactActivity?obj_id=" + id.get());
+        CommentReactActivity.launch(mActivity,id.get());
     };
 }
