@@ -21,4 +21,5 @@ public class UpdateFragment extends ReactFragment {
     public static Fragment newInstance() {
         return new UpdateFragment();
     }
+
 }

@@ -11,6 +11,7 @@ import com.facebook.react.bridge.ReactMethod;
 import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.ui.BurqaApp;
 import com.mvvm.lux.framework.manager.router.Router;
+import com.mvvm.lux.framework.utils.Logger;
 
 /**
  * @Description 用于处理和rn的js传值
@@ -57,6 +58,7 @@ public class JsAndroidModule extends ReactContextBaseJavaModule {
     @ReactMethod
     public void jumpToActivity(String message) {
         try {
+            Logger.e(message);
             Routers.open(BurqaApp.lastActivity(), message);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException(

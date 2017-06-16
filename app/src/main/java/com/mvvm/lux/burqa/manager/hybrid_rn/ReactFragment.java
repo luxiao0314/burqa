@@ -3,8 +3,8 @@ package com.mvvm.lux.burqa.manager.hybrid_rn;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
+import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.react.ReactInstanceManager;
@@ -16,6 +16,7 @@ import com.facebook.react.shell.MainPackageConfig;
 import com.facebook.react.shell.MainReactPackage;
 import com.mvvm.lux.burqa.BuildConfig;
 import com.mvvm.lux.burqa.ui.BurqaApp;
+import com.mvvm.lux.framework.base.MvvmFragment;
 import com.mvvm.lux.framework.http.fresco.ImageLoaderConfig;
 
 import static com.mvvm.lux.framework.BaseApplication.getAppContext;
@@ -27,7 +28,7 @@ import static com.mvvm.lux.framework.BaseApplication.getAppContext;
  * @Date 14/06/2017 17:18
  * @Version
  */
-public abstract class ReactFragment extends Fragment {
+public abstract class ReactFragment extends MvvmFragment {
 
     private ReactRootView mReactRootView;
     private ReactInstanceManager mReactInstanceManager;
@@ -56,14 +57,15 @@ public abstract class ReactFragment extends Fragment {
     }
 
     @Override
-    public ReactRootView onCreateView(LayoutInflater inflater, ViewGroup group, Bundle savedInstanceState) {
+    public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        return mReactRootView;
+        rootView = mReactRootView;
+        return rootView;
     }
 
     @Override
-    public void onActivityCreated(Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
+    protected void lazyFetchData() {
+        super.lazyFetchData();
         mReactRootView.startReactApplication(
                 mReactInstanceManager,
                 getMainComponentName(),
@@ -77,5 +79,10 @@ public abstract class ReactFragment extends Fragment {
                     .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
                     .emit(eventName, params);
         }
+    }
+
+    @Override
+    protected int getLayout() {
+        return 0;
     }
 }
