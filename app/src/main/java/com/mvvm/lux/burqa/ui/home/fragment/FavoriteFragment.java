@@ -1,6 +1,11 @@
 package com.mvvm.lux.burqa.ui.home.fragment;
 
-import com.mvvm.lux.burqa.manager.hybrid_rn.ReactFragment;
+import android.view.LayoutInflater;
+
+import com.mvvm.lux.burqa.BR;
+import com.mvvm.lux.burqa.R;
+import com.mvvm.lux.burqa.model.FavoriteViewModel;
+import com.mvvm.lux.framework.base.MvvmFragment;
 
 /**
  * @Description 我的收藏
@@ -9,31 +14,31 @@ import com.mvvm.lux.burqa.manager.hybrid_rn.ReactFragment;
  * @Date 2017/1/5 13:14
  * @Version 1.0.0
  */
-public class FavoriteFragment extends ReactFragment {
+public class FavoriteFragment extends MvvmFragment {
 
-    @Override
-    public String getMainComponentName() {
-        return "AnimeNewsPages";
-    }
+//    @Override
+//    public String getMainComponentName() {
+//        return "AnimeNewsPages";
+//    }
 
     public static FavoriteFragment newIntance(){
         return new FavoriteFragment();
     }
 
-//    @Override
-//    protected int getLayout() {
-//        return R.layout.fragment_favorite;
-//    }
-//
-//    @Override
-//    protected void initView(LayoutInflater inflater) {
-//        mViewModel = new FavoriteViewModel(getActivity());
-//    }
-//
-//    @Override
-//    protected void lazyFetchData() {
-//        super.lazyFetchData();
-//        ((FavoriteViewModel) mViewModel).initData();
-//        mDataBinding.setVariable(BR.viewModel, mViewModel);
-//    }
+    @Override
+    protected int getLayout() {
+        return R.layout.fragment_favorite;
+    }
+
+    @Override
+    protected void initView(LayoutInflater inflater) {
+        mViewModel = new FavoriteViewModel(getActivity());
+    }
+
+    @Override
+    protected void lazyFetchData() {
+        super.lazyFetchData();
+        ((FavoriteViewModel) mViewModel).initData();
+        mDataBinding.setVariable(BR.viewModel, mViewModel);
+    }
 }
