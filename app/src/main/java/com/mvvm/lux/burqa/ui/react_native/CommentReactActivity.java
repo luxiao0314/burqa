@@ -16,7 +16,7 @@ public class CommentReactActivity extends BaseReactActivity {
 
     @Override
     protected String getMainComponentName() {
-        return "Comment";
+        return "iShiWuPai";
     }
 
     public static void launch(Activity context, String id) {
