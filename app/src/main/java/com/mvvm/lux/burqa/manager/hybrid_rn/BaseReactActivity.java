@@ -22,7 +22,7 @@ import io.realm.Realm;
  * @Date 13/06/2017 10:45 PM
  * @Version
  */
-public class BaseReactActivity extends ReactActivity implements MarkAble{
+public class BaseReactActivity extends ReactActivity implements MarkAble {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,7 +32,7 @@ public class BaseReactActivity extends ReactActivity implements MarkAble{
     }
 
     private void init() {
-        setTranslucentStatus(true);
+        setTranslucentStatus(false);//不隐藏状态栏
         BaseApplication.getAppContext().registerActivity(this);
     }
 
