@@ -90,6 +90,7 @@ dependencies {
     compile 'com.android.support.constraint:constraint-layout:1.0.0-alpha9'
     annotationProcessor 'com.alibaba:arouter-compiler:1.0.3'
     compile 'com.facebook.react:react-native:+'
+    compile project(':react-native-photo-view')
 }
 
 greendao {

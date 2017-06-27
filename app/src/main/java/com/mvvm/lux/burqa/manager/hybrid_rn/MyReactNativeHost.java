@@ -8,6 +8,7 @@ import com.facebook.react.shell.MainPackageConfig;
 import com.facebook.react.shell.MainReactPackage;
 import com.mvvm.lux.burqa.BuildConfig;
 import com.mvvm.lux.framework.http.fresco.ImageLoaderConfig;
+import com.reactnative.photoview.PhotoViewPackage;
 
 import java.util.Arrays;
 import java.util.List;
@@ -47,6 +48,6 @@ public class MyReactNativeHost extends ReactNativeHost {
         //设置rn的图片加载采用android中fresco的,图片采用防盗链处理
         MainPackageConfig.Builder configBuilder = new MainPackageConfig.Builder();
         configBuilder.setFrescoConfig(ImageLoaderConfig.getImagePipelineConfig(getAppContext()));
-        return Arrays.<ReactPackage>asList(new MainReactPackage(configBuilder.build()), new JsReactPackage());
+        return Arrays.<ReactPackage>asList(new MainReactPackage(configBuilder.build()), new JsReactPackage(),new PhotoViewPackage());
     }
 }
