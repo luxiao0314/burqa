@@ -8,4 +8,8 @@ include ":stub"
 include ":mvvmlight"
 include ":annotation"
 include ':react-native-photo-view'
+
+include ':react-native-fs'
+//集成的项目中目录为"./",在全rn的项目中目录采用'../'
+project(':react-native-fs').projectDir = new File(rootProject.projectDir, './node_modules/react-native-fs/android')
 //project(':react-native-photo-view').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-photo-view/android')

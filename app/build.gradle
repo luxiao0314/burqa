@@ -91,6 +91,7 @@ dependencies {
     annotationProcessor 'com.alibaba:arouter-compiler:1.0.3'
     compile 'com.facebook.react:react-native:+'
     compile project(':react-native-photo-view')
+    compile project(':react-native-fs')
 }
 
 greendao {
