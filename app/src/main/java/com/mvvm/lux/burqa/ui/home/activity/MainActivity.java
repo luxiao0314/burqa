@@ -1,11 +1,13 @@
 package com.mvvm.lux.burqa.ui.home.activity;
 
+import android.content.Intent;
 import android.databinding.DataBindingUtil;
 import android.support.annotation.NonNull;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
+import android.view.KeyEvent;
 import android.view.MenuItem;
 
 import com.github.mzule.activityrouter.router.Routers;
@@ -51,9 +53,9 @@ public class MainActivity extends BaseActivity
         int id = item.getItemId();
 
         if (id == R.id.nav_local_manga) {
-            Routers.open(this,"lux://needLogin");   //登录页面
+            Routers.open(this, "lux://needLogin");   //登录页面
         } else if (id == R.id.nav_history) {    //历史观看
-            ComicClassifyActivity.launch(this,"","历史记录");
+            ComicClassifyActivity.launch(this, "", "历史记录");
         } else if (id == R.id.nav_download) {   //下载页面
             AnimeNewsReactActivity.launch(this);
         } else if (id == R.id.nav_user) {
@@ -61,5 +63,19 @@ public class MainActivity extends BaseActivity
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;
+    }
+
+    @Override
+    public boolean onKeyDown(int keyCode, KeyEvent event) {
+        if (KeyEvent.KEYCODE_BACK == keyCode) {
+            //返回的时候让app以按home键的形式进入后台
+            Intent intent = new Intent(Intent.ACTION_MAIN);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.addCategory(Intent.CATEGORY_HOME);
+            startActivity(intent);
+            return true;
+        } else {
+            return super.onKeyDown(keyCode, event);
+        }
     }
 }

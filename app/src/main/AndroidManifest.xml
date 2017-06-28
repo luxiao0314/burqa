@@ -109,7 +109,7 @@
             android:name=".ui.react_native.AnimeNewsReactActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
         <activity
-            android:name=".ui.react_native.FindNovelPageReactActivity"
+            android:name=".manager.hybrid_rn.JsAndroidActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
     </application>
 

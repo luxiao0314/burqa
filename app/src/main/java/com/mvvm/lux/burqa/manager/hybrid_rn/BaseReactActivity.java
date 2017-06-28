@@ -6,7 +6,6 @@ import android.view.KeyEvent;
 import android.view.Window;
 import android.view.WindowManager;
 
-import com.facebook.react.ReactActivity;
 import com.mvvm.lux.framework.BaseApplication;
 import com.mvvm.lux.framework.config.MarkAble;
 import com.mvvm.lux.framework.http.RetrofitExcuter;
@@ -22,7 +21,7 @@ import io.realm.Realm;
  * @Date 13/06/2017 10:45 PM
  * @Version
  */
-public class BaseReactActivity extends ReactActivity implements MarkAble {
+public class BaseReactActivity extends com.mvvm.lux.burqa.manager.hybrid_rn.ReactActivity implements MarkAble {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

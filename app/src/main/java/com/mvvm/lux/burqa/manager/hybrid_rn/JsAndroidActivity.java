@@ -1,7 +1,6 @@
-package com.mvvm.lux.burqa.ui.react_native;
+package com.mvvm.lux.burqa.manager.hybrid_rn;
 
 import com.github.mzule.activityrouter.annotation.Router;
-import com.mvvm.lux.burqa.manager.hybrid_rn.BaseReactActivity;
 
 /**
  * @Description
@@ -10,10 +9,11 @@ import com.mvvm.lux.burqa.manager.hybrid_rn.BaseReactActivity;
  * @Date 16/06/2017 11:17
  * @Version
  */
-@Router("FindNovelPage")
-public class FindNovelPageReactActivity extends BaseReactActivity {
+@Router("jsAndroidActivity")
+public class JsAndroidActivity extends BaseReactActivity {
+
     @Override
     protected String getMainComponentName() {
-        return "FindNovelPage";
+        return getIntent().getStringExtra("jsRouter");
     }
 }
