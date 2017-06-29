@@ -9,7 +9,7 @@ import com.facebook.react.bridge.ReactApplicationContext;
 import com.facebook.react.bridge.ReactContextBaseJavaModule;
 import com.facebook.react.bridge.ReactMethod;
 import com.github.mzule.activityrouter.router.Routers;
-import com.mvvm.lux.burqa.ui.BurqaApp;
+import com.mvvm.lux.framework.manager.IActivityManager;
 import com.mvvm.lux.framework.manager.router.Router;
 import com.mvvm.lux.framework.utils.Logger;
 
@@ -73,7 +73,8 @@ public class JsAndroidModule extends ReactContextBaseJavaModule {
     public void jumpToActivity(String message) {
         try {
             Logger.e(message);
-            Routers.open(BurqaApp.lastActivity(), message);
+            //fragment下getCurrentActivity()获取不到
+            Routers.open(IActivityManager.instance.currentActivity(), message);
         } catch (Exception e) {
             throw new JSApplicationIllegalArgumentException(
                     "不能打开Activity : " + e.getMessage());

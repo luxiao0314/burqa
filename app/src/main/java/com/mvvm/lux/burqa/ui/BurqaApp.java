@@ -78,14 +78,17 @@ public class BurqaApp extends BaseApplication implements RouterCallbackProvider,
     }
 
     private void registerReactInstanceEventListener() {
-        reactNativeHost.getReactInstanceManager().addReactInstanceEventListener(mReactInstanceEventListener);
+        reactNativeHost.getReactInstanceManager()
+                .addReactInstanceEventListener(mReactInstanceEventListener);
     }
 
     private void unRegisterReactInstanceEventListener() {
-        reactNativeHost.getReactInstanceManager().removeReactInstanceEventListener(mReactInstanceEventListener);
+        reactNativeHost.getReactInstanceManager()
+                .removeReactInstanceEventListener(mReactInstanceEventListener);
     }
 
-    private final ReactInstanceManager.ReactInstanceEventListener mReactInstanceEventListener = new ReactInstanceManager.ReactInstanceEventListener() {
+    private final ReactInstanceManager.ReactInstanceEventListener
+            mReactInstanceEventListener = new ReactInstanceManager.ReactInstanceEventListener() {
         @Override
         public void onReactContextInitialized(ReactContext context) {
             mReactContext = context;
