@@ -29,10 +29,10 @@
 * 搜索界面的实现。
 
 ## Screenshots
-![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/WX20170629-160204.png)
-![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/WX20170629-160252.png)
-![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/WX20170629-160306.png)
-![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/WX20170629-160317.png)
+![image](https://github.com/luxiao0314/burqa/raw/burqa/screenshots/WX20170629-160204.png)
+![image](https://github.com/luxiao0314/burqa/raw/burqa/screenshots/WX20170629-160252.png)
+![image](https://github.com/luxiao0314/burqa/raw/burqa/screenshots/WX20170629-160306.png)
+![image](https://github.com/luxiao0314/burqa/raw/burqa/screenshots/WX20170629-160317.png)
 ![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/WX20170629-160329.png)
 ![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/WX20170629-160340.png)
 ![image](https://github.com/luxiao0314/burqa/raw/master/screenshots/WX20170629-160353.png)
