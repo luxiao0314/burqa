@@ -5,33 +5,34 @@
   1,动漫之家app中评论,轻小说,更新,最新小说,小说分类,分类列表,小说排行榜,小说详情,以及小说查看页面编写(排版还有问题,android适配有问题)
   2,完成native和rn页面跳转传值交互,rn在activity和fragment中嵌套
   3,完成rn的统一容器JsAndroidActivity:
+  
     1).跳转与传值一行代码:NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelDesPage&title=" + itemData.title + "&obj_id=" + itemData.obj_id);
-    2).接收跳转与传值统一方法和rn容器
-    /**
-     * rn跳转到native页面方法
-     */
-    @ReactMethod
-    public void jumpToActivity(String message) {
-        try {
-            Logger.e(message);
-            //fragment下getCurrentActivity()获取不到
-            Routers.open(IActivityManager.instance.currentActivity(), message);
-        } catch (Exception e) {
-            throw new JSApplicationIllegalArgumentException(
-                    "不能打开Activity : " + e.getMessage());
-        }
-    }
     
-    @Router("JsAndroidActivity")
-    public class JsAndroidActivity extends BaseReactActivity {
+    2).接收跳转与传值统一方法和rn容器,activity跳转使用ActivityRouter
+      /**
+       * rn跳转到native页面方法
+       */
+      @ReactMethod
+      public void jumpToActivity(String message) {
+          try {
+              Logger.e(message);
+              //fragment下getCurrentActivity()获取不到
+              Routers.open(IActivityManager.instance.currentActivity(), message);
+          } catch (Exception e) {
+              throw new JSApplicationIllegalArgumentException(
+                      "不能打开Activity : " + e.getMessage());
+          }
+      }
+    
+      @Router("JsAndroidActivity")
+      public class JsAndroidActivity extends BaseReactActivity {
 
-    @Override
-    protected String getMainComponentName() {
-        return getIntent().getStringExtra("jsRouter");
-    }
+      @Override
+      protected String getMainComponentName() {
+          return getIntent().getStringExtra("jsRouter");
+      }
     
-    
-  4,使用到react-native框架有:状态管理主要使用mobx框架
+  4,使用到react-native框架有:状态管理主要使用mobx框架,路由使用router-flux
    "autoresponsive-react-native": "^1.0.9",
     "mobx": "^3.1.9",
     "mobx-react": "^4.1.8",
@@ -56,7 +57,7 @@
 
 * 首页四大模块，收藏，首页，分类，推荐的实现。
 
-* 使用rxJava+retrofit作为网络请求
+* 使用rxJava+retrofit作为网络请求,并进行异常错误,response统一处理,见子模块framework
 
 * 使用mvvm架构
 
