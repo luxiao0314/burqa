@@ -1,4 +1,56 @@
 # An Unofficial burqa Android Client
+## new:
+* 集成https://github.com/luxiao0314/rn_project.git (代码在food_p分支)react-native项目
+* react-native项目:
+  1,动漫之家app中评论,轻小说,更新,最新小说,小说分类,分类列表,小说排行榜,小说详情,以及小说查看页面编写(排版还有问题,android适配有问题)
+  2,完成native和rn页面跳转传值交互,rn在activity和fragment中嵌套
+  3,完成rn的统一容器JsAndroidActivity:
+    1).跳转与传值一行代码:NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelDesPage&title=" + itemData.title + "&obj_id=" + itemData.obj_id);
+    2).接收跳转与传值统一方法和rn容器
+    /**
+     * rn跳转到native页面方法
+     */
+    @ReactMethod
+    public void jumpToActivity(String message) {
+        try {
+            Logger.e(message);
+            //fragment下getCurrentActivity()获取不到
+            Routers.open(IActivityManager.instance.currentActivity(), message);
+        } catch (Exception e) {
+            throw new JSApplicationIllegalArgumentException(
+                    "不能打开Activity : " + e.getMessage());
+        }
+    }
+    
+    @Router("JsAndroidActivity")
+    public class JsAndroidActivity extends BaseReactActivity {
+
+    @Override
+    protected String getMainComponentName() {
+        return getIntent().getStringExtra("jsRouter");
+    }
+    
+    
+  4,使用到react-native框架有:状态管理主要使用mobx框架
+   "autoresponsive-react-native": "^1.0.9",
+    "mobx": "^3.1.9",
+    "mobx-react": "^4.1.8",
+    "react": "16.0.0-alpha.6",
+    "react-native": "0.44.0",
+    "react-native-camera": "^0.9.0",
+    "react-native-deprecated-custom-components": "^0.1.0",
+    "react-native-easy-toast": "^1.0.5",
+    "react-native-fs": "^2.3.3",
+    "react-native-photo-view": "^1.3.0",
+    "react-native-router-flux": "^3.40.1",
+    "react-native-scrollable-tab-view": "^ 0.6.x",
+    "react-native-slider": "^0.10.0",
+    "react-native-swiper": "^1.5.4",
+    "react-native-transformable-image": "0.0.18",
+    "react-native-viewpager": "^0.2.13",
+    "react-navigation": "^1.0.0-beta.5"
+    
+
 
 ## Features
 
