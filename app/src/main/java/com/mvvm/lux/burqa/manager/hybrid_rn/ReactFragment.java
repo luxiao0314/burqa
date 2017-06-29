@@ -2,20 +2,16 @@ package com.mvvm.lux.burqa.manager.hybrid_rn;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.facebook.react.ReactInstanceManager;
 import com.facebook.react.ReactRootView;
-import com.facebook.react.bridge.WritableMap;
 import com.facebook.react.common.LifecycleState;
-import com.facebook.react.modules.core.DeviceEventManagerModule;
 import com.facebook.react.shell.MainPackageConfig;
 import com.facebook.react.shell.MainReactPackage;
 import com.mvvm.lux.burqa.BuildConfig;
-import com.mvvm.lux.burqa.ui.BurqaApp;
 import com.mvvm.lux.framework.base.MvvmFragment;
 import com.mvvm.lux.framework.http.fresco.ImageLoaderConfig;
 
@@ -39,9 +35,6 @@ public abstract class ReactFragment extends MvvmFragment {
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mReactRootView = new ReactRootView(context);
-//        mReactInstanceManager = ((BurqaApp) getActivity().getApplication()).getReactNativeHost().getReactInstanceManager();
-
         MainPackageConfig.Builder configBuilder = new MainPackageConfig.Builder();
         configBuilder.setFrescoConfig(ImageLoaderConfig.getImagePipelineConfig(getAppContext()));
 
@@ -59,8 +52,12 @@ public abstract class ReactFragment extends MvvmFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup group, Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        rootView = mReactRootView;
-        return rootView;
+        mReactRootView = ReactNativePreLoader.get(getMainComponentName());
+        if (mReactRootView == null) {
+            mReactRootView = new ReactRootView(getActivity());
+            ReactNativePreLoader.put(getMainComponentName(), mReactRootView);
+        }
+        return mReactRootView;
     }
 
     @Override
@@ -69,16 +66,7 @@ public abstract class ReactFragment extends MvvmFragment {
         mReactRootView.startReactApplication(
                 mReactInstanceManager,
                 getMainComponentName(),
-                null
-        );
-    }
-
-    protected void sendEvent(String eventName, @Nullable WritableMap params) {
-        if (((BurqaApp) getActivity().getApplication()).getReactContext() != null) {
-            ((BurqaApp) getActivity().getApplication()).getReactContext()
-                    .getJSModule(DeviceEventManagerModule.RCTDeviceEventEmitter.class)
-                    .emit(eventName, params);
-        }
+                null);
     }
 
     @Override

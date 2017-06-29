@@ -14,7 +14,6 @@ import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityMainBinding;
 import com.mvvm.lux.burqa.model.MainViewModel;
-import com.mvvm.lux.burqa.ui.react_native.AnimeNewsReactActivity;
 import com.mvvm.lux.framework.base.BaseActivity;
 
 public class MainActivity extends BaseActivity
@@ -57,7 +56,7 @@ public class MainActivity extends BaseActivity
         } else if (id == R.id.nav_history) {    //历史观看
             ComicClassifyActivity.launch(this, "", "历史记录");
         } else if (id == R.id.nav_download) {   //下载页面
-            AnimeNewsReactActivity.launch(this);
+            Routers.open(this, "lux://JsAndroidActivity?jsRouter=AnimeNewsPages");
         } else if (id == R.id.nav_user) {
 
         }

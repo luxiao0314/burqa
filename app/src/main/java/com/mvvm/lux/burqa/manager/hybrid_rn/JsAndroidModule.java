@@ -33,7 +33,7 @@ public class JsAndroidModule extends ReactContextBaseJavaModule {
     }
 
     /**
-     * 使用callback的方式传值.成功
+     * 使用callback的方式传值.成功:传公共String
      *
      * @param successBack
      * @param erroBack
@@ -43,9 +43,23 @@ public class JsAndroidModule extends ReactContextBaseJavaModule {
         try {
             Activity currentActivity = getCurrentActivity();
             if (currentActivity != null) {
-                String result = currentActivity.getIntent().getStringExtra("comment_id");//会有对应数据放入
+                String result = currentActivity.getIntent().getStringExtra("commonKey");//会有对应数据放入
                 if (TextUtils.isEmpty(result)) result = "No Data";
                 successBack.invoke(result);
+            }
+        } catch (Exception e) {
+            erroBack.invoke(e.getMessage());
+        }
+    }
+
+    @ReactMethod
+    public void passTojs(Callback successBack, Callback erroBack) {
+        try {
+            Activity currentActivity = getCurrentActivity();
+            if (currentActivity != null) {
+                String title = currentActivity.getIntent().getStringExtra("title");//会有对应数据放入
+                String obj_id = currentActivity.getIntent().getStringExtra("obj_id");//会有对应数据放入
+                successBack.invoke(title, obj_id);
             }
         } catch (Exception e) {
             erroBack.invoke(e.getMessage());

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.databinding.ObservableField;
 import android.view.View;
 
-import com.mvvm.lux.burqa.ui.react_native.CommentReactActivity;
+import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.framework.base.BaseViewModel;
 
 /**
@@ -27,8 +27,6 @@ public class ComicCommentHeaderViewModel extends BaseViewModel {
     /**
      * 点击跳转到rn的评论列表
      */
-    public View.OnClickListener commnetClick = view -> {
-//        new RnEvent().sendEvent(id.get());
-        CommentReactActivity.launch(mActivity,id.get());
-    };
+    public View.OnClickListener commnetClick = view ->
+            Routers.open(mActivity, "lux://JsAndroidActivity?jsRouter=iShiWuPai&commonKey=" + id.get());
 }
