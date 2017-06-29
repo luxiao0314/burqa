@@ -1,12 +1,18 @@
 # An Unofficial burqa Android Client
 ## 集成rn分支在burqa分支,因为使用gitmodules管理子模块,如果代码拉取不下来建议使用sourceTree.master分支为纯native)
+
 * 集成https://github.com/luxiao0314/rn_project.git (代码在food_p分支)react-native项目
+
 * react-native项目:
+
   * 动漫之家app中评论,轻小说,更新,最新小说,小说分类,分类列表,小说排行榜,小说详情,以及小说查看页面编写
+  
   * 完成native和rn页面跳转传值交互,rn在activity和fragment中嵌套
+  
   * 完成rn的统一容器JsAndroidActivity:
   
-    1).跳转与传值一行代码:NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelDesPage&title=" + itemData.title + "&obj_id=" + itemData.obj_id);
+    1).跳转与传值一行代码:
+      NativeModules.JsAndroid.jumpToActivity("lux://JsAndroidActivity?jsRouter=NovelDesPage&title=" + itemData.title + "&obj_id=" + itemData.obj_id);
     
     2).接收跳转与传值统一方法和rn容器,activity跳转使用ActivityRouter
     
