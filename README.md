@@ -3,7 +3,7 @@
 
 * 集成https://github.com/luxiao0314/rn_project.git (代码在food_p分支)react-native项目
 
-* react-native项目:
+* react-native项目
 
   * 动漫之家app中评论,轻小说,更新,最新小说,小说分类,分类列表,小说排行榜,小说详情,以及小说查看页面编写
   
