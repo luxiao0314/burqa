@@ -92,6 +92,7 @@ dependencies {
     compile 'com.facebook.react:react-native:+'
     compile project(':react-native-photo-view')
     compile project(':react-native-fs')
+    compile 'com.just.agentweb:agentweb:1.2.4'
 }
 
 greendao {
