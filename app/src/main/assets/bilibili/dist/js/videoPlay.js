@@ -347,7 +347,7 @@ webpackJsonp([7],{
 	    var isScroll = false;
 
 	    closeBtn.addEventListener('touchstart', function () {
-	        window.bilibili.alert(window.bilibili.getBusinessId());
+	        window.bilibili.alert(window.bilibili.passJs());
 	        // alert('[]~(￣▽￣)~*干杯');
 	        // appLink.style.display = 'none';
 	        // window.removeEventListener('scroll', scrollHandler);

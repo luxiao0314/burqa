@@ -105,6 +105,7 @@
         <activity
             android:name=".manager.hybrid_rn.JsAndroidActivity"
             android:configChanges="orientation|keyboardHidden|screenSize"/>
+        <activity android:name="com.mvvm.lux.burqa.manager.hybrid.WebActivity"/>
     </application>
 
 </manifest>

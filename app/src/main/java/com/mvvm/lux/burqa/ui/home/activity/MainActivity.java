@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import com.github.mzule.activityrouter.router.Routers;
 import com.mvvm.lux.burqa.R;
 import com.mvvm.lux.burqa.databinding.ActivityMainBinding;
+import com.mvvm.lux.burqa.manager.hybrid.WebActivity;
 import com.mvvm.lux.burqa.model.MainViewModel;
 import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.manager.hybrid.BrowserActivity;
@@ -60,7 +61,7 @@ public class MainActivity extends BaseActivity
 //            Routers.open(this, "lux://JsAndroidActivity?jsRouter=AnimeNewsPages");
             BrowserActivity.launch(this, "file:///android_asset/bilibili/index.html", "哔哩哔哩","bilibili");
         } else if (id == R.id.nav_user) {
-
+            WebActivity.launch(this,"file:///android_asset/bilibili/index.html","bilibili");
         }
         mDrawerLayout.closeDrawer(GravityCompat.START);
         return true;

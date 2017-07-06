@@ -93,6 +93,7 @@ dependencies {
     compile project(':react-native-photo-view')
     compile project(':react-native-fs')
     compile 'com.just.agentweb:agentweb:1.2.4'
+    compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
 }
 
 greendao {
