@@ -79,6 +79,10 @@ https://fir.im/may4
 * [glide](https://github.com/bumptech/glide)
 * [FlycoTabLayout](https://github.com/H07000223/FlycoTabLayout)
 * [FlowLayout](https://github.com/hongyangAndroid/FlowLayout)
+* [react-native](https://github.com/facebook/react-native.git)
+* [react-native-fs](https://github.com/itinance/react-native-fs.git)
+* [react-native-router-flux](https://github.com/aksonov/react-native-router-flux.git)
+* [react-native-photo-view](https://github.com/alwx/react-native-photo-view.git)
 
 
 
