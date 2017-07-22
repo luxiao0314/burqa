@@ -1,8 +1,13 @@
 package com.mvvm.lux.burqa.ui.home.activity;
 
+import android.Manifest;
 import android.content.Intent;
 import android.databinding.DataBindingUtil;
+import android.net.Uri;
+import android.os.Build;
+import android.provider.Settings;
 import android.support.annotation.NonNull;
+import android.support.annotation.RequiresApi;
 import android.support.design.widget.NavigationView;
 import android.support.v4.view.GravityCompat;
 import android.support.v4.widget.DrawerLayout;
@@ -17,14 +22,18 @@ import com.mvvm.lux.burqa.manager.hybrid.WebActivity;
 import com.mvvm.lux.burqa.model.MainViewModel;
 import com.mvvm.lux.framework.base.BaseActivity;
 import com.mvvm.lux.framework.manager.hybrid.BrowserActivity;
+import com.mvvm.lux.framework.utils.SnackbarUtil;
+import com.tbruyelle.rxpermissions.RxPermissions;
 
 public class MainActivity extends BaseActivity
         implements NavigationView.OnNavigationItemSelectedListener {
 
     private DrawerLayout mDrawerLayout;
 
+    @RequiresApi(api = Build.VERSION_CODES.M)
     @Override
     protected void initView() {
+        initRequestPermissions();
         ActivityMainBinding dataBinding = DataBindingUtil.setContentView(this, R.layout.activity_main);
         mViewModel = new MainViewModel(this, dataBinding);
         dataBinding.setViewModel((MainViewModel) mViewModel);
@@ -78,6 +87,30 @@ public class MainActivity extends BaseActivity
             return true;
         } else {
             return super.onKeyDown(keyCode, event);
+        }
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private void initRequestPermissions() {
+        new RxPermissions(this)
+                .request(Manifest.permission.SYSTEM_ALERT_WINDOW)
+                .subscribe(granted -> {
+                    if (! Settings.canDrawOverlays(MainActivity.this)) {
+                        Intent intent = new Intent(Settings.ACTION_MANAGE_OVERLAY_PERMISSION,
+                                Uri.parse("package:" + getPackageName()));
+                        startActivityForResult(intent,10);
+                    }
+                });
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode == 10) {
+            if (!Settings.canDrawOverlays(this)) {
+                // SYSTEM_ALERT_WINDOW permission not granted...
+                SnackbarUtil.showMessage("not granted");
+            }
         }
     }
 }

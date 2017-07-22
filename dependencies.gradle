@@ -20,7 +20,7 @@ def makeVersionString() {
 ext {
     //version
     versionCode = makeVersionString()
-    versionName = "1.0"
+    versionName = "1.1.0"
 
     //Android
     androidBuildToolsVersion = "25.0.2"

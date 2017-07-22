@@ -94,6 +94,7 @@ dependencies {
     compile project(':react-native-fs')
     compile 'com.just.agentweb:agentweb:1.2.4'
     compile 'com.lcodecorex:tkrefreshlayout:1.0.7'
+    compile 'com.tbruyelle.rxpermissions:rxpermissions:0.9.4@aar'
 }
 
 greendao {
