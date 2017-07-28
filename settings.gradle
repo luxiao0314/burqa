@@ -1,9 +1,9 @@
 include ':app'
-include ":framework"
-include ":frescoUtil"
-include ":widget"
+include ':framework-master'
+include ":frescoUtil-master"
+include ':widget-master'
 include ":activityrouter"
 include ":compiler"
 include ":stub"
-include ":mvvmlight"
+include ':mvvmlight'
 include ":annotation"
