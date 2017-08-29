@@ -3,6 +3,7 @@ apply from: "dependencies.gradle"
 buildscript {
     repositories {
         //此maven私服仓库加载依赖包更快
+        jcenter()
         maven { url 'http://10.28.100.7:8081/nexus/content/groups/public/' }
     }
     dependencies {
@@ -18,6 +19,7 @@ buildscript {
 
 allprojects {
     repositories {
+        jcenter()
         maven { url 'http://10.28.100.7:8081/nexus/content/groups/public/' }
         //EasyImage的jitPack仓库
         maven { url "https://jitpack.io" }
