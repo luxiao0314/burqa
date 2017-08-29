@@ -26,7 +26,7 @@ public class GameViewItemViewModel extends BaseViewModel {
 
     public View.OnClickListener mOnClickListener = view -> {
 //        String url = "http://duxingxia081.gicp.net/suum/pingAnBinding.do?method=goPingAnBindingPage&systemCode=1026";
-//        BrowserActivity.launch(mActivity, url, "调试", "paAccountApp");
+//        BrowsersActivity.launch(mActivity, url, "调试", "paAccountApp");
 
 //        Routers.open(mActivity, "lux://authordes?sOpen=false");
         // 跳转并携带参数

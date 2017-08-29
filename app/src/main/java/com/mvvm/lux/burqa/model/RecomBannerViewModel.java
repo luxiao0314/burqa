@@ -9,8 +9,8 @@ import android.text.TextUtils;
 import com.mvvm.lux.burqa.model.response.RecommendResponse;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
-import com.mvvm.lux.framework.manager.hybrid.BrowserActivity;
 import com.mvvm.lux.widget.bgabanner.BGABanner;
+import com.mvvm.lux.widget.sonic.BrowsersActivity;
 
 import rx.Observable;
 
@@ -47,7 +47,8 @@ public class RecomBannerViewModel extends BaseViewModel {
         return (banner, itemView, model, position) -> {
             RecommendResponse.DataBean dataBean = mRecommendResponse.getData().get(position);
             if (!TextUtils.isEmpty(dataBean.getUrl())) {
-                BrowserActivity.launch(mActivity, dataBean.getUrl(), "新闻正文","imageClick");
+//                BrowserActivity.launch(mActivity, dataBean.getUrl(), "新闻正文","imageClick");
+                BrowsersActivity.launch(mActivity, dataBean.getUrl());
             } else {
                 ComicDesActivity.launch(mActivity, dataBean.getObj_id() + "");
             }

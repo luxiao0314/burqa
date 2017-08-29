@@ -7,7 +7,7 @@ import android.view.View;
 import com.mvvm.lux.burqa.ui.home.activity.ComicDesActivity;
 import com.mvvm.lux.burqa.ui.sub.activity.SubjectDesActivity;
 import com.mvvm.lux.framework.base.BaseViewModel;
-import com.mvvm.lux.framework.manager.hybrid.BrowserActivity;
+import com.mvvm.lux.widget.sonic.BrowsersActivity;
 
 /**
  * @Description
@@ -33,7 +33,8 @@ public class RecomDoubleItemViewModel extends BaseViewModel {
     public View.OnClickListener mOnClickListener = view -> {
         switch (type.get()) {
             case 6:
-                BrowserActivity.launch(mActivity, url.get(), title.get());
+                BrowsersActivity.launch(mActivity, url.get());
+//                BrowserActivity.launch(mActivity, url.get(), title.get());
                 break;
             case 5:
                 SubjectDesActivity.launch(mActivity,obj_id.get());
